@@ -1,8 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { CreateTourDto } from './dto/create-tour.dto';
-import { UpdateTourDto } from './dto/update-tour.dto';
+import { CreateTourDto, UpdateTourDto } from './tour.dto';
 import { Tours } from './tour.entity';
 
 @Injectable()

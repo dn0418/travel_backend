@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
-import { CreateTourDto } from './dto/create-tour.dto';
-import { UpdateTourDto } from './dto/update-tour.dto';
+
+import { CreateTourDto, UpdateTourDto } from './tour.dto';
 import { ToursService } from './tours.service';
 
 @Controller('tours')
