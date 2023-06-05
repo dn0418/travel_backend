@@ -6,7 +6,7 @@ import { RoutesService } from './routes.service';
 export class RoutesController {
   constructor(private readonly routesService: RoutesService) { }
 
-  @Post()
+  @Post('create')
   create(@Body() createRouteDto: CreateRouteDto) {
     return this.routesService.create(createRouteDto);
   }
