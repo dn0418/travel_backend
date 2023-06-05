@@ -1,4 +1,5 @@
 import { Reviews } from 'src/reviews/review.entity';
+import { Routes } from 'src/routes/route.entity';
 import { BaseEntity, Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 
 @Entity()
@@ -71,6 +72,9 @@ export class Tours extends BaseEntity {
 
   @OneToMany(() => Reviews, (review) => review.tour)
   reviews: Reviews[];
+
+  @OneToMany(() => Routes, (routes) => routes.tour)
+  routes: Routes[];
 
   @CreateDateColumn({
     type: "timestamp",

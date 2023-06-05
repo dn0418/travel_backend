@@ -5,12 +5,14 @@ import { AppService } from './app.service';
 import { DatabaseConfig } from './config/db.config';
 import { ToursModule } from './tours/tours.module';
 import { ReviewsModule } from './reviews/reviews.module';
+import { RoutesModule } from './routes/routes.module';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot(DatabaseConfig),
     ToursModule,
     ReviewsModule,
+    RoutesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

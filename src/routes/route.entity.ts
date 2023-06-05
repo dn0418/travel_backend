@@ -2,32 +2,29 @@ import { Tours } from "src/tours/tour.entity";
 import { BaseEntity, Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity()
-export class Reviews extends BaseEntity {
+export class Routes extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
-  firstName: string;
-
-  @Column()
-  lastName: string;
-
-  @Column()
-  email: string;
-
-  @Column()
-  location: string;
-
-  @Column()
-  profilePhoto: string;
-
-  @Column('float')
-  rating: number;
+  title: string;
 
   @Column('text')
-  message: string;
+  description: string;
 
-  @ManyToOne(() => Tours, (tours) => tours.reviews)
+  @Column()
+  time: string;
+
+  @Column()
+  length: string;
+
+  @Column()
+  meals: string;
+
+  @Column()
+  hotel: string;
+
+  @ManyToOne(() => Tours, (tours) => tours.routes)
   tour: Tours;
 
   @CreateDateColumn({
