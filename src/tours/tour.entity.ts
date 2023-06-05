@@ -1,4 +1,5 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { Reviews } from 'src/reviews/review.entity';
+import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 
 @Entity()
 export class Tours {
@@ -53,7 +54,7 @@ export class Tours {
   @Column()
   locationImg: string;
 
-  @Column()
+  @Column('text')
   tourDetails: string;
 
   @Column()
@@ -67,6 +68,11 @@ export class Tours {
 
   @Column('simple-array')
   excludeServices: string[];
+
+  @OneToMany(() => Reviews, review => review.tour, {
+    eager: true,
+  })
+  tour_reviews: Reviews[];
 
   @CreateDateColumn()
   createdAt: Date;

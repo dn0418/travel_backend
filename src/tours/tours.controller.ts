@@ -7,7 +7,7 @@ import { ToursService } from './tours.service';
 export class ToursController {
   constructor(private readonly toursService: ToursService) { }
 
-  @Post()
+  @Post('create')
   create(@Body() createTourDto: CreateTourDto) {
     return this.toursService.create(createTourDto);
   }

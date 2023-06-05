@@ -9,29 +9,69 @@ export class ToursService {
   constructor(
     @InjectRepository(Tours)
     private readonly toursRepository: Repository<Tours>,
-
   ) { }
 
 
-  create(createTourDto: CreateTourDto) {
-    return 'This action adds a new tour';
+  async create(createTourDto: CreateTourDto) {
+    const newTour = await this.toursRepository.create(createTourDto);
+
+    const tour = await this.toursRepository.save(newTour);
+
+    if (tour) {
+      return {
+        statusCode: 201,
+        message: 'Tour created successfully',
+        data: tour,
+      }
+    }
+
+    return {
+      statusCode: 500,
+      message: 'Something went wrong',
+    }
   }
 
   async findAll() {
     const tours = await this.toursRepository.find();
-    console.log(tours)
-    return tours;
+    return {
+      statusCode: 200,
+      data: tours
+    };
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} tour`;
+  async findOne(id: number) {
+    const tour = await this.toursRepository.findOneById(id);
+
+    if (tour) {
+      return {
+        statusCode: 200,
+        data: tour
+      }
+    }
+    return {
+      statusCode: 404,
+      message: 'Tour not found'
+    }
   }
 
   update(id: number, updateTourDto: UpdateTourDto) {
     return `This action updates a #${id} tour`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} tour`;
+  async remove(id: number) {
+    const tour = await this.toursRepository.findOneById(id);
+
+    if (tour) {
+      await this.toursRepository.remove(tour);
+      return {
+        statusCode: 200,
+        message: 'Tour deleted successfully'
+      }
+    }
+
+    return {
+      statusCode: 404,
+      message: 'Tour not found'
+    }
   }
 }
