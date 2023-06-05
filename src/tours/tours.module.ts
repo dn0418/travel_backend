@@ -7,6 +7,7 @@ import { ToursService } from './tours.service';
 @Module({
   imports: [TypeOrmModule.forFeature([Tours])],
   controllers: [ToursController],
-  providers: [ToursService]
+  providers: [ToursService],
+  exports: [ToursService],
 })
 export class ToursModule { }

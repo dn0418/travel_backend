@@ -69,10 +69,8 @@ export class Tours extends BaseEntity {
   @Column('simple-array')
   excludeServices: string[];
 
-  @OneToMany(() => Reviews, review => review.tour, {
-    eager: true,
-  })
-  tour_reviews: Reviews[];
+  @OneToMany(() => Reviews, (review) => review.tour)
+  reviews: Reviews[];
 
   @CreateDateColumn({
     type: "timestamp",

@@ -7,7 +7,7 @@ import { ReviewsService } from './reviews.service';
 export class ReviewsController {
   constructor(private readonly reviewsService: ReviewsService) { }
 
-  @Post()
+  @Post('create')
   create(@Body() createReviewDto: CreateReviewDto) {
     return this.reviewsService.create(createReviewDto);
   }
@@ -15,11 +15,6 @@ export class ReviewsController {
   @Get()
   findAll() {
     return this.reviewsService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.reviewsService.findOne(+id);
   }
 
   @Patch(':id')

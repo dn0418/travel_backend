@@ -12,6 +12,7 @@ export class ToursService {
   ) { }
 
 
+  // Create a new tour
   async create(createTourDto: CreateTourDto) {
     const newTour = await this.toursRepository.create(createTourDto);
 
@@ -31,16 +32,20 @@ export class ToursService {
     }
   }
 
+  // Find All Tours
   async findAll() {
-    const tours = await this.toursRepository.find();
+    const tours = await this.toursRepository.find({ relations: ['reviews'] });
     return {
       statusCode: 200,
       data: tours
     };
   }
 
+  // Find Tour By Id
   async findOne(id: number) {
-    const tour = await this.toursRepository.findOneById(id);
+    const tour = await this.toursRepository.findOne(
+      { where: { id }, relations: ['reviews'] }
+    );
 
     if (tour) {
       return {
@@ -48,6 +53,7 @@ export class ToursService {
         data: tour
       }
     }
+
     return {
       statusCode: 404,
       message: 'Tour not found'
@@ -58,6 +64,7 @@ export class ToursService {
     return `This action updates a #${id} tour`;
   }
 
+  // Remove Tour By Id
   async remove(id: number) {
     const tour = await this.toursRepository.findOneById(id);
 

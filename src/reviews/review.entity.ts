@@ -1,7 +1,7 @@
 import { Tours } from "src/tours/tour.entity";
 import { BaseEntity, Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
-@Entity()
+@Entity('reviews')
 export class Reviews extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
@@ -27,7 +27,7 @@ export class Reviews extends BaseEntity {
   @Column('text')
   message: string;
 
-  @ManyToOne(() => Tours, tour => tour.id)
+  @ManyToOne(() => Tours, (tours) => tours.reviews)
   tour: Tours;
 
   @CreateDateColumn({
