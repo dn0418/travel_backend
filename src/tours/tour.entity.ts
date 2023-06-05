@@ -1,12 +1,10 @@
+import { CommonEntity } from 'src/common/common.entity';
 import { Reviews } from 'src/reviews/review.entity';
 import { Routes } from 'src/routes/route.entity';
-import { BaseEntity, Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { Column, Entity, OneToMany } from 'typeorm';
 
 @Entity()
-export class Tours extends BaseEntity {
-  @PrimaryGeneratedColumn()
-  id: number;
-
+export class Tours extends CommonEntity {
   @Column()
   title: string;
 
@@ -76,16 +74,5 @@ export class Tours extends BaseEntity {
   @OneToMany(() => Routes, (routes) => routes.tour)
   routes: Routes[];
 
-  @CreateDateColumn({
-    type: "timestamp",
-    default: () => "CURRENT_TIMESTAMP(6)",
-  })
-  public createdAt: Date;
 
-  @UpdateDateColumn({
-    type: "timestamp",
-    default: () => "CURRENT_TIMESTAMP(6)",
-    onUpdate: "CURRENT_TIMESTAMP(6)",
-  })
-  public updatedAt: Date;
 }
