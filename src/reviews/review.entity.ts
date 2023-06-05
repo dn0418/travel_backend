@@ -1,8 +1,8 @@
 import { Tours } from "src/tours/tour.entity";
-import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { BaseEntity, Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity()
-export class Reviews {
+export class Reviews extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -30,9 +30,16 @@ export class Reviews {
   @ManyToOne(() => Tours, tour => tour.id)
   tour: Tours;
 
-  @CreateDateColumn({ type: 'timestamp' })
-  createdAt: Date;
+  @CreateDateColumn({
+    type: "timestamp",
+    default: () => "CURRENT_TIMESTAMP(6)",
+  })
+  public createdAt: Date;
 
-  @UpdateDateColumn({ type: 'timestamp' })
-  updatedAt: Date;
+  @UpdateDateColumn({
+    type: "timestamp",
+    default: () => "CURRENT_TIMESTAMP(6)",
+    onUpdate: "CURRENT_TIMESTAMP(6)",
+  })
+  public updatedAt: Date;
 }

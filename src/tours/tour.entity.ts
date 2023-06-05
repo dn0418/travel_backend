@@ -1,8 +1,8 @@
 import { Reviews } from 'src/reviews/review.entity';
-import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { BaseEntity, Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 
 @Entity()
-export class Tours {
+export class Tours extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -74,9 +74,16 @@ export class Tours {
   })
   tour_reviews: Reviews[];
 
-  @CreateDateColumn()
-  createdAt: Date;
+  @CreateDateColumn({
+    type: "timestamp",
+    default: () => "CURRENT_TIMESTAMP(6)",
+  })
+  public createdAt: Date;
 
-  @UpdateDateColumn()
-  updatedAt: Date;
+  @UpdateDateColumn({
+    type: "timestamp",
+    default: () => "CURRENT_TIMESTAMP(6)",
+    onUpdate: "CURRENT_TIMESTAMP(6)",
+  })
+  public updatedAt: Date;
 }
