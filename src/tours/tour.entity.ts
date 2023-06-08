@@ -1,6 +1,6 @@
 import { CommonEntity } from 'src/common/common.entity';
-import { Reviews } from 'src/reviews/review.entity';
-import { Routes } from 'src/routes/route.entity';
+import { Reviews } from 'src/tours/reviews/review.entity';
+import { Routes } from 'src/tours/routes/route.entity';
 import { Column, Entity, OneToMany } from 'typeorm';
 
 @Entity()
