@@ -34,7 +34,17 @@ export class ToursService {
 
   // Find All Tours
   async findAll() {
-    const tours = await this.toursRepository.find({ relations: ['reviews'] });
+    const tours = await this.toursRepository
+      .createQueryBuilder('tours')
+      .leftJoinAndSelect('tours.reviews', 'reviews')
+      .select([
+        'tours.*',
+        'AVG(reviews.rating) AS reviewsRating',
+        'COUNT(reviews.id) AS reviewsQuantity',
+      ])
+      .addGroupBy('tours.id')
+      .getRawMany();
+
     return {
       statusCode: 200,
       data: tours

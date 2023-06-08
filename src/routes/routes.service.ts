@@ -1,25 +1,50 @@
 import { Injectable } from '@nestjs/common';
-import { CreateRouteDto, UpdateRouteDto } from './routes.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { ToursService } from 'src/tours/tours.service';
+import { Repository } from 'typeorm';
+import { Routes } from './route.entity';
+import { CreateRouteDto } from './routes.dto';
 
 @Injectable()
 export class RoutesService {
-  create(createRouteDto: CreateRouteDto) {
-    return 'This action adds a new route';
+  constructor(
+    private readonly toursRepository: ToursService,
+
+    @InjectRepository(Routes)
+    private readonly routesRepository: Repository<Routes>,
+  ) { }
+
+  async create(createRouteDto: CreateRouteDto) {
+    const { tourId, ...reviews } = createRouteDto;
+
+    const findTour = await this.toursRepository.findOne(tourId);
+
+    if (!findTour) {
+      return {
+        statusCode: 404,
+        message: 'Tour not found',
+      }
+    }
+
+    const newRoute = this.routesRepository.create({
+      ...reviews,
+      tour: findTour.data,
+    });
+
+    const review = await this.routesRepository.save(newRoute);
+
+    return {
+      message: 'Route created successfully',
+      data: review,
+    }
   }
 
-  findAll() {
-    return `This action returns all routes`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} route`;
-  }
-
-  update(id: number, updateRouteDto: UpdateRouteDto) {
-    return `This action updates a #${id} route`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} route`;
+  async findAll() {
+    const routes = await this.routesRepository.find();
+    return {
+      message: 'Route found successfully',
+      data: routes,
+      statusCode: 200
+    }
   }
 }

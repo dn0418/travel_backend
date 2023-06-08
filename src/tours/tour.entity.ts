@@ -73,6 +73,4 @@ export class Tours extends CommonEntity {
 
   @OneToMany(() => Routes, (routes) => routes.tour)
   routes: Routes[];
-
-
 }
