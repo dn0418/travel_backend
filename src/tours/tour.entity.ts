@@ -2,6 +2,7 @@ import { CommonEntity } from 'src/common/common.entity';
 import { Reviews } from 'src/tours/reviews/review.entity';
 import { Routes } from 'src/tours/routes/route.entity';
 import { Column, Entity, OneToMany } from 'typeorm';
+import { TourImages } from './tour-images/tour-image.entity';
 
 @Entity()
 export class Tours extends CommonEntity {
@@ -59,8 +60,8 @@ export class Tours extends CommonEntity {
   @Column()
   thumbnail: string;
 
-  @Column('simple-array')
-  images: string[];
+  @OneToMany(() => TourImages, (image) => image.tour)
+  images: TourImages[];
 
   @Column('simple-array')
   includesServices: string[];

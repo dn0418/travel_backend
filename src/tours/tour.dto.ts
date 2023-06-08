@@ -1,4 +1,4 @@
-import { IsArray, IsBoolean, IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
+import { IsArray, IsBoolean, IsNotEmpty, IsNumber, IsString } from "class-validator";
 
 export class CreateTourDto {
   @IsNotEmpty()
@@ -72,10 +72,6 @@ export class CreateTourDto {
   @IsNotEmpty()
   @IsString()
   thumbnail: string;
-
-  @IsOptional()
-  @IsArray()
-  images: string[];
 
   @IsArray()
   includesServices: string[];

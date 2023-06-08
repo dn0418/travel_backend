@@ -12,7 +12,7 @@ import { ToursService } from './tours.service';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Tours, Reviews, Routes])
+    TypeOrmModule.forFeature([Tours, Reviews, Routes]),
   ],
   controllers: [
     ToursController,
