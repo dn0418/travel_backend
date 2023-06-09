@@ -28,5 +28,4 @@ export class Reviews extends CommonEntity {
 
   @ManyToOne(() => Tours, (tours) => tours.reviews)
   tour: Tours;
-
 }

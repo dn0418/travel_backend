@@ -1,9 +1,9 @@
 import { CommonEntity } from "src/common/common.entity";
+import { Tours } from "src/tours/tour.entity";
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import { Tours } from "../tour.entity";
 
 @Entity()
-export class TourImages extends CommonEntity {
+export class Images extends CommonEntity {
   @PrimaryGeneratedColumn()
   id: number;
 

@@ -2,7 +2,6 @@ import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/commo
 import { CreateReviewDto, UpdateReviewDto } from './reviews.dto';
 import { ReviewsService } from './reviews.service';
 
-
 @Controller('reviews')
 export class ReviewsController {
   constructor(private readonly reviewsService: ReviewsService) { }
