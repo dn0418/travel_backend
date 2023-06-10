@@ -7,7 +7,7 @@ export class CreateTourDto {
 
   @IsNotEmpty()
   @IsString()
-  destination: string;
+  destination: number;
 
   @IsNotEmpty()
   @IsNumber()
@@ -27,7 +27,7 @@ export class CreateTourDto {
 
   @IsNotEmpty()
   @IsString()
-  tourType: string;
+  tourType: number;
 
   @IsNotEmpty()
   @IsString()

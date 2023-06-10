@@ -2,16 +2,18 @@ import { CommonEntity } from 'src/common/common.entity';
 import { Images } from 'src/images/images.entity';
 import { Reviews } from 'src/reviews/review.entity';
 import { Routes } from 'src/tours/routes/route.entity';
-import { Column, Entity, OneToMany } from 'typeorm';
+import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
+import { Destinations } from './destinations/destination.entity';
 import { TourServices } from './tour-services/tour-service.entity';
+import { TourType } from './tour-type/tour-type.entity';
 
 @Entity()
 export class Tours extends CommonEntity {
   @Column()
   title: string;
 
-  @Column()
-  destination: string;
+  @ManyToOne(() => Destinations, (destination) => destination.id)
+  destination: Destinations;
 
   @Column()
   price: number;
@@ -25,8 +27,9 @@ export class Tours extends CommonEntity {
   @Column()
   nightLength: number;
 
-  @Column()
-  tourType: string;
+
+  @ManyToOne(() => TourType, (tourType) => tourType.id)
+  tourType: TourType;
 
   @Column()
   startedDate: string;
@@ -51,9 +54,6 @@ export class Tours extends CommonEntity {
 
   @Column()
   hotelDetails: string;
-
-  @Column()
-  locationImg: string;
 
   @Column('text')
   tourDetails: string;
