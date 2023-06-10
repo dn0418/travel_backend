@@ -1,0 +1,51 @@
+import { CommonEntity } from "src/common/common.entity";
+import { Images } from "src/images/images.entity";
+import { Reviews } from "src/reviews/review.entity";
+import { Column, Entity, OneToMany, OneToOne } from "typeorm";
+import { CarDriver } from "./car-drivers/car-driver.entity";
+
+
+@Entity()
+export class Car extends CommonEntity {
+  @Column()
+  name: string;
+
+  @Column()
+  thumbnail: string;
+
+  @Column()
+  model: string;
+
+  @Column()
+  carNo: string;
+
+  @Column()
+  startedDate: string;
+
+  @Column()
+  endDate: string;
+
+  @Column()
+  seatNo: number;
+
+  @Column()
+  isDriver: boolean;
+
+  @Column()
+  description: string;
+
+  @Column()
+  price: number;
+
+  @Column()
+  discountedPrice: number;
+
+  @OneToOne(() => CarDriver, (carDriver) => carDriver.id)
+  carDriver: CarDriver;
+
+  @OneToMany(() => Reviews, (review) => review.car)
+  reviews: Reviews[];
+
+  @OneToMany(() => Images, (image) => image.car)
+  images: Images[];
+}
