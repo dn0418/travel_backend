@@ -40,15 +40,28 @@ export class ReviewsService {
     }
   }
 
-  async findAll() {
-    const reviews = await this.reviewsRepository.find();
+  async findAll(page: number, limit: number) {
+    const skip = (page - 1) * limit;
+
+    const [reviews, total] = await this.reviewsRepository.findAndCount({
+      skip,
+      take: limit,
+    });
+
+    const totalPages = Math.ceil(total / limit);
+
     return {
       message: 'Reviews found successfully',
       data: reviews,
-      statusCode: 200
-    }
+      statusCode: 200,
+      pagination: {
+        page,
+        limit,
+        total,
+        totalPages,
+      },
+    };
   }
-
 
   async update(id: number, updateReviewDto: UpdateReviewDto) {
     return `This action updates a #${id} review`;

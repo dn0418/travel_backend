@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { InjectConnection, InjectRepository } from '@nestjs/typeorm';
+import { Connection, Repository } from 'typeorm';
 import { CreateTourDto, UpdateTourDto } from './tour.dto';
 import { Tours } from './tour.entity';
 
@@ -9,6 +9,8 @@ export class ToursService {
   constructor(
     @InjectRepository(Tours)
     private readonly toursRepository: Repository<Tours>,
+    @InjectConnection()
+    private connection: Connection,
   ) { }
 
 
@@ -33,23 +35,47 @@ export class ToursService {
   }
 
   // Find All Tours
-  async findAll() {
-    const tours = await this.toursRepository
-      .createQueryBuilder('tours')
-      .leftJoinAndSelect('tours.reviews', 'reviews')
-      .select([
-        'tours.*',
-        'AVG(reviews.rating) AS reviewsRating',
-        'COUNT(reviews.id) AS reviewsQuantity',
-      ])
-      .addGroupBy('tours.id')
-      .getRawMany();
+  async findAll(page: number, limit: number) {
+    const offset = (page - 1) * limit;
+
+    const countQuery = `SELECT COUNT(*) AS total FROM tours`;
+
+    const query = `
+    SELECT
+      tours.*,
+      AVG(reviews.rating) AS reviewsRating,
+      COUNT(reviews.id) AS reviewsQuantity
+    FROM
+      tours
+    LEFT JOIN
+      reviews ON tours.id = reviews.tourId
+    GROUP BY
+      tours.id
+    LIMIT
+      ${limit}
+    OFFSET
+      ${offset}
+  `;
+
+    const [countResult, tours] = await Promise.all([
+      this.connection.query(countQuery),
+      this.connection.query(query),
+    ]);
+
+    const total = countResult[0].total;
+    const totalPages = Math.ceil(total / limit);
 
     return {
       statusCode: 200,
-      data: tours
+      data: {
+        tours,
+        total,
+        totalPages,
+      },
     };
   }
+
+
 
   // Find Tour By Id
   async findOne(id: number) {

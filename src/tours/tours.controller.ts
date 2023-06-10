@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common';
 
 import { CreateTourDto, UpdateTourDto } from './tour.dto';
 import { ToursService } from './tours.service';
@@ -13,8 +13,8 @@ export class ToursController {
   }
 
   @Get()
-  findAll() {
-    return this.toursService.findAll();
+  findAll(@Query('page') page: number, @Query('limit') limit: number) {
+    return this.toursService.findAll(+page || 1, +limit || 10);
   }
 
   @Get(':id')

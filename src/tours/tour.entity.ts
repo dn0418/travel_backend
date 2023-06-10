@@ -3,6 +3,7 @@ import { Images } from 'src/images/images.entity';
 import { Reviews } from 'src/reviews/review.entity';
 import { Routes } from 'src/tours/routes/route.entity';
 import { Column, Entity, OneToMany } from 'typeorm';
+import { TourServices } from './tour-services/tour-service.entity';
 
 @Entity()
 export class Tours extends CommonEntity {
@@ -60,14 +61,20 @@ export class Tours extends CommonEntity {
   @Column()
   thumbnail: string;
 
+  @Column()
+  thingToSee: string;
+
+  @Column()
+  thingToDo: string;
+
   @OneToMany(() => Images, (image) => image.tour)
   images: Images[];
 
-  @Column('simple-array')
-  includesServices: string[];
+  @OneToMany(() => TourServices, (service) => service.tour)
+  includesServices: TourServices[];
 
-  @Column('simple-array')
-  excludeServices: string[];
+  @OneToMany(() => TourServices, (service) => service.tour)
+  excludeServices: TourServices[];
 
   @OneToMany(() => Reviews, (review) => review.tour)
   reviews: Reviews[];

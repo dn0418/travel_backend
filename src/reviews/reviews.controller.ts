@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common';
 import { CreateReviewDto, UpdateReviewDto } from './reviews.dto';
 import { ReviewsService } from './reviews.service';
 
@@ -12,8 +12,8 @@ export class ReviewsController {
   }
 
   @Get()
-  findAll() {
-    return this.reviewsService.findAll();
+  findAll(@Query('page') page: number, @Query('limit') limit: number) {
+    return this.reviewsService.findAll(page || 1, limit || 10);
   }
 
   @Patch(':id')
