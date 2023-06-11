@@ -1,4 +1,4 @@
-import { IsEmail, IsNotEmpty, IsNumber, IsString } from "class-validator";
+import { IsEmail, IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
 
 export class CreateReviewDto {
   @IsString()
@@ -30,8 +30,12 @@ export class CreateReviewDto {
   message: string;
 
   @IsNumber()
-  @IsNotEmpty()
+  @IsOptional()
   tourId: number;
+
+  @IsNumber()
+  @IsOptional()
+  carId: number;
 }
 
 export class UpdateReviewDto { }

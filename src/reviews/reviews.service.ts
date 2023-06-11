@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { CarsService } from 'src/cars/cars.service';
 import { ToursService } from 'src/tours/tours.service';
 import { Repository } from 'typeorm';
 import { Reviews } from './review.entity';
@@ -10,26 +11,42 @@ import { CreateReviewDto, UpdateReviewDto } from './reviews.dto';
 export class ReviewsService {
   constructor(
     private readonly toursRepository: ToursService,
+    private readonly carsRepository: CarsService,
 
     @InjectRepository(Reviews)
     private readonly reviewsRepository: Repository<Reviews>,
   ) { }
 
   async create(createReviewDto: CreateReviewDto) {
-    const { tourId, ...reviews } = createReviewDto;
+    const { tourId, carId, ...reviews } = createReviewDto;
 
-    const findTour = await this.toursRepository.findOne(tourId);
+    let relations = {}
 
-    if (!findTour) {
-      return {
-        statusCode: 404,
-        message: 'Tour not found',
+    if (tourId) {
+      const findTour = await this.toursRepository.findOne(tourId);
+      if (!findTour) {
+        return {
+          statusCode: 404,
+          message: 'Tour not found',
+        }
       }
+      relations['tour'] = findTour.data;
+    } else if (carId) {
+      const findCar = await this.carsRepository.findOneByID(carId);
+      if (!findCar) {
+        return {
+          statusCode: 404,
+          message: 'Car not found',
+        }
+      }
+      relations['car'] = findCar;
     }
+
+    console.log(relations)
 
     const newReview = this.reviewsRepository.create({
       ...reviews,
-      tour: findTour.data,
+      ...relations,
     });
 
     const review = await this.reviewsRepository.save(newReview);

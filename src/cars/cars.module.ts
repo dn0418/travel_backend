@@ -12,6 +12,7 @@ import { CarsService } from './cars.service';
     TypeOrmModule.forFeature([Car, CarDriver]),
   ],
   controllers: [CarsController, CarDriversController],
-  providers: [CarsService, CarDriversService]
+  providers: [CarsService, CarDriversService],
+  exports: [CarsService]
 })
 export class CarsModule { }

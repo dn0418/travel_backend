@@ -55,7 +55,21 @@ export class CarsService {
   }
 
   async findAll() {
-    const cars = await this.carRepository.find({ relations: ['carDriver'] });
+    const cars = await this.carRepository.createQueryBuilder('car')
+      .leftJoin('car.reviews', 'reviews')
+      .leftJoin('car.carDriver', 'car_driver')
+      .select([
+        'car.*',
+        'reviews.car',
+        'car_driver.firstName as driverFirstName',
+        'car_driver.lastName as driverLastName',
+        'car_driver.licenseNo as driverLicenseNo',
+        'AVG(reviews.rating) as rating',
+        'COUNT(reviews.id) as reviewCount', // Average rating from reviews
+      ])
+      .groupBy('car.id')
+      .getRawMany();
+
     return {
       statusCode: 200,
       message: 'Cars retrieved successfully',
@@ -64,7 +78,8 @@ export class CarsService {
   }
 
   async findOne(id: number) {
-    const car = await this.carRepository.findOne({ where: { id }, relations: ['carDriver'] });
+    const car = await this.carRepository.findOne(
+      { where: { id }, relations: ['carDriver', 'reviews'] });
     if (car) {
       return {
         statusCode: 200,
@@ -96,5 +111,10 @@ export class CarsService {
       statusCode: 400,
       message: 'Car not found',
     }
+  }
+
+  async findOneByID(id: number) {
+    const car = await this.carRepository.findOne({ where: { id } });
+    return car;
   }
 }
