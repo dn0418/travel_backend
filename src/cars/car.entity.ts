@@ -1,9 +1,8 @@
 import { CommonEntity } from "src/common/common.entity";
 import { Images } from "src/images/images.entity";
 import { Reviews } from "src/reviews/review.entity";
-import { Column, Entity, OneToMany, OneToOne } from "typeorm";
+import { Column, Entity, ManyToOne, OneToMany } from "typeorm";
 import { CarDriver } from "./car-drivers/car-driver.entity";
-
 
 @Entity()
 export class Car extends CommonEntity {
@@ -40,7 +39,7 @@ export class Car extends CommonEntity {
   @Column()
   discountedPrice: number;
 
-  @OneToOne(() => CarDriver, (carDriver) => carDriver.id)
+  @ManyToOne(() => CarDriver, (carDriver) => carDriver.car)
   carDriver: CarDriver;
 
   @OneToMany(() => Reviews, (review) => review.car)

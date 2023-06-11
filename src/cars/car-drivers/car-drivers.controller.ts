@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
 import { CreateCarDriverDto, UpdateCarDriverDto } from './car-driver.dto';
 import { CarDriversService } from './car-drivers.service';
 
@@ -6,7 +6,7 @@ import { CarDriversService } from './car-drivers.service';
 export class CarDriversController {
   constructor(private readonly carDriversService: CarDriversService) { }
 
-  @Post()
+  @Post('create')
   create(@Body() createCarDriverDto: CreateCarDriverDto) {
     return this.carDriversService.create(createCarDriverDto);
   }
@@ -21,12 +21,12 @@ export class CarDriversController {
     return this.carDriversService.findOne(+id);
   }
 
-  @Patch(':id')
+  @Put('update/:id')
   update(@Param('id') id: string, @Body() updateCarDriverDto: UpdateCarDriverDto) {
     return this.carDriversService.update(+id, updateCarDriverDto);
   }
 
-  @Delete(':id')
+  @Delete('delete/:id')
   remove(@Param('id') id: string) {
     return this.carDriversService.remove(+id);
   }

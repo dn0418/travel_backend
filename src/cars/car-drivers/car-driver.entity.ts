@@ -1,5 +1,6 @@
 import { CommonEntity } from "src/common/common.entity";
-import { Column, Entity } from "typeorm";
+import { Column, Entity, OneToMany } from "typeorm";
+import { Car } from "../car.entity";
 
 
 @Entity()
@@ -17,11 +18,14 @@ export class CarDriver extends CommonEntity {
   location: string;
 
   @Column()
-  profile_photo: string;
+  profilePhoto: string;
 
   @Column()
   licenseNo: string;
 
   @Column()
   locenseExpireDate: string;
+
+  @OneToMany(() => Car, (car) => car.carDriver)
+  car: Car;
 }

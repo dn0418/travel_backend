@@ -1,25 +1,83 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { CreateCarDriverDto, UpdateCarDriverDto } from './car-driver.dto';
+import { CarDriver } from './car-driver.entity';
 
 @Injectable()
 export class CarDriversService {
-  create(createCarDriverDto: CreateCarDriverDto) {
-    return 'This action adds a new carDriver';
+  constructor(
+    @InjectRepository(CarDriver)
+    private readonly carDriverRepository: Repository<CarDriver>,
+  ) { }
+
+
+  async create(createCarDriverDto: CreateCarDriverDto) {
+    const newDriver = await this.carDriverRepository.create(createCarDriverDto);
+    await this.carDriverRepository.save(newDriver);
+
+    return {
+      statusCode: 201,
+      message: "Driver created successfully",
+      data: newDriver,
+    };
+
   }
 
-  findAll() {
-    return `This action returns all carDrivers`;
+  async findAll() {
+    const carDrivers = await this.carDriverRepository.find();
+    return {
+      statusCode: 200,
+      message: "All drivers",
+      data: carDrivers,
+    }
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} carDriver`;
+  async findOne(id: number) {
+    const carDriver = await this.carDriverRepository.findOne({ where: { id } });
+
+    if (!carDriver) {
+      return {
+        statusCode: 404,
+        message: "Driver not found",
+      }
+    }
+
+    return {
+      statusCode: 200,
+      data: carDriver,
+    }
   }
 
-  update(id: number, updateCarDriverDto: UpdateCarDriverDto) {
-    return `This action updates a #${id} carDriver`;
+
+  async update(id: number, updateCarDriverDto: UpdateCarDriverDto) {
+    const driver = await this.carDriverRepository.findOne({ where: { id } });
+    if (driver) {
+      await this.carDriverRepository.update(id, updateCarDriverDto);
+      return {
+        statusCode: 200,
+        message: "Driver updated successfully",
+      }
+    }
+    return {
+      statusCode: 404,
+      message: "Driver not found",
+    }
+
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} carDriver`;
+  async remove(id: number) {
+    const driver = await this.carDriverRepository.findOne({ where: { id } });
+    if (driver) {
+      await this.carDriverRepository.delete(id);
+      return {
+        statusCode: 200,
+        message: "Driver deleted successfully",
+      }
+    }
+    return {
+      statusCode: 404,
+      message: "Driver not found",
+    }
   }
 }

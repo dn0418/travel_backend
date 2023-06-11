@@ -1,5 +1,4 @@
-import { IsBoolean, IsNotEmpty, IsOptional, IsString } from "class-validator";
-
+import { IsBoolean, IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
 
 export class CreateCarDto {
   @IsString()
@@ -26,9 +25,9 @@ export class CreateCarDto {
   @IsNotEmpty()
   endDate: string;
 
-  @IsString()
+  @IsNumber()
   @IsNotEmpty()
-  seatNo: string;
+  seatNo: number;
 
   @IsBoolean()
   @IsNotEmpty()
@@ -38,17 +37,17 @@ export class CreateCarDto {
   @IsNotEmpty()
   description: string;
 
-  @IsString()
+  @IsNumber()
   @IsNotEmpty()
-  price: string;
+  price: number;
 
-  @IsString()
+  @IsNumber()
   @IsOptional()
-  discountedPrice: string;
+  discountedPrice: number;
 
-  @IsString()
+  @IsNumber()
   @IsOptional()
-  driverId: string;
+  driverId: number;
 }
 
 export class UpdateCarDto { }

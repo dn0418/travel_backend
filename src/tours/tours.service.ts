@@ -97,8 +97,10 @@ export class ToursService {
     }
   }
 
-  update(id: number, updateTourDto: UpdateTourDto) {
-    return `This action updates a #${id} tour`;
+  async update(id: number, updateTourDto: UpdateTourDto) {
+
+
+
   }
 
   // Remove Tour By Id
