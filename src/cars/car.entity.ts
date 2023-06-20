@@ -1,5 +1,4 @@
 import { CommonEntity } from "src/common/common.entity";
-import { Images } from "src/images/images.entity";
 import { Reviews } from "src/reviews/review.entity";
 import { Column, Entity, ManyToOne, OneToMany } from "typeorm";
 import { CarDriver } from "./car-drivers/car-driver.entity";
@@ -44,7 +43,4 @@ export class Car extends CommonEntity {
 
   @OneToMany(() => Reviews, (review) => review.car)
   reviews: Reviews[];
-
-  @OneToMany(() => Images, (image) => image.car)
-  images: Images[];
 }

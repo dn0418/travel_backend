@@ -4,6 +4,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { CarsModule } from './cars/cars.module';
 import { DatabaseConfig } from './config/db.config';
+import { FileModule } from './file/file.module';
 import { HotelsModule } from './hotels/hotels.module';
 import { ImagesModule } from './images/images.module';
 import { ReviewsModule } from './reviews/reviews.module';
@@ -17,6 +18,7 @@ import { ToursModule } from './tours/tours.module';
     ImagesModule,
     CarsModule,
     HotelsModule,
+    FileModule
   ],
   controllers: [AppController],
   providers: [AppService],
