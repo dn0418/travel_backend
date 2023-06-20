@@ -17,7 +17,7 @@ export class ToursService {
   // Create a new tour
   async create(createTourDto: CreateTourDto) {
     const { destination, tourType, ...toursData } = createTourDto;
-    const newTour = await this.toursRepository.create(toursData);
+    const newTour = this.toursRepository.create(toursData);
 
     const tour = await this.toursRepository.save(newTour);
 

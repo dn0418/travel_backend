@@ -78,13 +78,24 @@ export class CarsService {
   }
 
   async findOne(id: number) {
-    const car = await this.carRepository.findOne(
-      { where: { id }, relations: ['carDriver', 'reviews'] });
+    const car = await this.carRepository.findOne({
+      where: { id },
+      relations: ['carDriver', 'reviews']
+    });
+
     if (car) {
+      const totalReview = car.reviews.length;
+      const reviewTotal = car.reviews.reduce((sum, review) => sum + review.rating, 0);
+      const reviewAverage = totalReview > 0 ? reviewTotal / totalReview : 0;
+
       return {
         statusCode: 200,
         message: 'Car retrieved successfully',
-        data: car,
+        data: {
+          ...car,
+          totalReview,
+          rating: reviewAverage,
+        },
       }
     }
     return {

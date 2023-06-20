@@ -42,8 +42,6 @@ export class ReviewsService {
       relations['car'] = findCar;
     }
 
-    console.log(relations)
-
     const newReview = this.reviewsRepository.create({
       ...reviews,
       ...relations,
