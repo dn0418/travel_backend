@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ToursModule } from 'src/tours/tours.module';
+import { ToursModule } from '../tours/tours.module';
 import { ImagesController } from './images.controller';
 import { Images } from './images.entity';
 import { ImagesService } from './images.service';

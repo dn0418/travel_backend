@@ -1,14 +1,14 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { CarsModule } from './api/cars/cars.module';
+import { FileModule } from './api/file/file.module';
+import { HotelsModule } from './api/hotels/hotels.module';
+import { ImagesModule } from './api/images/images.module';
+import { ReviewsModule } from './api/reviews/reviews.module';
+import { ToursModule } from './api/tours/tours.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { CarsModule } from './cars/cars.module';
 import { DatabaseConfig } from './config/db.config';
-import { FileModule } from './file/file.module';
-import { HotelsModule } from './hotels/hotels.module';
-import { ImagesModule } from './images/images.module';
-import { ReviewsModule } from './reviews/reviews.module';
-import { ToursModule } from './tours/tours.module';
 
 @Module({
   imports: [

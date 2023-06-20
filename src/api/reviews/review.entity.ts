@@ -1,8 +1,8 @@
-import { Car } from "src/cars/car.entity";
+import { Hotels } from "src/api/hotels/hotel.entity";
 import { CommonEntity } from "src/common/common.entity";
-import { Hotels } from "src/hotels/hotel.entity";
-import { Tours } from "src/tours/tour.entity";
 import { Column, Entity, ManyToOne } from "typeorm";
+import { Car } from "../cars/car.entity";
+import { Tours } from "../tours/tour.entity";
 
 @Entity()
 export class Reviews extends CommonEntity {

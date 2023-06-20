@@ -1,6 +1,6 @@
+import { Images } from "src/api/images/images.entity";
+import { Reviews } from "src/api/reviews/review.entity";
 import { CommonEntity } from "src/common/common.entity";
-import { Images } from "src/images/images.entity";
-import { Reviews } from "src/reviews/review.entity";
 import { Column, Entity, OneToMany } from "typeorm";
 
 @Entity()

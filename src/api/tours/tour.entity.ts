@@ -1,9 +1,9 @@
+import { Images } from 'src/api/images/images.entity';
+import { Reviews } from 'src/api/reviews/review.entity';
 import { CommonEntity } from 'src/common/common.entity';
-import { Images } from 'src/images/images.entity';
-import { Reviews } from 'src/reviews/review.entity';
-import { Routes } from 'src/tours/routes/route.entity';
 import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
 import { Destinations } from './destinations/destination.entity';
+import { Routes } from './routes/route.entity';
 import { TourServices } from './tour-services/tour-service.entity';
 import { TourType } from './tour-type/tour-type.entity';
 

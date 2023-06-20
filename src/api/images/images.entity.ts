@@ -1,7 +1,7 @@
+import { Hotels } from "src/api/hotels/hotel.entity";
 import { CommonEntity } from "src/common/common.entity";
-import { Hotels } from "src/hotels/hotel.entity";
-import { Tours } from "src/tours/tour.entity";
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Tours } from "../tours/tour.entity";
 
 @Entity()
 export class Images extends CommonEntity {

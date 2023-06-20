@@ -1,6 +1,6 @@
 import { CommonEntity } from "src/common/common.entity";
-import { Tours } from "src/tours/tour.entity";
 import { Column, Entity, ManyToOne } from "typeorm";
+import { Tours } from "../tour.entity";
 
 @Entity()
 export class Routes extends CommonEntity {

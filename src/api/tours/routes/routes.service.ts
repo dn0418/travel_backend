@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { ToursService } from 'src/tours/tours.service';
 import { Repository } from 'typeorm';
+import { ToursService } from '../tours.service';
 import { Routes } from './route.entity';
 import { CreateRouteDto } from './routes.dto';
 

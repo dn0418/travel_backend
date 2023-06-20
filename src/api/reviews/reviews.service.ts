@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CarsService } from 'src/cars/cars.service';
-import { ToursService } from 'src/tours/tours.service';
 import { Repository } from 'typeorm';
+import { CarsService } from '../cars/cars.service';
+import { ToursService } from '../tours/tours.service';
 import { Reviews } from './review.entity';
 import { CreateReviewDto, UpdateReviewDto } from './reviews.dto';
 

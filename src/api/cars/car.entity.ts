@@ -1,5 +1,5 @@
+import { Reviews } from "src/api/reviews/review.entity";
 import { CommonEntity } from "src/common/common.entity";
-import { Reviews } from "src/reviews/review.entity";
 import { Column, Entity, ManyToOne, OneToMany } from "typeorm";
 import { CarDriver } from "./car-drivers/car-driver.entity";
 
