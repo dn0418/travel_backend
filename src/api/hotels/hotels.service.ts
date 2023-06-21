@@ -61,7 +61,7 @@ export class HotelsService {
   async findOne(id: number) {
     const hotel = await this.hotelsRepository.findOne({
       where: { id },
-      relations: ["images"]
+      relations: ["images", "reviews"]
     });
 
     if (!hotel) {
@@ -83,5 +83,11 @@ export class HotelsService {
 
   async remove(id: number) {
     return `This action removes a #${id} hotel`;
+  }
+
+  async findOneById(id: number) {
+    return this.hotelsRepository.findOne({
+      where: { id }
+    })
   }
 }

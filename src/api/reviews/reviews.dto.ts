@@ -36,6 +36,10 @@ export class CreateReviewDto {
   @IsNumber()
   @IsOptional()
   carId: number;
+
+  @IsNumber()
+  @IsOptional()
+  hotelId: number;
 }
 
 export class UpdateReviewDto { }

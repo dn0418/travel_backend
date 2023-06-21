@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CarsService } from '../cars/cars.service';
+import { HotelsService } from '../hotels/hotels.service';
 import { ToursService } from '../tours/tours.service';
 import { Reviews } from './review.entity';
 import { CreateReviewDto, UpdateReviewDto } from './reviews.dto';
@@ -12,13 +13,14 @@ export class ReviewsService {
   constructor(
     private readonly toursRepository: ToursService,
     private readonly carsRepository: CarsService,
+    private readonly hotelRepository: HotelsService,
 
     @InjectRepository(Reviews)
     private readonly reviewsRepository: Repository<Reviews>,
   ) { }
 
   async create(createReviewDto: CreateReviewDto) {
-    const { tourId, carId, ...reviews } = createReviewDto;
+    const { tourId, carId, hotelId, ...reviews } = createReviewDto;
 
     let relations = {}
 
@@ -40,6 +42,15 @@ export class ReviewsService {
         }
       }
       relations['car'] = findCar;
+    } else if (hotelId) {
+      const findHotel = await this.hotelRepository.findOneById(hotelId);
+      if (!findHotel) {
+        return {
+          statusCode: 404,
+          message: 'Hotel not found',
+        }
+      }
+      relations['hotel'] = findHotel;
     }
 
     const newReview = this.reviewsRepository.create({

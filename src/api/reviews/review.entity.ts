@@ -6,7 +6,6 @@ import { Tours } from "../tours/tour.entity";
 
 @Entity()
 export class Reviews extends CommonEntity {
-
   @Column()
   firstName: string;
 
