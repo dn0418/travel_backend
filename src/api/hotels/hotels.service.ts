@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { ImagesService } from '../images/images.service';
 import { Hotels } from './hotel.entity';
 import { CreateHotelDto, UpdateHotelDto } from './hotels.dto';
 
@@ -9,11 +10,19 @@ export class HotelsService {
   constructor(
     @InjectRepository(Hotels)
     private readonly hotelsRepository: Repository<Hotels>,
+    private readonly imageRepository: ImagesService,
   ) { }
 
   async create(createHotelDto: CreateHotelDto) {
-    const newHotel = this.hotelsRepository.create(createHotelDto);
+    const { images, ...hotelsData } = createHotelDto;
+    const newHotel = this.hotelsRepository.create(hotelsData);
     await this.hotelsRepository.save(newHotel);
+
+    if (images.length > 0) {
+      images.forEach(async (image) => {
+        await this.imageRepository.addHotelImage(image, newHotel);
+      })
+    }
 
     return {
       statusCode: 201,
@@ -50,8 +59,23 @@ export class HotelsService {
   }
 
   async findOne(id: number) {
-    return `This action returns a #${id} hotel`;
+    const hotel = await this.hotelsRepository.findOne({
+      where: { id },
+      relations: ["images"]
+    });
+
+    if (!hotel) {
+      return {
+        statusCode: 404,
+        message: 'Hotel not found',
+      }
+    }
+    return {
+      statusCode: 200,
+      data: hotel,
+    }
   }
+
 
   async update(id: number, updateHotelDto: UpdateHotelDto) {
     return `This action updates a #${id} hotel`;

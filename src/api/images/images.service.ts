@@ -1,11 +1,34 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { CreateImageDto, UpdateImageDto } from './images.dto';
+import { Images } from './images.entity';
 
 @Injectable()
 export class ImagesService {
+  constructor(
+    @InjectRepository(Images)
+    private readonly imagesRepository: Repository<Images>,
+  ) { }
 
   async create(createImageDto: CreateImageDto) {
     return 'This action adds a new image';
+  }
+
+  async addHotelImage(image: string, hotel) {
+    const newImage = this.imagesRepository.create({
+      url: image,
+      hotel: hotel
+    });
+    await this.imagesRepository.save(newImage);
+  }
+
+  async addTourImage(image: string, tour) {
+    const newImage = this.imagesRepository.create({
+      url: image,
+      tour: tour
+    });
+    await this.imagesRepository.save(newImage);
   }
 
   async findAll() {

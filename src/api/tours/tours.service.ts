@@ -120,4 +120,9 @@ export class ToursService {
       message: 'Tour not found'
     }
   }
+
+  async getTourById(id: number) {
+    const tour = await this.toursRepository.findOne({ where: { id } });
+    return tour;
+  }
 }

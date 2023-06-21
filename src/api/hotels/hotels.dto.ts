@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsNumber, IsString } from "class-validator";
+import { IsArray, IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
 
 export class CreateHotelDto {
   @IsString()
@@ -52,5 +52,9 @@ export class CreateHotelDto {
   @IsNumber()
   @IsNotEmpty()
   activities: number;
+
+  @IsArray()
+  @IsOptional()
+  images: Array<string>;
 }
 export class UpdateHotelDto { }
