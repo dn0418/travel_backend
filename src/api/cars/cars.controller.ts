@@ -12,8 +12,13 @@ export class CarsController {
   }
 
   @Get()
-  findAll(@Query('page') page: number, @Query('limit') limit: number) {
-    return this.carsService.findAll();
+  findAll(
+    @Query('page') page: number,
+    @Query('limit') limit: number,
+    @Query('search') searchQuery: string,
+    @Query('driver') driver: string
+  ) {
+    return this.carsService.findAll(+page || 1, +limit || 6, driver || '', searchQuery || '');
   }
 
   @Get(':id')

@@ -1,7 +1,6 @@
 import { Reviews } from "src/api/reviews/review.entity";
 import { CommonEntity } from "src/common/common.entity";
-import { Column, Entity, ManyToOne, OneToMany } from "typeorm";
-import { CarDriver } from "./car-drivers/car-driver.entity";
+import { Column, Entity, OneToMany } from "typeorm";
 
 @Entity()
 export class Car extends CommonEntity {
@@ -33,13 +32,13 @@ export class Car extends CommonEntity {
   description: string;
 
   @Column()
+  year: number;
+
+  @Column()
   price: number;
 
   @Column()
   discountedPrice: number;
-
-  @ManyToOne(() => CarDriver, (carDriver) => carDriver.car)
-  carDriver: CarDriver;
 
   @OneToMany(() => Reviews, (review) => review.car)
   reviews: Reviews[];

@@ -1,86 +1,70 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { CarDriver } from './car-drivers/car-driver.entity';
+import { Like, Repository } from 'typeorm';
 import { Car } from './car.entity';
 import { CreateCarDto, UpdateCarDto } from './cars.dto';
 
 @Injectable()
 export class CarsService {
   constructor(
-    @InjectRepository(CarDriver)
-    private readonly carDriverRepository: Repository<CarDriver>,
-
     @InjectRepository(Car)
     private readonly carRepository: Repository<Car>,
   ) { }
 
   async create(createCarDto: CreateCarDto) {
-    if (createCarDto.isDriver) {
-      const { driverId, ...createCarData } = createCarDto;
-      if (!driverId) {
-        return {
-          statusCode: 400,
-          message: 'Driver id is required',
-        }
-      }
-      const carDriver = await this.carDriverRepository.findOne({ where: { id: driverId } });
+    const car = this.carRepository.create(createCarDto);
+    await this.carRepository.save(car);
 
-      if (carDriver) {
-        const car = this.carRepository.create({ ...createCarData });
-        car.carDriver = carDriver;
-        await this.carRepository.save(car);
-
-        return {
-          statusCode: 201,
-          message: 'Car created successfully',
-          data: car,
-        }
-      }
-
-      return {
-        statusCode: 400,
-        message: 'Car driver not found',
-      }
-    } else {
-      const car = this.carRepository.create(createCarDto);
-      await this.carRepository.save(car);
-
-      return {
-        statusCode: 201,
-        message: 'Car created successfully',
-        data: car,
-      }
+    return {
+      statusCode: 201,
+      message: 'Car created successfully',
+      data: car,
     }
   }
 
-  async findAll() {
-    const cars = await this.carRepository.createQueryBuilder('car')
-      .leftJoin('car.reviews', 'reviews')
-      .leftJoin('car.carDriver', 'car_driver')
-      .select([
-        'car.*',
-        'reviews.car',
-        'car_driver.firstName as driverFirstName',
-        'car_driver.lastName as driverLastName',
-        'car_driver.licenseNo as driverLicenseNo',
-        'AVG(reviews.rating) as rating',
-        'COUNT(reviews.id) as reviewCount', // Average rating from reviews
-      ])
-      .groupBy('car.id')
-      .getRawMany();
+  async findAll(page: number, limit: number, driver: string, searchQuery?: string) {
+    let conditions = {}
+
+    if (driver === 'true') {
+      conditions = { isDriver: true }
+    } else if (driver === 'false') {
+      conditions = { isDriver: false }
+    }
+
+    if (searchQuery) {
+      conditions = {
+        ...conditions,
+        name: Like(`%${searchQuery}%`),
+      };
+    }
+
+    const skip = (page - 1) * limit;
+    const [cars, totalCount] = await this.carRepository.findAndCount({
+      where: conditions,
+      skip,
+      take: limit,
+    });
+
+    const totalPages = Math.ceil(totalCount / limit);
 
     return {
       statusCode: 200,
       message: 'Cars retrieved successfully',
       data: cars,
-    }
+      meta: {
+        page,
+        limit,
+        totalCount,
+        totalPages,
+      },
+    };
   }
+
 
   async findOne(id: number) {
     const car = await this.carRepository.findOne({
       where: { id },
-      relations: ['carDriver', 'reviews']
+      relations: ['reviews']
     });
 
     if (car) {

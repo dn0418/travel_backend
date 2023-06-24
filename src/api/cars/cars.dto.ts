@@ -17,6 +17,10 @@ export class CreateCarDto {
   @IsNotEmpty()
   carNo: string;
 
+  @IsNumber()
+  @IsNotEmpty()
+  year: number;
+
   @IsString()
   @IsNotEmpty()
   startedDate: string;
@@ -44,10 +48,6 @@ export class CreateCarDto {
   @IsNumber()
   @IsOptional()
   discountedPrice: number;
-
-  @IsNumber()
-  @IsOptional()
-  driverId: number;
 }
 
 export class UpdateCarDto { }
