@@ -79,7 +79,7 @@ export class HotelsService {
 
     return {
       statusCode: 200,
-      message: 'Cars retrieved successfully',
+      message: 'Hotels retrieved successfully',
       data: hotels,
       meta: {
         page,

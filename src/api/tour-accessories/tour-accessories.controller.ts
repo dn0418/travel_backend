@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
 import { TourAccessoriesService } from './tour-accessories.service';
 import { CreateTourAccessoryDto, UpdateTourAccessoryDto } from './tour-accessory.dto';
 
@@ -12,8 +12,12 @@ export class TourAccessoriesController {
   }
 
   @Get()
-  findAll() {
-    return this.tourAccessoriesService.findAll();
+  findAll(
+    @Query('page') page?: string,
+    @Query('limit') limit?: string,
+    @Query('search') searchQuery?: string,
+  ) {
+    return this.tourAccessoriesService.findAll(+page || 1, +limit || 6, searchQuery);
   }
 
   @Get(':id')

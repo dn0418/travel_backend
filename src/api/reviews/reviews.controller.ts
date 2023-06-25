@@ -31,6 +31,11 @@ export class ReviewsController {
     return this.reviewsService.findTourReviews(+id);
   }
 
+  @Get('accessory/:id')
+  findAccessoryReviews(@Param('id') id: string) {
+    return this.reviewsService.findAccessoriesReviews(+id);
+  }
+
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateReviewDto: UpdateReviewDto) {
     return this.reviewsService.update(+id, updateReviewDto);

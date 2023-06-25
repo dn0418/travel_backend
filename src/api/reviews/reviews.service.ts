@@ -90,7 +90,7 @@ export class ReviewsService {
   }
 
   async findTourReviews(tourId: number) {
-    const reviews = await this.reviewsRepository.find({
+    const [reviews, total] = await this.reviewsRepository.findAndCount({
       where: {
         tour: {
           id: tourId
@@ -98,15 +98,27 @@ export class ReviewsService {
       }
     });
 
+    let avarage = reviews.reduce((acc, review) => acc + review.rating, 0) / total;
+
+    if (Number.isNaN(avarage)) {
+      avarage = 0;
+    } else {
+      avarage = parseInt(avarage.toFixed(1));
+    }
+
     return {
       message: 'Reviews found successfully',
       data: reviews,
       statusCode: 200,
+      meta: {
+        total: total,
+        avarage: avarage,
+      }
     };
   }
 
   async findCarReviews(carId: number) {
-    const reviews = await this.reviewsRepository.find({
+    const [reviews, total] = await this.reviewsRepository.findAndCount({
       where: {
         car: {
           id: carId
@@ -114,15 +126,27 @@ export class ReviewsService {
       }
     });
 
+    let avarage = reviews.reduce((acc, review) => acc + review.rating, 0) / total;
+
+    if (Number.isNaN(avarage)) {
+      avarage = 0;
+    } else {
+      avarage = parseInt(avarage.toFixed(1));
+    }
+
     return {
       message: 'Reviews found successfully',
       data: reviews,
       statusCode: 200,
+      meta: {
+        total: total,
+        avarage: avarage,
+      }
     };
   }
 
   async findHotelReviews(hotelId: number) {
-    const reviews = await this.reviewsRepository.find({
+    const [reviews, total] = await this.reviewsRepository.findAndCount({
       where: {
         hotel: {
           id: hotelId
@@ -130,10 +154,50 @@ export class ReviewsService {
       }
     });
 
+    let avarage = reviews.reduce((acc, review) => acc + review.rating, 0) / total;
+
+    if (Number.isNaN(avarage)) {
+      avarage = 0;
+    } else {
+      avarage = parseInt(avarage.toFixed(1));
+    }
+
     return {
       message: 'Reviews found successfully',
       data: reviews,
       statusCode: 200,
+      meta: {
+        total: total,
+        avarage: avarage,
+      }
+    };
+  }
+
+  async findAccessoriesReviews(accessoriesId: number) {
+    const [reviews, total] = await this.reviewsRepository.findAndCount({
+      where: {
+        accessory: {
+          id: accessoriesId
+        }
+      }
+    });
+
+    let avarage = reviews.reduce((acc, review) => acc + review.rating, 0) / total;
+
+    if (Number.isNaN(avarage)) {
+      avarage = 0;
+    } else {
+      avarage = parseInt(avarage.toFixed(1));
+    }
+
+    return {
+      message: 'Reviews found successfully',
+      data: reviews,
+      statusCode: 200,
+      meta: {
+        total: total,
+        avarage: avarage,
+      }
     };
   }
 
