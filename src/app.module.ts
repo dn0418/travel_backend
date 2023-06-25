@@ -5,6 +5,7 @@ import { FileModule } from './api/file/file.module';
 import { HotelsModule } from './api/hotels/hotels.module';
 import { ImagesModule } from './api/images/images.module';
 import { ReviewsModule } from './api/reviews/reviews.module';
+import { TourAccessoriesModule } from './api/tour-accessories/tour-accessories.module';
 import { ToursModule } from './api/tours/tours.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -18,7 +19,8 @@ import { DatabaseConfig } from './config/db.config';
     ImagesModule,
     CarsModule,
     HotelsModule,
-    FileModule
+    FileModule,
+    TourAccessoriesModule
   ],
   controllers: [AppController],
   providers: [AppService],
