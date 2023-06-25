@@ -1,7 +1,8 @@
 import { Images } from "src/api/images/images.entity";
 import { Reviews } from "src/api/reviews/review.entity";
 import { CommonEntity } from "src/common/common.entity";
-import { Column, Entity, OneToMany } from "typeorm";
+import { Column, Entity, ManyToOne, OneToMany } from "typeorm";
+import { HotelType } from "./hotel-type/hotel-type.entity";
 
 @Entity()
 export class Hotels extends CommonEntity {
@@ -29,8 +30,8 @@ export class Hotels extends CommonEntity {
   @Column()
   locationImg: string;
 
-  @Column()
-  type: string;
+  @ManyToOne(() => HotelType, (hotelType) => hotelType.hotel)
+  type: HotelType;
 
   @Column()
   price: number;

@@ -33,9 +33,9 @@ export class CreateHotelDto {
   @IsNotEmpty()
   locationImg: string;
 
-  @IsString()
+  @IsNumber()
   @IsNotEmpty()
-  type: string;
+  type: number;
 
   @IsNumber()
   @IsNotEmpty()

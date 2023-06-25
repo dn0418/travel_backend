@@ -16,8 +16,11 @@ export class HotelsController {
     @Query("country") country?: string,
     @Query("city") city?: string,
     @Query("type") type?: string,
+    @Query('page') page?: string,
+    @Query('limit') limit?: string,
+    @Query('search') searchQuery?: string,
   ) {
-    return this.hotelsService.findAll(country, city, type);
+    return this.hotelsService.findAll(country, city, type, +page || 1, +limit || 6, searchQuery);
   }
 
   @Get(':id')

@@ -89,6 +89,54 @@ export class ReviewsService {
     };
   }
 
+  async findTourReviews(tourId: number) {
+    const reviews = await this.reviewsRepository.find({
+      where: {
+        tour: {
+          id: tourId
+        }
+      }
+    });
+
+    return {
+      message: 'Reviews found successfully',
+      data: reviews,
+      statusCode: 200,
+    };
+  }
+
+  async findCarReviews(carId: number) {
+    const reviews = await this.reviewsRepository.find({
+      where: {
+        car: {
+          id: carId
+        }
+      }
+    });
+
+    return {
+      message: 'Reviews found successfully',
+      data: reviews,
+      statusCode: 200,
+    };
+  }
+
+  async findHotelReviews(hotelId: number) {
+    const reviews = await this.reviewsRepository.find({
+      where: {
+        hotel: {
+          id: hotelId
+        }
+      }
+    });
+
+    return {
+      message: 'Reviews found successfully',
+      data: reviews,
+      statusCode: 200,
+    };
+  }
+
   async update(id: number, updateReviewDto: UpdateReviewDto) {
     return `This action updates a #${id} review`;
   }

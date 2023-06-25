@@ -60,7 +60,6 @@ export class CarsService {
     };
   }
 
-
   async findOne(id: number) {
     const car = await this.carRepository.findOne({
       where: { id },

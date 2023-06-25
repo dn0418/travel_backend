@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Like, Repository } from 'typeorm';
 import { ImagesService } from '../images/images.service';
+import { HotelTypeService } from './hotel-type/hotel-type.service';
 import { Hotels } from './hotel.entity';
 import { CreateHotelDto, UpdateHotelDto } from './hotels.dto';
 
@@ -11,11 +12,17 @@ export class HotelsService {
     @InjectRepository(Hotels)
     private readonly hotelsRepository: Repository<Hotels>,
     private readonly imageRepository: ImagesService,
+    private readonly hotelTypeRepository: HotelTypeService,
   ) { }
 
   async create(createHotelDto: CreateHotelDto) {
-    const { images, ...hotelsData } = createHotelDto;
+    const { images, type, ...hotelsData } = createHotelDto;
+    const hotelType = await this.hotelTypeRepository.findHotelTypeByHotelId(type);
     const newHotel = this.hotelsRepository.create(hotelsData);
+
+    if (hotelType) {
+      newHotel.type = hotelType;
+    }
     await this.hotelsRepository.save(newHotel);
 
     if (images.length > 0) {
@@ -31,30 +38,55 @@ export class HotelsService {
     }
   }
 
-  async findAll(country: string, city: string, type: string) {
-    const query = this.hotelsRepository.createQueryBuilder('hotels')
-      .leftJoin('hotels.reviews', 'reviews')
-      .select([
-        'hotels.*',
-        'AVG(reviews.rating) as rating',
-        'COUNT(reviews.id) as reviewCount', // Average rating from reviews
-      ])
-      .groupBy('hotels.id')
+  async findAll(
+    country: string,
+    city: string,
+    type: string,
+    page: number,
+    limit: number,
+    searchQuery: string) {
+    let conditions = {}
 
     if (country) {
-      query.andWhere('hotels.country = :country', { country })
-    }
-    if (city) {
-      query.andWhere('hotels.city = :city', { city })
-    }
-    if (type) {
-      query.andWhere('hotels.type = :type', { type })
+      conditions = { country: country }
     }
 
-    const hotels = await query.getRawMany();
+    if (city) {
+      conditions = { ...conditions, city: city }
+    }
+
+    if (type) {
+      conditions['type'] = { id: +type };
+    }
+
+    if (searchQuery) {
+      conditions = {
+        ...conditions,
+        name: Like(`%${searchQuery}%`),
+      };
+    }
+    const skip = (+page - 1) * +limit;
+
+    const [hotels, totalCount] = await this.hotelsRepository.findAndCount({
+      where: conditions,
+      skip,
+      take: +limit,
+      relations: ["type"],
+    });
+
+    const totalPages = Math.ceil(totalCount / +limit);
+
 
     return {
+      statusCode: 200,
+      message: 'Cars retrieved successfully',
       data: hotels,
+      meta: {
+        page,
+        limit,
+        totalCount,
+        totalPages,
+      },
     }
   }
 

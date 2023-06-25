@@ -16,6 +16,21 @@ export class ReviewsController {
     return this.reviewsService.findAll(page || 1, limit || 10);
   }
 
+  @Get('car/:id')
+  findCarReviews(@Param('id') id: string) {
+    return this.reviewsService.findCarReviews(+id);
+  }
+
+  @Get('hotel/:id')
+  findHotelReviews(@Param('id') id: string) {
+    return this.reviewsService.findHotelReviews(+id);
+  }
+
+  @Get('tour/:id')
+  findTourReviews(@Param('id') id: string) {
+    return this.reviewsService.findTourReviews(+id);
+  }
+
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateReviewDto: UpdateReviewDto) {
     return this.reviewsService.update(+id, updateReviewDto);
