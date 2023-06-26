@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CarsService } from '../cars/cars.service';
 import { HotelsService } from '../hotels/hotels.service';
+import { TourAccessoriesService } from '../tour-accessories/tour-accessories.service';
 import { ToursService } from '../tours/tours.service';
 import { Reviews } from './review.entity';
 import { CreateReviewDto, UpdateReviewDto } from './reviews.dto';
@@ -14,13 +15,14 @@ export class ReviewsService {
     private readonly toursRepository: ToursService,
     private readonly carsRepository: CarsService,
     private readonly hotelRepository: HotelsService,
+    private readonly tourAccessoryRepository: TourAccessoriesService,
 
     @InjectRepository(Reviews)
     private readonly reviewsRepository: Repository<Reviews>,
   ) { }
 
   async create(createReviewDto: CreateReviewDto) {
-    const { tourId, carId, hotelId, ...reviews } = createReviewDto;
+    const { tourId, carId, hotelId, accessoryId, ...reviews } = createReviewDto;
 
     let relations = {}
 
@@ -51,6 +53,15 @@ export class ReviewsService {
         }
       }
       relations['hotel'] = findHotel;
+    } else if (accessoryId) {
+      const findAccessory = await this.tourAccessoryRepository.findOneById(accessoryId);
+      if (!findAccessory) {
+        return {
+          statusCode: 404,
+          message: 'Accessory not found',
+        }
+      }
+      relations['accessory'] = findAccessory;
     }
 
     const newReview = this.reviewsRepository.create({
@@ -70,6 +81,31 @@ export class ReviewsService {
     const skip = (page - 1) * limit;
 
     const [reviews, total] = await this.reviewsRepository.findAndCount({
+      where: { isActive: true },
+      skip,
+      take: limit,
+    });
+
+    const totalPages = Math.ceil(total / limit);
+
+    return {
+      message: 'Reviews found successfully',
+      data: reviews,
+      statusCode: 200,
+      pagination: {
+        page,
+        limit,
+        total,
+        totalPages,
+      },
+    };
+  }
+
+  async findAllInactiveReviews(page: number, limit: number) {
+    const skip = (page - 1) * limit;
+
+    const [reviews, total] = await this.reviewsRepository.findAndCount({
+      where: { isActive: false },
       skip,
       take: limit,
     });
@@ -94,7 +130,8 @@ export class ReviewsService {
       where: {
         tour: {
           id: tourId
-        }
+        },
+        isActive: true
       }
     });
 
@@ -122,7 +159,8 @@ export class ReviewsService {
       where: {
         car: {
           id: carId
-        }
+        },
+        isActive: true
       }
     });
 
@@ -150,7 +188,8 @@ export class ReviewsService {
       where: {
         hotel: {
           id: hotelId
-        }
+        },
+        isActive: true
       }
     });
 
@@ -178,7 +217,8 @@ export class ReviewsService {
       where: {
         accessory: {
           id: accessoriesId
-        }
+        },
+        isActive: true
       }
     });
 
@@ -201,11 +241,56 @@ export class ReviewsService {
     };
   }
 
+  async makeReviewActive(reviewId: number) {
+    const review = await this.reviewsRepository.findOne({ where: { id: reviewId } });
+    if (!review) {
+      return {
+        message: 'Review not found',
+        statusCode: 404,
+      }
+    }
+    review.isActive = true;
+    const updatedReview = await this.reviewsRepository.save(review);
+    return {
+      message: 'Review activated successfully',
+      data: updatedReview,
+    }
+  }
+
   async update(id: number, updateReviewDto: UpdateReviewDto) {
-    return `This action updates a #${id} review`;
+    const review = await this.reviewsRepository.findOne({ where: { id: id } });
+    if (!review) {
+      return {
+        message: 'Review not found',
+        statusCode: 404,
+      }
+    }
+
+    const updatedReview = await this.reviewsRepository.save({
+      ...review,
+      ...updateReviewDto,
+    });
+
+    return {
+      message: 'Review updated successfully',
+      data: updatedReview,
+    }
   }
 
   async remove(id: number) {
-    return `This action removes a #${id} review`;
+    const review = await this.reviewsRepository.findOne({ where: { id: id } });
+    if (!review) {
+      return {
+        message: 'Review not found',
+        statusCode: 404,
+      }
+    }
+
+    await this.reviewsRepository.remove(review);
+
+    return {
+      message: 'Review deleted successfully',
+      statusCode: 200,
+    }
   }
 }

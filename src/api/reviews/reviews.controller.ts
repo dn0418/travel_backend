@@ -16,9 +16,19 @@ export class ReviewsController {
     return this.reviewsService.findAll(page || 1, limit || 10);
   }
 
+  @Get('pending')
+  findAllInactiveReviews(@Query('page') page: number, @Query('limit') limit: number) {
+    return this.reviewsService.findAllInactiveReviews(+page || 1, +limit || 10);
+  }
+
   @Get('car/:id')
   findCarReviews(@Param('id') id: string) {
     return this.reviewsService.findCarReviews(+id);
+  }
+
+  @Get('active/:id')
+  makeReviewActive(@Param('id') id: string) {
+    return this.reviewsService.makeReviewActive(+id);
   }
 
   @Get('hotel/:id')

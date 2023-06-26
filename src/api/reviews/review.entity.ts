@@ -28,6 +28,9 @@ export class Reviews extends CommonEntity {
   @Column('text')
   message: string;
 
+  @Column({ default: false })
+  isActive: boolean;
+
   @ManyToOne(() => Tours, (tours) => tours.reviews)
   tour: Tours;
 

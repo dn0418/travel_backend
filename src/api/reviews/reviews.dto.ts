@@ -1,4 +1,4 @@
-import { IsEmail, IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
+import { IsBoolean, IsEmail, IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
 
 export class CreateReviewDto {
   @IsString()
@@ -29,6 +29,10 @@ export class CreateReviewDto {
   @IsNotEmpty()
   message: string;
 
+  @IsOptional()
+  @IsBoolean()
+  isActive: boolean;
+
   @IsNumber()
   @IsOptional()
   tourId: number;
@@ -40,6 +44,42 @@ export class CreateReviewDto {
   @IsNumber()
   @IsOptional()
   hotelId: number;
+
+  @IsNumber()
+  @IsOptional()
+  accessoryId: number;
 }
 
-export class UpdateReviewDto { }
+export class UpdateReviewDto {
+  @IsOptional()
+  @IsString()
+  firstName: string;
+
+  @IsOptional()
+  @IsString()
+  lastName: string;
+
+  @IsOptional()
+  @IsEmail()
+  email: string;
+
+  @IsOptional()
+  @IsString()
+  location: string;
+
+  @IsOptional()
+  @IsString()
+  profilePhoto: string;
+
+  @IsOptional()
+  @IsNumber()
+  rating: number;
+
+  @IsOptional()
+  @IsString()
+  message: string;
+
+  @IsOptional()
+  @IsBoolean()
+  isActive: boolean;
+}

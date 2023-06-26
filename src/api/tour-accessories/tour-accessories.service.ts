@@ -48,7 +48,7 @@ export class TourAccessoriesService {
     if (searchQuery) {
       conditions = {
         ...conditions,
-        name: Like(`%${searchQuery}%`),
+        title: Like(`%${searchQuery}%`),
       };
     }
     const skip = (+page - 1) * +limit;
@@ -104,5 +104,9 @@ export class TourAccessoriesService {
 
   async remove(id: number) {
     return `This action removes a #${id} tourAccessory`;
+  }
+
+  async findOneById(id: number) {
+    return this.tourAccessoryRepository.findOne({ where: { id: id } })
   }
 }
