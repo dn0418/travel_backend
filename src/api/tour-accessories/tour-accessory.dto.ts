@@ -33,4 +33,32 @@ export class CreateTourAccessoryDto {
   @IsOptional()
   images: Array<string>;
 }
-export class UpdateTourAccessoryDto { }
+export class UpdateTourAccessoryDto {
+  @IsOptional()
+  @IsString()
+  title: string;
+
+  @IsOptional()
+  @IsNumber()
+  price: number;
+
+  @IsOptional()
+  @IsString()
+  specification: string;
+
+  @IsOptional()
+  @IsString()
+  goodsDetails: string;
+
+  @IsOptional()
+  @IsString()
+  thumbnail: string;
+
+  @IsOptional()
+  @IsBoolean()
+  isAvailable: boolean;
+
+  @IsOptional()
+  @IsNumber()
+  type: number;
+}

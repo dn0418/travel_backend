@@ -31,6 +31,16 @@ export class ImagesService {
     await this.imagesRepository.save(newImage);
   }
 
+  async AddaccessoryImage(image: string, accessory) {
+    const newImage = this.imagesRepository.create({
+      url: image,
+      accessory: accessory
+    });
+
+    await this.imagesRepository.save(newImage);
+  }
+
+
   async findAll() {
     return `This action returns all images`;
   }

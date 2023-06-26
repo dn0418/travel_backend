@@ -1,6 +1,8 @@
 import { Reviews } from "src/api/reviews/review.entity";
 import { CommonEntity } from "src/common/common.entity";
 import { Column, Entity, OneToMany } from "typeorm";
+import { PricingWithDriver } from "./pricing-with-driver/pricing-with-driver.entity";
+import { PricingWithoutDriver } from "./pricing-without-driver/pricing-without-driver.entity";
 
 @Entity()
 export class Car extends CommonEntity {
@@ -42,4 +44,10 @@ export class Car extends CommonEntity {
 
   @OneToMany(() => Reviews, (review) => review.car)
   reviews: Reviews[];
+
+  @OneToMany(() => PricingWithoutDriver, (withoutDriver) => withoutDriver.car)
+  priceWithoutDriver: PricingWithoutDriver[];
+
+  @OneToMany(() => PricingWithDriver, (priceWithDriver) => priceWithDriver.car)
+  priceWithDriver: PricingWithDriver[];
 }

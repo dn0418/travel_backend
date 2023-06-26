@@ -27,7 +27,7 @@ export class TourAccessoriesService {
 
     if (images.length > 0) {
       images.forEach(async (image) => {
-        await this.imageRepository.addHotelImage(image, newAccessory);
+        await this.imageRepository.AddaccessoryImage(image, newAccessory);
       })
     }
 
@@ -99,11 +99,35 @@ export class TourAccessoriesService {
   }
 
   async update(id: number, updateTourAccessoryDto: UpdateTourAccessoryDto) {
-    return `This action updates a #${id} tourAccessory`;
+    const { type, ...accessoryData } = updateTourAccessoryDto;
+    const accessoryType = await this.accesoriesTypeRepository.findAccessoryTypeById(type);
+    const accessory = await this.tourAccessoryRepository.findOne({ where: { id } });
+
+    if (accessoryType) {
+      accessory.type = accessoryType;
+    }
+    await this.tourAccessoryRepository.save({
+      ...accessory,
+      ...accessoryData,
+    });
+
+    return {
+      statusCode: 200,
+      message: 'Accessory updated successfully',
+      data: accessory,
+    }
+
   }
 
   async remove(id: number) {
-    return `This action removes a #${id} tourAccessory`;
+    const accessory = await this.tourAccessoryRepository.findOne({ where: { id } });
+    await this.tourAccessoryRepository.remove(accessory);
+
+    return {
+      statusCode: 200,
+      message: 'Accessory deleted successfully',
+      data: accessory,
+    }
   }
 
   async findOneById(id: number) {
