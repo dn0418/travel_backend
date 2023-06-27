@@ -10,6 +10,7 @@ import { ToursModule } from './api/tours/tours.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { DatabaseConfig } from './config/db.config';
+import { RidePlanModule } from './api/ride-plan/ride-plan.module';
 
 @Module({
   imports: [
@@ -20,7 +21,8 @@ import { DatabaseConfig } from './config/db.config';
     CarsModule,
     HotelsModule,
     FileModule,
-    TourAccessoriesModule
+    TourAccessoriesModule,
+    RidePlanModule
   ],
   controllers: [AppController],
   providers: [AppService],
