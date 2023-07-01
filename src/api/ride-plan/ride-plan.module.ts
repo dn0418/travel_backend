@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { RideDestination } from './ride-destination.entity';
+import { RideDestination } from './entity/ride-destination.entity';
+import { RidePlan } from './entity/ride-plan.entity';
 import { RidePlanController } from './ride-plan.controller';
-import { RidePlan } from './ride-plan.entity';
 import { RidePlanService } from './ride-plan.service';
 
 @Module({

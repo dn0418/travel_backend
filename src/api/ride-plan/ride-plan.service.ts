@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { RideDestination } from './ride-destination.entity';
+import { RideDestination } from './entity/ride-destination.entity';
+import { RidePlan } from './entity/ride-plan.entity';
 import { CreateRidePlanDto, UpdateRidePlanDto } from './ride-plan.dto';
-import { RidePlan } from './ride-plan.entity';
 
 
 @Injectable()
