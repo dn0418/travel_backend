@@ -1,9 +1,25 @@
-import { IsArray, IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
+import { IsArray, IsBoolean, IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
 
 export class CreateHotelDto {
   @IsString()
   @IsNotEmpty()
   name: string;
+
+  @IsString()
+  @IsNotEmpty()
+  thumbnail: string;
+
+  @IsString()
+  @IsNotEmpty()
+  googleMap: string;
+
+  @IsNumber()
+  @IsNotEmpty()
+  price: number;
+
+  @IsBoolean()
+  @IsNotEmpty()
+  fromAirport: boolean;
 
   @IsString()
   @IsNotEmpty()
@@ -13,45 +29,29 @@ export class CreateHotelDto {
   @IsNotEmpty()
   city: string;
 
-  @IsString()
-  @IsNotEmpty()
-  quality: string;
-
-  @IsString()
-  @IsNotEmpty()
-  roomsDetails: string;
-
-  @IsString()
-  @IsNotEmpty()
-  date: string;
-
-  @IsString()
-  @IsNotEmpty()
-  hotelDetails: string;
-
-  @IsString()
-  @IsNotEmpty()
-  locationImg: string;
-
   @IsNumber()
   @IsNotEmpty()
   type: number;
 
-  @IsNumber()
+  @IsBoolean()
   @IsNotEmpty()
-  price: number;
+  freeCancellation: boolean;
 
-  @IsNumber()
-  @IsNotEmpty()
-  discountedPrice: number;
+  @IsOptional()
+  @IsString()
+  checkInTime: string;
+
+  @IsString()
+  @IsOptional()
+  checkOutTime: string;
 
   @IsString()
   @IsNotEmpty()
-  thumbnail: string;
+  shortDescription: string;
 
-  @IsNumber()
+  @IsString()
   @IsNotEmpty()
-  activities: number;
+  longDescription: string;
 
   @IsArray()
   @IsOptional()

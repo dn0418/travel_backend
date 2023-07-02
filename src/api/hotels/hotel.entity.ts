@@ -10,40 +10,40 @@ export class Hotels extends CommonEntity {
   name: string;
 
   @Column()
-  country: string;
+  thumbnail: string;
 
   @Column()
-  city: string;
-
-  @Column()
-  quality: string;
-
-  @Column()
-  roomsDetails: string;
-
-  @Column()
-  date: string;
-
-  @Column('text')
-  hotelDetails: string;
-
-  @Column()
-  locationImg: string;
-
-  @ManyToOne(() => HotelType, (hotelType) => hotelType.hotel)
-  type: HotelType;
+  googleMap: string;
 
   @Column()
   price: number;
 
   @Column()
-  discountedPrice: number;
+  fromAirport: boolean;
 
   @Column()
-  thumbnail: string;
+  country: string;
 
   @Column()
-  activities: number;
+  city: string;
+
+  @ManyToOne(() => HotelType, (hotelType) => hotelType.hotel)
+  type: HotelType;
+
+  @Column({ default: true })
+  freeCancellation: boolean;
+
+  @Column()
+  checkInTime: string;
+
+  @Column()
+  checkOutTime: string;
+
+  @Column('text')
+  shortDescription: string;
+
+  @Column('text')
+  longDescription: string;
 
   @OneToMany(() => Reviews, (review) => review.hotel)
   reviews: Reviews[];

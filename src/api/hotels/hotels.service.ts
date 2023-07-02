@@ -71,16 +71,23 @@ export class HotelsService {
       where: conditions,
       skip,
       take: +limit,
-      relations: ["type"],
+      relations: ["type", "reviews"],
     });
 
     const totalPages = Math.ceil(totalCount / +limit);
 
+    // Calculate average rating for each hotel
+    const hotelsWithAvgRating = hotels.map((hotel) => {
+      const ratings = hotel.reviews.map((review) => review.rating);
+      const totalRating = ratings.reduce((sum, rating) => sum + rating, 0);
+      const averageRating = totalRating / ratings.length;
+      return { ...hotel, rating: averageRating };
+    });
 
     return {
       statusCode: 200,
       message: 'Hotels retrieved successfully',
-      data: hotels,
+      data: hotelsWithAvgRating,
       meta: {
         page,
         limit,
@@ -93,7 +100,7 @@ export class HotelsService {
   async findOne(id: number) {
     const hotel = await this.hotelsRepository.findOne({
       where: { id },
-      relations: ["images", "reviews"]
+      relations: ["images", "reviews", "type"]
     });
 
     if (!hotel) {
