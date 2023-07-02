@@ -7,7 +7,7 @@ export class RideDestination extends CommonEntity {
   @Column()
   name: string;
 
-  @Column()
+  @Column({ nullable: true })
   duration: string;
 
   @ManyToOne(() => RidePlan, (ridePlan) => ridePlan.destination)

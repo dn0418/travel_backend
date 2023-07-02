@@ -10,55 +10,79 @@ export class CreateTourAccessoryDto {
   price: number;
 
   @IsString()
-  @IsOptional()
-  specification: string;
-
-  @IsString()
-  @IsNotEmpty()
-  goodsDetails: string;
-
-  @IsString()
   @IsNotEmpty()
   thumbnail: string;
 
-  @IsBoolean()
-  @IsNotEmpty()
-  isAvailable: boolean;
+  @IsString()
+  @IsOptional()
+  perPax: string;
 
   @IsNumber()
   @IsNotEmpty()
   type: number;
+
+  @IsBoolean()
+  @IsOptional()
+  freeCancellation: boolean;
+
+  @IsString()
+  @IsNotEmpty()
+  rentFrom: string;
+
+  @IsString()
+  @IsNotEmpty()
+  available: string;
+
+  @IsString()
+  @IsNotEmpty()
+  shortDescription: string;
+
+  @IsString()
+  @IsNotEmpty()
+  longDescription: string;
 
   @IsArray()
   @IsOptional()
   images: Array<string>;
 }
 export class UpdateTourAccessoryDto {
-  @IsOptional()
   @IsString()
+  @IsOptional()
   title: string;
 
-  @IsOptional()
   @IsNumber()
+  @IsOptional()
   price: number;
 
-  @IsOptional()
   @IsString()
-  specification: string;
-
   @IsOptional()
-  @IsString()
-  goodsDetails: string;
-
-  @IsOptional()
-  @IsString()
   thumbnail: string;
 
+  @IsString()
   @IsOptional()
-  @IsBoolean()
-  isAvailable: boolean;
+  perPax: string;
 
-  @IsOptional()
   @IsNumber()
+  @IsOptional()
   type: number;
+
+  @IsBoolean()
+  @IsOptional()
+  freeCancellation: boolean;
+
+  @IsString()
+  @IsOptional()
+  rentFrom: string;
+
+  @IsString()
+  @IsOptional()
+  avaiable: string;
+
+  @IsString()
+  @IsOptional()
+  shortDescription: string;
+
+  @IsString()
+  @IsOptional()
+  longDescription: string;
 }

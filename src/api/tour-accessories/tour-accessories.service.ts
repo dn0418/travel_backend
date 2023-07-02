@@ -57,16 +57,23 @@ export class TourAccessoriesService {
       where: conditions,
       skip,
       take: +limit,
-      relations: ["type"],
+      relations: ["type", "reviews"],
     });
 
     const totalPages = Math.ceil(totalCount / +limit);
 
+    // Calculate average rating for each hotel
+    const accessoryWithAvgRating = accessories.map((accessory) => {
+      const ratings = accessory.reviews.map((review) => review.rating);
+      const totalRating = ratings.reduce((sum, rating) => sum + rating, 0);
+      const averageRating = totalRating / ratings.length;
+      return { ...accessory, rating: averageRating };
+    });
 
     return {
       statusCode: 200,
       message: 'Accessories retrieved successfully',
-      data: accessories,
+      data: accessoryWithAvgRating,
       meta: {
         page,
         limit,
@@ -79,7 +86,7 @@ export class TourAccessoriesService {
   async findOne(id: number) {
     const accessory = await this.tourAccessoryRepository.findOne({
       where: { id },
-      relations: ["type"]
+      relations: ["type", "images"]
     });
 
     if (!accessory) {

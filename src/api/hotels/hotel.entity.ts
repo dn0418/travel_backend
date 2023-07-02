@@ -18,7 +18,7 @@ export class Hotels extends CommonEntity {
   @Column()
   price: number;
 
-  @Column()
+  @Column({ nullable: true })
   fromAirport: boolean;
 
   @Column()
@@ -33,10 +33,10 @@ export class Hotels extends CommonEntity {
   @Column({ default: true })
   freeCancellation: boolean;
 
-  @Column()
+  @Column({ nullable: true })
   checkInTime: string;
 
-  @Column()
+  @Column({ nullable: true })
   checkOutTime: string;
 
   @Column('text')

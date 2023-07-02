@@ -13,22 +13,22 @@ export class RidePlan extends CommonEntity {
   @Column()
   phone: string;
 
-  @Column()
+  @Column({ nullable: true })
   address: string;
 
-  @Column()
+  @Column({ nullable: true })
   date: string;
 
-  @Column()
+  @Column({ nullable: true })
   adult: number;
 
-  @Column()
+  @Column({ nullable: true })
   child: number;
 
-  @Column()
+  @Column({ nullable: true })
   rideType: string;
 
-  @Column('text')
+  @Column('text', { nullable: true })
   note: string;
 
   @OneToMany(() => RideDestination, destination => destination.ridePlan)

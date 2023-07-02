@@ -6,33 +6,33 @@ export class CallBack extends CommonEntity {
   @Column()
   firstName: string;
 
-  @Column()
+  @Column({ nullable: true })
   lastName: string;
 
   @Column()
   email: string;
 
-  @Column()
+  @Column({ nullable: true })
   contact: string;
 
-  @Column()
+  @Column({ nullable: true })
   phone: string;
 
-  @Column()
+  @Column({ nullable: true })
   whatsapp: string;
 
-  @Column()
+  @Column({ nullable: true })
   telegram: string;
 
-  @Column()
+  @Column({ nullable: true })
   voice: string;
 
   @Column()
   country: string;
 
-  @Column()
+  @Column({ nullable: true })
   timezone: string;
 
-  @Column('text')
+  @Column('text', { nullable: true })
   note: string;
 }

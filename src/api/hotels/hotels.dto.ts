@@ -34,7 +34,7 @@ export class CreateHotelDto {
   type: number;
 
   @IsBoolean()
-  @IsNotEmpty()
+  @IsOptional()
   freeCancellation: boolean;
 
   @IsOptional()

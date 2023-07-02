@@ -10,22 +10,31 @@ export class TourAccessory extends CommonEntity {
   title: string;
 
   @Column()
+  thumbnail: string;
+
+  @Column()
   price: number;
+
+  @Column({ nullable: true })
+  perPax: string;
 
   @ManyToOne(() => AccessoryType, (accessoryType) => accessoryType.accessory)
   type: AccessoryType;
 
+  @Column({ default: true })
+  freeCancellation: boolean;
+
   @Column()
-  specification: string;
+  rentFrom: string;
+
+  @Column({ nullable: true })
+  available: string;
 
   @Column('text')
-  goodsDetails: string;
+  shortDescription: string;
 
-  @Column()
-  thumbnail: string;
-
-  @Column()
-  isAvailable: boolean;
+  @Column('text')
+  longDescription: string;
 
   @OneToMany(() => Reviews, (review) => review.accessory)
   reviews: Reviews[];
