@@ -19,53 +19,25 @@ export class Tours extends CommonEntity {
   price: number;
 
   @Column()
-  discountedPrice: number;
-
-  @Column()
   dayLength: number;
 
   @Column()
   nightLength: number;
 
-
   @ManyToOne(() => TourType, (tourType) => tourType.id)
   tourType: TourType;
 
   @Column()
-  startedDate: string;
-
-  @Column()
-  endDate: string;
+  bestTime: string;
 
   @Column()
   activities: number;
-
-  @Column()
-  car: boolean;
-
-  @Column()
-  hiking: boolean;
-
-  @Column()
-  motorCycle: boolean;
-
-  @Column()
-  hotel: number;
-
-  @Column()
-  hotelDetails: string;
 
   @Column('text')
   tourDetails: string;
 
   @Column()
   thumbnail: string;
-
-  @Column()
-  thingToSee: string;
-
-  @Column()
-  thingToDo: string;
 
   @OneToMany(() => Images, (image) => image.tour)
   images: Images[];

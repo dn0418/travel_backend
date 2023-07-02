@@ -11,6 +11,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { DatabaseConfig } from './config/db.config';
 import { RidePlanModule } from './api/ride-plan/ride-plan.module';
+import { CallBackModule } from './api/call-back/call-back.module';
 
 @Module({
   imports: [
@@ -22,7 +23,8 @@ import { RidePlanModule } from './api/ride-plan/ride-plan.module';
     HotelsModule,
     FileModule,
     TourAccessoriesModule,
-    RidePlanModule
+    RidePlanModule,
+    CallBackModule
   ],
   controllers: [AppController],
   providers: [AppService],
