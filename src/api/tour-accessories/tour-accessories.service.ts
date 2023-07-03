@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Like, Repository } from 'typeorm';
 import { ImagesService } from '../images/images.service';
+import { AccessoriesPricingService } from './accessories-pricing/accessories-pricing.service';
 import { AccessoryTypeService } from './accessory-type/accessory-type.service';
 import { CreateTourAccessoryDto, UpdateTourAccessoryDto } from './tour-accessory.dto';
 import { TourAccessory } from './tour-accessory.entity';
@@ -12,12 +13,13 @@ export class TourAccessoriesService {
     @InjectRepository(TourAccessory)
     private readonly tourAccessoryRepository: Repository<TourAccessory>,
     private readonly imageRepository: ImagesService,
-    private readonly accesoriesTypeRepository: AccessoryTypeService,
+    private readonly typeRepository: AccessoryTypeService,
+    private readonly pricingRepository: AccessoriesPricingService,
   ) { }
 
   async create(createTourAccessoryDto: CreateTourAccessoryDto) {
-    const { images, type, ...accessoryData } = createTourAccessoryDto;
-    const accessoryType = await this.accesoriesTypeRepository.findAccessoryTypeById(type);
+    const { images, pricing, type, ...accessoryData } = createTourAccessoryDto;
+    const accessoryType = await this.typeRepository.findAccessoryTypeById(type);
     const newAccessory = this.tourAccessoryRepository.create(accessoryData);
 
     if (accessoryType) {
@@ -28,6 +30,12 @@ export class TourAccessoriesService {
     if (images.length > 0) {
       images.forEach(async (image) => {
         await this.imageRepository.AddaccessoryImage(image, newAccessory);
+      })
+    }
+
+    if (pricing.length > 0) {
+      pricing.forEach(async (price) => {
+        await this.pricingRepository.createWithAccessories(price, newAccessory);
       })
     }
 
@@ -86,7 +94,7 @@ export class TourAccessoriesService {
   async findOne(id: number) {
     const accessory = await this.tourAccessoryRepository.findOne({
       where: { id },
-      relations: ["type", "images"]
+      relations: ["type", "images", "pricing"]
     });
 
     if (!accessory) {
@@ -107,7 +115,7 @@ export class TourAccessoriesService {
 
   async update(id: number, updateTourAccessoryDto: UpdateTourAccessoryDto) {
     const { type, ...accessoryData } = updateTourAccessoryDto;
-    const accessoryType = await this.accesoriesTypeRepository.findAccessoryTypeById(type);
+    const accessoryType = await this.typeRepository.findAccessoryTypeById(type);
     const accessory = await this.tourAccessoryRepository.findOne({ where: { id } });
 
     if (accessoryType) {

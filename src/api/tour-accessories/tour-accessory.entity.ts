@@ -2,6 +2,7 @@ import { CommonEntity } from "src/common/common.entity";
 import { Column, Entity, ManyToOne, OneToMany } from "typeorm";
 import { Images } from "../images/images.entity";
 import { Reviews } from "../reviews/review.entity";
+import { AccessoriesPricing } from "./accessories-pricing/accessories-pricing.entity";
 import { AccessoryType } from "./accessory-type/accessory-type.entity";
 
 @Entity()
@@ -41,4 +42,7 @@ export class TourAccessory extends CommonEntity {
 
   @OneToMany(() => Images, (image) => image.accessory)
   images: Images[];
+
+  @OneToMany(() => AccessoriesPricing, (pricing) => pricing.accessory)
+  pricing: AccessoriesPricing[];
 }

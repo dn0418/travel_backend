@@ -44,6 +44,10 @@ export class CreateTourAccessoryDto {
   @IsArray()
   @IsOptional()
   images: Array<string>;
+
+  @IsArray()
+  @IsOptional()
+  pricing: Array<Pricing>;
 }
 export class UpdateTourAccessoryDto {
   @IsString()
@@ -85,4 +89,12 @@ export class UpdateTourAccessoryDto {
   @IsString()
   @IsOptional()
   longDescription: string;
+}
+
+class Pricing {
+  @IsString()
+  duration: string;
+
+  @IsNumber()
+  price: number;
 }
