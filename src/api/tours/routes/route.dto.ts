@@ -2,8 +2,8 @@ import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
 
 
 export class CreateRouteDto {
+  @IsOptional()
   @IsNumber()
-  @IsNotEmpty()
   tourId: number;
 
   @IsString()
@@ -23,12 +23,36 @@ export class CreateRouteDto {
   length: string;
 
   @IsString()
-  @IsOptional()
+  @IsNotEmpty()
   meals: string;
 
   @IsString()
-  @IsOptional()
+  @IsNotEmpty()
   hotel: string;
 }
 
-export class UpdateRouteDto { }
+export class UpdateRouteDto {
+  @IsOptional()
+  @IsString()
+  title: string;
+
+  @IsOptional()
+  @IsString()
+  description: string;
+
+  @IsOptional()
+  @IsString()
+  time: string;
+
+  @IsOptional()
+  @IsString()
+  length: string;
+
+  @IsOptional()
+  @IsString()
+  meals: string;
+
+  @IsOptional()
+  @IsString()
+  hotel: string;
+}

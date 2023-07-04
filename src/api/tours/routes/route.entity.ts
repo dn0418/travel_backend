@@ -1,3 +1,4 @@
+export class Route { }
 import { CommonEntity } from "src/common/common.entity";
 import { Column, Entity, ManyToOne } from "typeorm";
 import { Tours } from "../tour.entity";

@@ -46,17 +46,23 @@ export class DestinationsService {
     };
   }
 
-
   async update(id: number, updateDestinationDto: UpdateDestinationDto) {
-    await this.destinationsRepository.update(id, updateDestinationDto);
     const destination = await this.destinationsRepository.findOne({
       where: { id: id },
     });
 
+    if (!destination) {
+      return {
+        statusCode: 404,
+        message: 'Destination not found by this ID',
+      }
+    }
+
+    await this.destinationsRepository.update(id, updateDestinationDto);
+
     return {
       statusCode: 200,
       message: 'Destination updated successfully',
-      data: destination
     }
   }
 

@@ -7,7 +7,7 @@ export class TourServices extends CommonEntity {
   @Column('text')
   text: string;
 
-  @Column()
+  @Column({ enum: ['include', 'exclude'] })
   type: string;
 
   @ManyToOne(() => Tours, (tours) => tours.id)

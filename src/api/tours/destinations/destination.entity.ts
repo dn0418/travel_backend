@@ -10,9 +10,6 @@ export class Destinations extends CommonEntity {
   @Column()
   country: string;
 
-  @Column()
-  mapImage: string;
-
   @OneToMany(() => Tours, (tour) => tour.destination)
   tour: Tours[];
 }

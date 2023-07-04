@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
 import { CreateTourServiceDto, UpdateTourServiceDto } from './tour-service.dto';
 import { TourServicesService } from './tour-services.service';
 
@@ -6,7 +6,7 @@ import { TourServicesService } from './tour-services.service';
 export class TourServicesController {
   constructor(private readonly tourServicesService: TourServicesService) { }
 
-  @Post()
+  @Post('create')
   create(@Body() createTourServiceDto: CreateTourServiceDto) {
     return this.tourServicesService.create(createTourServiceDto);
   }
@@ -21,12 +21,14 @@ export class TourServicesController {
     return this.tourServicesService.findOne(+id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateTourServiceDto: UpdateTourServiceDto) {
+  @Put('update/:id')
+  update(
+    @Param('id') id: string,
+    @Body() updateTourServiceDto: UpdateTourServiceDto) {
     return this.tourServicesService.update(+id, updateTourServiceDto);
   }
 
-  @Delete(':id')
+  @Delete('delete/:id')
   remove(@Param('id') id: string) {
     return this.tourServicesService.remove(+id);
   }

@@ -8,10 +8,6 @@ export class CreateDestinationDto {
   @IsNotEmpty()
   @IsString()
   country: string;
-
-  @IsNotEmpty()
-  @IsString()
-  mapImage: string;
 }
 export class UpdateDestinationDto {
   @IsOptional()
@@ -21,8 +17,4 @@ export class UpdateDestinationDto {
   @IsOptional()
   @IsString()
   country: string;
-
-  @IsOptional()
-  @IsString()
-  mapImage: string;
 }

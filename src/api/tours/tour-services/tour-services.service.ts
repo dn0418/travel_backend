@@ -1,25 +1,97 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { ToursService } from '../tours.service';
 import { CreateTourServiceDto, UpdateTourServiceDto } from './tour-service.dto';
+import { TourServices } from './tour-service.entity';
 
 @Injectable()
 export class TourServicesService {
-  create(createTourServiceDto: CreateTourServiceDto) {
-    return 'This action adds a new tourService';
+  constructor(
+    private readonly toursRepository: ToursService,
+
+    @InjectRepository(TourServices)
+    private readonly servicesRepository: Repository<TourServices>,
+  ) { }
+
+  async create(createTourServiceDto: CreateTourServiceDto) {
+    const { tourId, ...newData } = createTourServiceDto;
+    const tour = await this.toursRepository.getTourById(tourId);
+    const newService = await this.servicesRepository.create(newData);
+    newService.tour = tour;
+    const service = await this.servicesRepository.save(newService);
+
+    return {
+      statusCode: 201,
+      message: 'Tour service created successfully',
+      data: service,
+    }
   }
 
-  findAll() {
-    return `This action returns all tourServices`;
+  async findAll() {
+    const services = await this.servicesRepository.find();
+    return {
+      statusCode: 200,
+      message: 'Tour services fetched successfully',
+      data: services,
+    }
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} tourService`;
+  async findOne(id: number) {
+    const service = await this.servicesRepository.findOne({ where: { id: id } });
+    if (!service) {
+      return {
+        statusCode: 404,
+        message: 'Tour service not found',
+      }
+    }
+
+    return {
+      statusCode: 200,
+      message: 'Tour service fetched successfully',
+      data: service,
+    }
   }
 
-  update(id: number, updateTourServiceDto: UpdateTourServiceDto) {
-    return `This action updates a #${id} tourService`;
+  async update(id: number, updateTourServiceDto: UpdateTourServiceDto) {
+    const findService = await this.servicesRepository.findOne({ where: { id: id } });
+
+    if (!findService) {
+      return {
+        statusCode: 404,
+        message: 'Tour service not found',
+      }
+    }
+
+    const updatedService = await this.servicesRepository.save({
+      ...findService,
+      ...updateTourServiceDto,
+    })
+
+    return {
+      statusCode: 200,
+      message: 'Tour service updated successfully',
+      data: updatedService,
+    }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} tourService`;
+
+  async remove(id: number) {
+    const findService = await this.servicesRepository.findOne({ where: { id: id } });
+
+    if (!findService) {
+      return {
+        statusCode: 404,
+        message: 'Tour service not found',
+      }
+    }
+
+    const deletedService = await this.servicesRepository.delete(id);
+
+    return {
+      statusCode: 200,
+      message: 'Tour service deleted successfully',
+      data: deletedService,
+    }
   }
 }
