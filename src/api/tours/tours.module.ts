@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ImagesModule } from '../images/images.module';
 import { DeparturesPricingController } from './departures-pricing/departures-pricing.controller';
 import { DeparturesPricing } from './departures-pricing/departures-pricing.entity';
 import { DeparturesPricingService } from './departures-pricing/departures-pricing.service';
@@ -33,6 +34,7 @@ import { ToursService } from './tours.service';
       DeparturesPricing,
       TourServices
     ]),
+    ImagesModule
   ],
   controllers: [
     ToursController,

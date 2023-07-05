@@ -84,4 +84,8 @@ export class DestinationsService {
       message: 'Destination deleted successfully',
     }
   }
+
+  async findDestinationById(id: number) {
+    return this.destinationsRepository.findOne({ where: { id: id } })
+  }
 }

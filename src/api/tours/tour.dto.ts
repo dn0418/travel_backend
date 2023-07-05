@@ -1,4 +1,4 @@
-import { IsBoolean, IsNotEmpty, IsNumber, IsString } from "class-validator";
+import { IsArray, IsBoolean, IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
 
 export class CreateTourDto {
   @IsNotEmpty()
@@ -6,16 +6,8 @@ export class CreateTourDto {
   title: string;
 
   @IsNotEmpty()
-  @IsString()
-  destination: number;
-
-  @IsNotEmpty()
   @IsNumber()
   price: number;
-
-  @IsNotEmpty()
-  @IsNumber()
-  discountedPrice: number;
 
   @IsNotEmpty()
   @IsNumber()
@@ -27,39 +19,27 @@ export class CreateTourDto {
 
   @IsNotEmpty()
   @IsString()
-  tourType: number;
+  bestTime: string;
 
   @IsNotEmpty()
   @IsString()
-  startedDate: string;
+  type: string;
 
   @IsNotEmpty()
   @IsString()
-  endDate: string;
+  shortDescription: string;
+
+  @IsNotEmpty()
+  @IsString()
+  longDescription: string;
+
+  @IsOptional()
+  @IsBoolean()
+  freeCancelation: boolean;
 
   @IsNotEmpty()
   @IsNumber()
   activities: number;
-
-  @IsNotEmpty()
-  @IsBoolean()
-  car: boolean;
-
-  @IsNotEmpty()
-  @IsBoolean()
-  hiking: boolean;
-
-  @IsNotEmpty()
-  @IsBoolean()
-  motorCycle: boolean;
-
-  @IsNotEmpty()
-  @IsNumber()
-  hotel: number;
-
-  @IsNotEmpty()
-  @IsString()
-  hotelDetails: string;
 
   @IsNotEmpty()
   @IsString()
@@ -67,12 +47,147 @@ export class CreateTourDto {
 
   @IsNotEmpty()
   @IsString()
-  tourDetails: string;
+  thumbnail: string;
 
   @IsNotEmpty()
+  @IsNumber()
+  destinationId: number;
+
+  @IsOptional()
+  @IsArray()
+  includesServices: Array<string>;
+
+  @IsOptional()
+  @IsArray()
+  excludeServices: Array<string>;
+
+  @IsOptional()
+  @IsArray()
+  images: Array<string>;
+
+  @IsOptional()
+  @IsArray()
+  routes: Array<RouteDto>;
+
+  @IsOptional()
+  @IsArray()
+  individualPricing: Array<IndividualPricingDto>;
+
+  @IsOptional()
+  @IsArray()
+  departuresPricing: Array<DeparturesPricingDto>;
+}
+
+
+export class UpdateTourDto {
+  @IsOptional()
+  @IsString()
+  title: string;
+
+  @IsOptional()
+  @IsNumber()
+  price: number;
+
+  @IsOptional()
+  @IsNumber()
+  dayLength: number;
+
+  @IsOptional()
+  @IsNumber()
+  nightLength: number;
+
+  @IsOptional()
+  @IsString()
+  bestTime: string;
+
+  @IsOptional()
+  @IsString()
+  type: string;
+
+  @IsOptional()
+  @IsString()
+  shortDescription: string;
+
+  @IsOptional()
+  @IsString()
+  longDescription: string;
+
+  @IsOptional()
+  @IsString()
+  freeCancelation: boolean;
+
+  @IsOptional()
+  @IsNumber()
+  activities: number;
+
+  @IsOptional()
+  @IsString()
+  locationImg: string;
+
+  @IsOptional()
   @IsString()
   thumbnail: string;
 }
 
 
-export class UpdateTourDto { }
+class RouteDto {
+  @IsString()
+  @IsNotEmpty()
+  title: string;
+
+  @IsString()
+  @IsNotEmpty()
+  description: string;
+
+  @IsString()
+  @IsNotEmpty()
+  time: string;
+
+  @IsString()
+  @IsNotEmpty()
+  length: string;
+
+  @IsString()
+  @IsNotEmpty()
+  meals: string;
+
+  @IsString()
+  @IsNotEmpty()
+  hotel: string;
+}
+
+class IndividualPricingDto {
+  @IsNumber()
+  @IsNotEmpty()
+  pax2_3: number;
+
+  @IsNotEmpty()
+  @IsNumber()
+  pax4_6: number;
+
+  @IsNotEmpty()
+  @IsNumber()
+  pax7_18: number;
+
+  @IsNotEmpty()
+  @IsNumber()
+  pax20_more: number;
+}
+
+class DeparturesPricingDto {
+  @IsString()
+  @IsNotEmpty()
+  startDate: string;
+
+  @IsOptional()
+  @IsString()
+  endDate: string;
+
+  @IsNumber()
+  @IsNotEmpty()
+  maxPerson: number;
+
+  @IsNumber()
+  @IsNotEmpty()
+  price: number;
+}

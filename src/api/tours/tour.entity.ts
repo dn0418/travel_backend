@@ -7,7 +7,6 @@ import { Destinations } from './destinations/destination.entity';
 import { IndividualPricing } from './individual-pricing/individual-pricing.entity';
 import { Routes } from './routes/route.entity';
 import { TourServices } from './tour-services/tour-service.entity';
-import { TourType } from './tour-type/tour-type.entity';
 
 @Entity()
 export class Tours extends CommonEntity {
@@ -26,8 +25,8 @@ export class Tours extends CommonEntity {
   @Column()
   bestTime: string;
 
-  @ManyToOne(() => TourType, (tourType) => tourType.id)
-  tourType: TourType;
+  @Column()
+  type: string;
 
   @Column('text')
   shortDescription: string;
@@ -35,7 +34,7 @@ export class Tours extends CommonEntity {
   @Column('text')
   longDescription: string;
 
-  @Column()
+  @Column({ default: true })
   freeCancelation: boolean;
 
   @Column()
@@ -70,4 +69,4 @@ export class Tours extends CommonEntity {
 
   @OneToMany(() => DeparturesPricing, (departuresPricing) => departuresPricing.tour)
   departuresPricing: DeparturesPricing[];
-}
+};
