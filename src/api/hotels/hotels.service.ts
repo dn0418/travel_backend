@@ -113,7 +113,7 @@ export class HotelsService {
   async findOne(id: number) {
     const hotel = await this.hotelsRepository.findOne({
       where: { id },
-      relations: ["images", "reviews", "type"]
+      relations: ["images", "pricingTable", "type"]
     });
 
     if (!hotel) {
@@ -134,7 +134,20 @@ export class HotelsService {
   }
 
   async remove(id: number) {
-    return `This action removes a #${id} hotel`;
+    const findHotel = await this.hotelsRepository.findOne({ where: { id: id } });
+    if (!findHotel) {
+      return {
+        statusCode: 404,
+        message: 'Hotel not found',
+      }
+    }
+
+    await this.hotelsRepository.remove(findHotel);
+
+    return {
+      statusCode: 200,
+      message: 'Hotel deleted successfully',
+    }
   }
 
   async findOneById(id: number) {

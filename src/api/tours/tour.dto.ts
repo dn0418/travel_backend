@@ -21,9 +21,17 @@ export class CreateTourDto {
   @IsString()
   bestTime: string;
 
+  @IsOptional()
+  @IsString()
+  date: string;
+
   @IsNotEmpty()
   @IsString()
-  type: string;
+  mainList: string;
+
+  @IsNotEmpty()
+  @IsString()
+  childList: string;
 
   @IsNotEmpty()
   @IsString()
@@ -102,7 +110,15 @@ export class UpdateTourDto {
 
   @IsOptional()
   @IsString()
-  type: string;
+  date: string;
+
+  @IsOptional()
+  @IsString()
+  mainList: string;
+
+  @IsOptional()
+  @IsString()
+  childList: string;
 
   @IsOptional()
   @IsString()
@@ -145,7 +161,7 @@ class RouteDto {
 
   @IsString()
   @IsNotEmpty()
-  length: string;
+  distance: string;
 
   @IsString()
   @IsNotEmpty()

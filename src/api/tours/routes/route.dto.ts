@@ -20,7 +20,7 @@ export class CreateRouteDto {
 
   @IsString()
   @IsNotEmpty()
-  length: string;
+  distance: string;
 
   @IsString()
   @IsNotEmpty()
@@ -46,7 +46,7 @@ export class UpdateRouteDto {
 
   @IsOptional()
   @IsString()
-  length: string;
+  distance: string;
 
   @IsOptional()
   @IsString()

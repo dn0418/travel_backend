@@ -15,7 +15,7 @@ export class Routes extends CommonEntity {
   time: string;
 
   @Column()
-  length: string;
+  distance: string;
 
   @Column()
   meals: string;

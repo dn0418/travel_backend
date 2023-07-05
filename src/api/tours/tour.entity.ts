@@ -25,8 +25,14 @@ export class Tours extends CommonEntity {
   @Column()
   bestTime: string;
 
+  @Column({ nullable: true })
+  date: string;
+
   @Column()
-  type: string;
+  mainList: string;
+
+  @Column()
+  childList: string;
 
   @Column('text')
   shortDescription: string;

@@ -60,24 +60,24 @@ export class ToursService {
     const tour = await this.toursRepository.save(newTour);
 
     if (includesServices.length > 0) {
-      includesServices.map(async (service) => {
+      includesServices.forEach(async (service) => {
         const newService = this.servicesRepository.create({
           text: service,
           tour: tour,
           type: 'include'
         });
-        await this.servicesRepository.save(newService);
+        return await this.servicesRepository.save(newService);
       })
     }
 
     if (excludeServices.length > 0) {
-      excludeServices.map(async (service) => {
+      excludeServices.forEach(async (service) => {
         const newService = this.servicesRepository.create({
           text: service,
           tour: tour,
           type: 'exclude'
         });
-        await this.servicesRepository.save(newService);
+        return await this.servicesRepository.save(newService);
       })
     }
 
@@ -123,8 +123,6 @@ export class ToursService {
       data: tour
     }
   }
-
-
 
   // Find All Tours
   async findAll(page: number, limit: number) {
