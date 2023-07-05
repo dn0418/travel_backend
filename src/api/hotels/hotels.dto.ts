@@ -56,5 +56,25 @@ export class CreateHotelDto {
   @IsArray()
   @IsOptional()
   images: Array<string>;
+
+  @IsArray()
+  @IsOptional()
+  pricingData: Array<PricingTableDto>;
 }
 export class UpdateHotelDto { }
+
+
+
+class PricingTableDto {
+  @IsString()
+  @IsNotEmpty()
+  name: string;
+
+  @IsNumber()
+  @IsNotEmpty()
+  firstPart: number;
+
+  @IsNumber()
+  @IsNotEmpty()
+  lastPart: number;
+}

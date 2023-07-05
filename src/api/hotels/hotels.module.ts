@@ -7,14 +7,17 @@ import { HotelTypeService } from './hotel-type/hotel-type.service';
 import { Hotels } from './hotel.entity';
 import { HotelsController } from './hotels.controller';
 import { HotelsService } from './hotels.service';
+import { PricingTableController } from './pricing-table/pricing-table.controller';
+import { PricingTable } from './pricing-table/pricing-table.entity';
+import { PricingTableService } from './pricing-table/pricing-table.service';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Hotels, HotelType]),
+    TypeOrmModule.forFeature([Hotels, HotelType, PricingTable]),
     ImagesModule,
   ],
-  controllers: [HotelsController, HotelTypeController],
-  providers: [HotelsService, HotelTypeService],
+  controllers: [HotelsController, HotelTypeController, PricingTableController],
+  providers: [HotelsService, HotelTypeService, PricingTableService],
   exports: [HotelsService]
 })
 

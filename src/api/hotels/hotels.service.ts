@@ -5,29 +5,42 @@ import { ImagesService } from '../images/images.service';
 import { HotelTypeService } from './hotel-type/hotel-type.service';
 import { Hotels } from './hotel.entity';
 import { CreateHotelDto, UpdateHotelDto } from './hotels.dto';
+import { PricingTable } from './pricing-table/pricing-table.entity';
 
 @Injectable()
 export class HotelsService {
   constructor(
     @InjectRepository(Hotels)
     private readonly hotelsRepository: Repository<Hotels>,
+
+    @InjectRepository(PricingTable)
+    private readonly pricingRepository: Repository<PricingTable>,
+
     private readonly imageRepository: ImagesService,
     private readonly hotelTypeRepository: HotelTypeService,
   ) { }
 
   async create(createHotelDto: CreateHotelDto) {
-    const { images, type, ...hotelsData } = createHotelDto;
+    const { images, pricingData, type, ...hotelsData } = createHotelDto;
     const hotelType = await this.hotelTypeRepository.findHotelTypeByHotelId(type);
     const newHotel = this.hotelsRepository.create(hotelsData);
 
     if (hotelType) {
       newHotel.type = hotelType;
     }
-    await this.hotelsRepository.save(newHotel);
+
+    const hotel = await this.hotelsRepository.save(newHotel);
 
     if (images.length > 0) {
       images.forEach(async (image) => {
-        await this.imageRepository.addHotelImage(image, newHotel);
+        await this.imageRepository.addHotelImage(image, hotel);
+      })
+    }
+
+    if (pricingData.length > 0) {
+      pricingData.forEach(async (pricing) => {
+        const newPricing = this.pricingRepository.create({ ...pricing, hotel: hotel });
+        await this.pricingRepository.save(newPricing);
       })
     }
 

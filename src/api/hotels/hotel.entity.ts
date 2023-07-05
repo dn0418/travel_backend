@@ -3,6 +3,7 @@ import { Reviews } from "src/api/reviews/review.entity";
 import { CommonEntity } from "src/common/common.entity";
 import { Column, Entity, ManyToOne, OneToMany } from "typeorm";
 import { HotelType } from "./hotel-type/hotel-type.entity";
+import { PricingTable } from "./pricing-table/pricing-table.entity";
 
 @Entity()
 export class Hotels extends CommonEntity {
@@ -47,6 +48,9 @@ export class Hotels extends CommonEntity {
 
   @OneToMany(() => Reviews, (review) => review.hotel)
   reviews: Reviews[];
+
+  @OneToMany(() => PricingTable, (pricingTable) => pricingTable.hotel)
+  pricingTable: PricingTable[];
 
   @OneToMany(() => Images, (image) => image.hotel)
   images: Images[];
