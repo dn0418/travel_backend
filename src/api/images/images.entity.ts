@@ -1,6 +1,7 @@
 import { Hotels } from "src/api/hotels/hotel.entity";
 import { CommonEntity } from "src/common/common.entity";
 import { Column, Entity, ManyToOne } from "typeorm";
+import { ThingToSee } from "../thing-to-see/thing-to-see.entity";
 import { TourAccessory } from "../tour-accessories/tour-accessory.entity";
 import { Tours } from "../tours/tour.entity";
 
@@ -17,4 +18,7 @@ export class Images extends CommonEntity {
 
   @ManyToOne(() => TourAccessory, (accessory) => accessory.images)
   accessory: TourAccessory;
+
+  @ManyToOne(() => ThingToSee, (thingToSee) => thingToSee.images)
+  thingToSee: ThingToSee;
 }
