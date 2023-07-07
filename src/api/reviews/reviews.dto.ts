@@ -52,6 +52,10 @@ export class CreateReviewDto {
   @IsNumber()
   @IsOptional()
   thingToSeeId: number;
+
+  @IsNumber()
+  @IsOptional()
+  thingToDoId: number;
 }
 
 export class UpdateReviewDto {

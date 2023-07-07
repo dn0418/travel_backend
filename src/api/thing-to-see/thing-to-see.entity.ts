@@ -41,6 +41,6 @@ export class ThingToSee extends CommonEntity {
   @OneToMany(() => Images, (image) => image.thingToSee)
   images: Images[];
 
-  @OneToMany(() => Reviews, (review) => review.hotel)
+  @OneToMany(() => Reviews, (review) => review.thingToSee)
   reviews: Reviews[];
 }

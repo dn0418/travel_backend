@@ -32,6 +32,15 @@ export class ImagesService {
 
   }
 
+  addThingToDoImage(image: string, thing) {
+    const newImage = this.imagesRepository.create({
+      url: image,
+      thingToDo: thing
+    });
+    return this.imagesRepository.save(newImage);
+
+  }
+
   async addTourImage(image: string, tour) {
     const newImage = this.imagesRepository.create({
       url: image,

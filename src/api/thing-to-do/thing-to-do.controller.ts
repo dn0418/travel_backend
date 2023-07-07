@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
 import { CreateThingToDoDto, UpdateThingToDoDto } from './thing-to-do.dto';
 import { ThingToDoService } from './thing-to-do.service';
 
@@ -12,8 +12,13 @@ export class ThingToDoController {
   }
 
   @Get()
-  findAll() {
-    return this.thingToDoService.findAll();
+  findAll(
+    @Query("type") type?: string,
+    @Query('page') page?: string,
+    @Query('limit') limit?: string,
+    @Query('search') searchQuery?: string,
+  ) {
+    return this.thingToDoService.findAll(type, +page || 1, +limit || 6, searchQuery);
   }
 
   @Get(':id')

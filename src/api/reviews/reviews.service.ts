@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CarsService } from '../cars/cars.service';
 import { HotelsService } from '../hotels/hotels.service';
+import { ThingToDoService } from '../thing-to-do/thing-to-do.service';
 import { ThingToSeeService } from '../thing-to-see/thing-to-see.service';
 import { TourAccessoriesService } from '../tour-accessories/tour-accessories.service';
 import { ToursService } from '../tours/tours.service';
@@ -18,13 +19,14 @@ export class ReviewsService {
     private readonly hotelRepository: HotelsService,
     private readonly tourAccessoryRepository: TourAccessoriesService,
     private readonly thingToSeeRepository: ThingToSeeService,
+    private readonly thingToDoRepository: ThingToDoService,
 
     @InjectRepository(Reviews)
     private readonly reviewsRepository: Repository<Reviews>,
   ) { }
 
   async create(createReviewDto: CreateReviewDto) {
-    const { tourId, carId, hotelId, accessoryId, thingToSeeId, ...reviews } = createReviewDto;
+    const { tourId, carId, hotelId, accessoryId, thingToSeeId, thingToDoId, ...reviews } = createReviewDto;
 
     let relations = {}
 
@@ -73,6 +75,15 @@ export class ReviewsService {
         };
       }
       relations['thingToSee'] = findThing;
+    } else if (thingToDoId) {
+      const findThing = await this.thingToDoRepository.findById(thingToDoId);
+      if (!findThing) {
+        return {
+          statustatusCode: 404,
+          message: 'Could not find thing to see'
+        };
+      }
+      relations['thingToDo'] = findThing;
     }
 
     const newReview = this.reviewsRepository.create({
