@@ -292,6 +292,35 @@ export class ReviewsService {
     };
   }
 
+  async findThingToDoReview(thingId: number) {
+    const [reviews, total] = await this.reviewsRepository.findAndCount({
+      where: {
+        thingToDo: {
+          id: thingId
+        },
+        isActive: true
+      }
+    });
+
+    let avarage = reviews.reduce((acc, review) => acc + review.rating, 0) / total;
+
+    if (Number.isNaN(avarage)) {
+      avarage = 0;
+    } else {
+      avarage = parseInt(avarage.toFixed(1));
+    }
+
+    return {
+      message: 'Reviews found successfully',
+      data: reviews,
+      statusCode: 200,
+      meta: {
+        total: total,
+        avarage: avarage,
+      }
+    };
+  }
+
   async makeReviewActive(reviewId: number) {
     const review = await this.reviewsRepository.findOne({ where: { id: reviewId } });
     if (!review) {
