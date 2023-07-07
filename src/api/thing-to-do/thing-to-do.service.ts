@@ -20,7 +20,7 @@ export class ThingToDoService {
 
     if (images.length > 0) {
       images.forEach(async (image) => {
-        await this.imageRepository.addThingToDoImage(image, thingToDo);
+        await this.imageRepository.addFoodAndDrinksImage(image, thingToDo);
       })
     }
 

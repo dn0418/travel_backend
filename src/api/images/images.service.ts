@@ -41,6 +41,14 @@ export class ImagesService {
 
   }
 
+  addFoodAndDrinksImage(image: string, foodAndDrinks) {
+    const newImage = this.imagesRepository.create({
+      url: image,
+      foodAndDrink: foodAndDrinks
+    });
+    return this.imagesRepository.save(newImage);
+  }
+
   async addTourImage(image: string, tour) {
     const newImage = this.imagesRepository.create({
       url: image,

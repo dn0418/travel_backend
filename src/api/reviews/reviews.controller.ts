@@ -56,6 +56,11 @@ export class ReviewsController {
     return this.reviewsService.findThingToDoReview(+id);
   }
 
+  @Get('food-and-drink/:id')
+  findFoodAndDrinksReview(@Param('id') id: string) {
+    return this.reviewsService.findFoodAndDrinksReview(+id);
+  }
+
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateReviewDto: UpdateReviewDto) {
     return this.reviewsService.update(+id, updateReviewDto);

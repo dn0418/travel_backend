@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
 import { CreateFoodAndDrinkDto, UpdateFoodAndDrinkDto } from './food-and-drink.dto';
 import { FoodAndDrinksService } from './food-and-drinks.service';
 
@@ -12,8 +12,13 @@ export class FoodAndDrinksController {
   }
 
   @Get()
-  findAll() {
-    return this.foodAndDrinksService.findAll();
+  findAll(
+    @Query("type") type?: string,
+    @Query('page') page?: string,
+    @Query('limit') limit?: string,
+    @Query('search') searchQuery?: string,
+  ) {
+    return this.foodAndDrinksService.findAll(type, +page || 1, +limit || 6, searchQuery);
   }
 
   @Get(':id')

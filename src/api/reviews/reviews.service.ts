@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CarsService } from '../cars/cars.service';
+import { FoodAndDrinksService } from '../food-and-drinks/food-and-drinks.service';
 import { HotelsService } from '../hotels/hotels.service';
 import { ThingToDoService } from '../thing-to-do/thing-to-do.service';
 import { ThingToSeeService } from '../thing-to-see/thing-to-see.service';
@@ -20,13 +21,23 @@ export class ReviewsService {
     private readonly tourAccessoryRepository: TourAccessoriesService,
     private readonly thingToSeeRepository: ThingToSeeService,
     private readonly thingToDoRepository: ThingToDoService,
+    private readonly foodDrinksRepository: FoodAndDrinksService,
 
     @InjectRepository(Reviews)
     private readonly reviewsRepository: Repository<Reviews>,
   ) { }
 
   async create(createReviewDto: CreateReviewDto) {
-    const { tourId, carId, hotelId, accessoryId, thingToSeeId, thingToDoId, ...reviews } = createReviewDto;
+    const {
+      tourId,
+      carId,
+      hotelId,
+      accessoryId,
+      thingToSeeId,
+      thingToDoId,
+      foodAndDrinkId,
+      ...reviews
+    } = createReviewDto;
 
     let relations = {}
 
@@ -84,6 +95,15 @@ export class ReviewsService {
         };
       }
       relations['thingToDo'] = findThing;
+    } else if (foodAndDrinkId) {
+      const foodAndDrink = await this.foodDrinksRepository.findById(foodAndDrinkId);
+      if (!foodAndDrink) {
+        return {
+          statustatusCode: 404,
+          message: 'Could not find food and drink'
+        };
+      }
+      relations['foodAndDrink'] = foodAndDrink;
     }
 
     const newReview = this.reviewsRepository.create({
@@ -297,6 +317,35 @@ export class ReviewsService {
       where: {
         thingToDo: {
           id: thingId
+        },
+        isActive: true
+      }
+    });
+
+    let avarage = reviews.reduce((acc, review) => acc + review.rating, 0) / total;
+
+    if (Number.isNaN(avarage)) {
+      avarage = 0;
+    } else {
+      avarage = parseInt(avarage.toFixed(1));
+    }
+
+    return {
+      message: 'Reviews found successfully',
+      data: reviews,
+      statusCode: 200,
+      meta: {
+        total: total,
+        avarage: avarage,
+      }
+    };
+  }
+
+  async findFoodAndDrinksReview(foodId: number) {
+    const [reviews, total] = await this.reviewsRepository.findAndCount({
+      where: {
+        foodAndDrink: {
+          id: foodId
         },
         isActive: true
       }

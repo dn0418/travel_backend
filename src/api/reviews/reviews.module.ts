@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CarsModule } from '../cars/cars.module';
+import { FoodAndDrinksModule } from '../food-and-drinks/food-and-drinks.module';
 import { HotelsModule } from '../hotels/hotels.module';
 import { ThingToDoModule } from '../thing-to-do/thing-to-do.module';
 import { ThingToSeeModule } from '../thing-to-see/thing-to-see.module';
@@ -19,7 +20,8 @@ import { ReviewsService } from './reviews.service';
     HotelsModule,
     TourAccessoriesModule,
     ThingToSeeModule,
-    ThingToDoModule
+    ThingToDoModule,
+    FoodAndDrinksModule
   ],
   controllers: [ReviewsController],
   providers: [ReviewsService]
