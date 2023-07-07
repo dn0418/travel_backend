@@ -48,6 +48,10 @@ export class CreateReviewDto {
   @IsNumber()
   @IsOptional()
   accessoryId: number;
+
+  @IsNumber()
+  @IsOptional()
+  thingToSeeId: number;
 }
 
 export class UpdateReviewDto {

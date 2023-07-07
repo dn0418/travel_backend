@@ -8,6 +8,7 @@ import { ThingToSeeService } from './thing-to-see.service';
 @Module({
   imports: [TypeOrmModule.forFeature([ThingToSee]), ImagesModule],
   controllers: [ThingToSeeController],
-  providers: [ThingToSeeService]
+  providers: [ThingToSeeService],
+  exports: [ThingToSeeService]
 })
 export class ThingToSeeModule { }

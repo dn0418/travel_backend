@@ -140,4 +140,8 @@ export class ThingToSeeService {
       message: 'Thing to see deleted successfully'
     }
   }
+
+  async findById(id: number) {
+    return this.thingToSeeRepository.findOne({ where: { id: id } })
+  }
 }

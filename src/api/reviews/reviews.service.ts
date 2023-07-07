@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CarsService } from '../cars/cars.service';
 import { HotelsService } from '../hotels/hotels.service';
+import { ThingToSeeService } from '../thing-to-see/thing-to-see.service';
 import { TourAccessoriesService } from '../tour-accessories/tour-accessories.service';
 import { ToursService } from '../tours/tours.service';
 import { Reviews } from './review.entity';
@@ -16,13 +17,14 @@ export class ReviewsService {
     private readonly carsRepository: CarsService,
     private readonly hotelRepository: HotelsService,
     private readonly tourAccessoryRepository: TourAccessoriesService,
+    private readonly thingToSeeRepository: ThingToSeeService,
 
     @InjectRepository(Reviews)
     private readonly reviewsRepository: Repository<Reviews>,
   ) { }
 
   async create(createReviewDto: CreateReviewDto) {
-    const { tourId, carId, hotelId, accessoryId, ...reviews } = createReviewDto;
+    const { tourId, carId, hotelId, accessoryId, thingToSeeId, ...reviews } = createReviewDto;
 
     let relations = {}
 
@@ -62,6 +64,15 @@ export class ReviewsService {
         }
       }
       relations['accessory'] = findAccessory;
+    } else if (thingToSeeId) {
+      const findThing = await this.thingToSeeRepository.findById(thingToSeeId);
+      if (!findThing) {
+        return {
+          statustatusCode: 404,
+          message: 'Could not find thing to see'
+        };
+      }
+      relations['thingToSee'] = findThing;
     }
 
     const newReview = this.reviewsRepository.create({
@@ -217,6 +228,35 @@ export class ReviewsService {
       where: {
         accessory: {
           id: accessoriesId
+        },
+        isActive: true
+      }
+    });
+
+    let avarage = reviews.reduce((acc, review) => acc + review.rating, 0) / total;
+
+    if (Number.isNaN(avarage)) {
+      avarage = 0;
+    } else {
+      avarage = parseInt(avarage.toFixed(1));
+    }
+
+    return {
+      message: 'Reviews found successfully',
+      data: reviews,
+      statusCode: 200,
+      meta: {
+        total: total,
+        avarage: avarage,
+      }
+    };
+  }
+
+  async findThingToSeeReview(thingId: number) {
+    const [reviews, total] = await this.reviewsRepository.findAndCount({
+      where: {
+        thingToSee: {
+          id: thingId
         },
         isActive: true
       }
