@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectConnection, InjectRepository } from '@nestjs/typeorm';
-import { Connection, Repository } from 'typeorm';
+import { Connection, Like, Repository } from 'typeorm';
 import { ImagesService } from '../images/images.service';
 import { DeparturesPricing } from './departures-pricing/departures-pricing.entity';
 import { DestinationsService } from './destinations/destinations.service';
@@ -125,47 +125,77 @@ export class ToursService {
   }
 
   // Find All Tours
-  async findAll(page: number, limit: number) {
-    const offset = (page - 1) * limit;
+  async findAll(
+    type: string,
+    page: number,
+    limit: number,
+    searchQuery: string,
+    destination: string,
+    days: string,
+    month: string,
+  ) {
+    let conditions = {}
 
-    const countQuery = `SELECT COUNT(*) AS total FROM tours`;
+    if (type) {
+      conditions['mainList'] = type;
+    }
 
-    const query = `
-    SELECT
-      tours.*,
-      AVG(reviews.rating) AS reviewsRating,
-      COUNT(reviews.id) AS reviewsQuantity
-    FROM
-      tours
-    LEFT JOIN
-      reviews ON tours.id = reviews.tourId
-    GROUP BY
-      tours.id
-    LIMIT
-      ${limit}
-    OFFSET
-      ${offset}
-  `;
+    if (days) {
+      conditions = {
+        ...conditions,
+        dayLength: parseInt(days)
+      }
+    }
 
-    const [countResult, tours] = await Promise.all([
-      this.connection.query(countQuery),
-      this.connection.query(query),
-    ]);
+    if (destination) {
+      conditions['destination'] = { id: parseInt(destination) };
+    }
 
-    const total = countResult[0].total;
-    const totalPages = Math.ceil(total / limit);
+    if (searchQuery) {
+      conditions = {
+        ...conditions,
+        title: Like(`%${searchQuery}%`),
+      };
+    }
+
+    if (month) {
+      conditions = {
+        ...conditions,
+        bestTime: Like(`%${month}%`),
+      };
+    }
+
+    const skip = (+page - 1) * +limit;
+
+    const [tours, totalCount] = await this.toursRepository.findAndCount({
+      where: conditions,
+      skip,
+      take: +limit,
+      relations: ["reviews"],
+    });
+
+    const totalPages = Math.ceil(totalCount / +limit);
+
+    // Calculate average rating for each hotel
+    const toursWithAvgRating = tours.map((tour) => {
+      const ratings = tour.reviews.map((review) => review.rating);
+      const totalRating = ratings.reduce((sum, rating) => sum + rating, 0);
+      const averageRating = totalRating / ratings.length;
+      return { ...tour, rating: averageRating };
+    });
 
     return {
       statusCode: 200,
-      data: {
-        tours,
-        total,
+      message: 'Tours retrieved successfully',
+      data: toursWithAvgRating,
+      meta: {
+        page,
+        limit,
+        totalCount,
         totalPages,
       },
-    };
+    }
   }
-
-
 
   // Find Tour By Id
   async findOne(id: number) {

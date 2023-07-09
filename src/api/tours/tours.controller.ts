@@ -13,8 +13,24 @@ export class ToursController {
   }
 
   @Get()
-  findAll(@Query('page') page: number, @Query('limit') limit: number) {
-    return this.toursService.findAll(+page || 1, +limit || 10);
+  findAll(
+    @Query("type") type?: string,
+    @Query('page') page?: string,
+    @Query('limit') limit?: string,
+    @Query('destination') destination?: string,
+    @Query('days') days?: string,
+    @Query('month') month?: string,
+    @Query('search') searchQuery?: string,
+  ) {
+    return this.toursService.findAll(
+      type,
+      +page || 1,
+      +limit || 6,
+      searchQuery,
+      destination,
+      days,
+      month,
+    );
   }
 
   @Get(':id')
