@@ -23,6 +23,14 @@ export class ImagesService {
     await this.imagesRepository.save(newImage);
   }
 
+  async addCarImage(image: string, car) {
+    const newImage = this.imagesRepository.create({
+      url: image,
+      car: car
+    });
+    await this.imagesRepository.save(newImage);
+  }
+
   addThingToSeeImage(image: string, thing) {
     const newImage = this.imagesRepository.create({
       url: image,

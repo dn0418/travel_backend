@@ -16,9 +16,8 @@ export class CarsController {
     @Query('page') page: number,
     @Query('limit') limit: number,
     @Query('search') searchQuery: string,
-    @Query('driver') driver: string
   ) {
-    return this.carsService.findAll(+page || 1, +limit || 6, driver || '', searchQuery || '');
+    return this.carsService.findAll(+page || 1, +limit || 6, searchQuery || '');
   }
 
   @Get(':id')

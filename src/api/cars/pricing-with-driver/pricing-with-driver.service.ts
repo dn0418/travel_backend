@@ -27,7 +27,7 @@ export class PricingWithDriverService {
       { where: { id: id } }
     );
 
-    pricingWithDriver.car = car;
+    // pricingWithDriver.car = car;
     await this.withDriverRepository.save(pricingWithDriver);
 
     return {

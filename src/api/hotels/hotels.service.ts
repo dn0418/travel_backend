@@ -69,7 +69,7 @@ export class HotelsService {
     }
 
     if (type) {
-      conditions['type'] = { id: +type };
+      conditions['type'] = { id: parseInt(type) };
     }
 
     if (searchQuery) {

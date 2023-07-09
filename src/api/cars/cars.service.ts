@@ -1,19 +1,42 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Like, Repository } from 'typeorm';
+import { ImagesService } from '../images/images.service';
 import { Car } from './car.entity';
 import { CreateCarDto, UpdateCarDto } from './cars.dto';
+import { PricingWithoutDriver } from './pricing-without-driver/pricing-without-driver.entity';
 
 @Injectable()
 export class CarsService {
   constructor(
     @InjectRepository(Car)
     private readonly carRepository: Repository<Car>,
+
+    @InjectRepository(PricingWithoutDriver)
+    private readonly pricingRepository: Repository<PricingWithoutDriver>,
+    private readonly imageRepository: ImagesService,
   ) { }
 
   async create(createCarDto: CreateCarDto) {
-    const car = this.carRepository.create(createCarDto);
-    await this.carRepository.save(car);
+    const { pricing, images, ...newData } = createCarDto;
+    const newCar = this.carRepository.create(newData);
+    const car = await this.carRepository.save(newCar);
+
+    if (images.length > 0) {
+      images.forEach(async (image) => {
+        await this.imageRepository.addCarImage(image, car);
+      })
+    }
+
+    if (pricing.length > 0) {
+      pricing.forEach(async (pricing) => {
+        const newPricing = this.pricingRepository.create({
+          ...pricing,
+          car: car,
+        });
+        await this.pricingRepository.save(newPricing);
+      });
+    }
 
     return {
       statusCode: 201,
@@ -22,14 +45,8 @@ export class CarsService {
     }
   }
 
-  async findAll(page: number, limit: number, driver: string, searchQuery?: string) {
+  async findAll(page: number, limit: number, searchQuery?: string) {
     let conditions = {}
-
-    if (driver === 'true') {
-      conditions = { isDriver: true }
-    } else if (driver === 'false') {
-      conditions = { isDriver: false }
-    }
 
     if (searchQuery) {
       conditions = {
@@ -43,27 +60,36 @@ export class CarsService {
       where: conditions,
       skip,
       take: limit,
+      relations: ['reviews']
     });
 
-    const totalPages = Math.ceil(totalCount / limit);
+    const totalPages = Math.ceil(totalCount / +limit);
+
+    // Calculate average rating for each hotel
+    const carsWithAvgRating = cars.map((car) => {
+      const ratings = car.reviews.map((review) => review.rating);
+      const totalRating = ratings.reduce((sum, rating) => sum + rating, 0);
+      const averageRating = totalRating / ratings.length;
+      return { ...car, rating: averageRating };
+    });
 
     return {
       statusCode: 200,
       message: 'Cars retrieved successfully',
-      data: cars,
+      data: carsWithAvgRating,
       meta: {
         page,
         limit,
         totalCount,
         totalPages,
       },
-    };
+    }
   }
 
   async findOne(id: number) {
     const car = await this.carRepository.findOne({
       where: { id },
-      relations: ['reviews']
+      relations: ['reviews', "priceWithoutDriver", "images"]
     });
 
     if (car) {
@@ -88,12 +114,40 @@ export class CarsService {
   }
 
   async update(id: number, updateCarDto: UpdateCarDto) {
-    return `This action updates a #${id} car`;
+    const findCar = await this.carRepository.findOne({ where: { id } });
+    if (!findCar) {
+      return {
+        statusCode: 400,
+        message: 'Car not found',
+      }
+    }
+
+    const updateCar = await this.carRepository.save({
+      ...findCar,
+      ...updateCarDto,
+    });
+
+    return {
+      statusCode: 200,
+      message: 'Car updated successfully',
+      data: updateCar,
+    }
   }
 
+
   async remove(id: number) {
-    const car = await this.carRepository.findOne({ where: { id } });
+    const car = await this.carRepository.findOne({
+      where: { id },
+      relations: ["priceWithoutDriver"]
+    });
+
     if (car) {
+      if (car.priceWithoutDriver.length > 0) {
+        car.priceWithoutDriver.forEach(async (price) => {
+          await this.pricingRepository.delete(price.id);
+        })
+      }
+
       await this.carRepository.delete(id);
       return {
         statusCode: 200,
