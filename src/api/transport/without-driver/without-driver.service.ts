@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Like, Repository } from 'typeorm';
 import { ImagesService } from '../../images/images.service';
-import { PricingWithoutDriver } from '../pricing-without-driver/pricing-without-driver.entity';
+import { PricingWithoutDriver } from './pricing-without-driver.entity';
 import {
   CreateCarDto,
   CreatePricingWithoutDriverDto,

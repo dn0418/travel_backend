@@ -1,6 +1,6 @@
 import { CommonEntity } from "src/common/common.entity";
 import { Column, Entity, ManyToOne } from "typeorm";
-import { Car } from "../without-driver/without-driver.entity";
+import { Car } from "./without-driver.entity";
 
 @Entity()
 export class PricingWithoutDriver extends CommonEntity {

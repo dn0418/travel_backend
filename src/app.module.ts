@@ -30,7 +30,7 @@ import { DatabaseConfig } from './config/db.config';
     ThingToDoModule,
     ThingToSeeModule,
     FoodAndDrinksModule,
-    TransportModule
+    TransportModule,
   ],
   controllers: [AppController],
   providers: [AppService],

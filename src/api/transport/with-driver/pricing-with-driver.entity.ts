@@ -1,5 +1,6 @@
 import { CommonEntity } from "src/common/common.entity";
-import { Column, Entity } from "typeorm";
+import { Column, Entity, ManyToOne } from "typeorm";
+import { WithDriver } from "./with-driver.entity";
 
 @Entity()
 export class PricingWithDriver extends CommonEntity {
@@ -8,4 +9,7 @@ export class PricingWithDriver extends CommonEntity {
 
   @Column()
   price: number;
+
+  @ManyToOne(() => WithDriver, (car) => car.pricing)
+  car: WithDriver;
 }
