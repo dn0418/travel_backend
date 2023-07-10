@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
 import { CreateNewPricingWithDriverDto, CreateWithDriverDto, UpdateWithDriverDto } from './with-driver.dto';
 import { WithDriverService } from './with-driver.service';
 
@@ -14,6 +14,11 @@ export class WithDriverController {
   @Post('pricing/create')
   createNewPrice(@Body() createPriceDto: CreateNewPricingWithDriverDto) {
     return this.withDriverService.createNewPrice(createPriceDto);
+  }
+
+  @Delete('pricing/delete/:id')
+  deletePrice(@Param('id') id: string) {
+    return this.withDriverService.deletePrice(+id);
   }
 
   @Get()

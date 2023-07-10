@@ -16,6 +16,11 @@ export class CarsController {
     return this.carsService.createNewPrice(createPriceDto);
   }
 
+  @Delete('pricing/delete/:id')
+  deletePrice(@Param('id') id: string) {
+    return this.carsService.deletePrice(+id);
+  }
+
   @Get()
   findAll(
     @Query('page') page: number,

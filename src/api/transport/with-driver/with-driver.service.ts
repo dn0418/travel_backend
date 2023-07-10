@@ -78,6 +78,23 @@ export class WithDriverService {
     }
   }
 
+  async deletePrice(id: number) {
+    const findPrice = await this.pricingRepository.findOne({ where: { id } });
+    if (!findPrice) {
+      return {
+        statusCode: 400,
+        message: 'Pricing with driver not found',
+      }
+    }
+
+    await this.pricingRepository.delete(id);
+
+    return {
+      statusCode: 200,
+      message: 'Pricing with driver deleted successfully',
+    }
+  }
+
   async findAll() {
     const data = await this.carWithDriverRepository.find();
     return {
