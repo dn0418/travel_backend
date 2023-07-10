@@ -1,8 +1,8 @@
 import { Reviews } from "src/api/reviews/review.entity";
 import { CommonEntity } from "src/common/common.entity";
 import { Column, Entity, OneToMany } from "typeorm";
-import { Images } from "../images/images.entity";
-import { PricingWithoutDriver } from "./pricing-without-driver/pricing-without-driver.entity";
+import { Images } from "../../images/images.entity";
+import { PricingWithoutDriver } from "../pricing-without-driver/pricing-without-driver.entity";
 
 @Entity()
 export class Car extends CommonEntity {

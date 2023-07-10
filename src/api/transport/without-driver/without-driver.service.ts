@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Like, Repository } from 'typeorm';
-import { ImagesService } from '../images/images.service';
-import { Car } from './car.entity';
-import { CreateCarDto, UpdateCarDto } from './cars.dto';
-import { PricingWithoutDriver } from './pricing-without-driver/pricing-without-driver.entity';
+import { ImagesService } from '../../images/images.service';
+import { PricingWithoutDriver } from '../pricing-without-driver/pricing-without-driver.entity';
+import { CreateCarDto, UpdateCarDto } from './without-driver.dto';
+import { Car } from './without-driver.entity';
 
 @Injectable()
 export class CarsService {
