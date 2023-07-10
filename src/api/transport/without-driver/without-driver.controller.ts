@@ -1,14 +1,19 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
-import { CreateCarDto, UpdateCarDto } from './without-driver.dto';
+import { CreateCarDto, CreatePricingWithoutDriverDto, UpdateCarDto } from './without-driver.dto';
 import { CarsService } from './without-driver.service';
 
-@Controller('cars')
+@Controller('without-driver')
 export class CarsController {
   constructor(private readonly carsService: CarsService) { }
 
   @Post('create')
   create(@Body() createCarDto: CreateCarDto) {
     return this.carsService.create(createCarDto);
+  }
+
+  @Post('pricing/create')
+  createNewPrice(@Body() createPriceDto: CreatePricingWithoutDriverDto) {
+    return this.carsService.createNewPrice(createPriceDto);
   }
 
   @Get()

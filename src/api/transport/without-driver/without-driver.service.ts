@@ -3,7 +3,11 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Like, Repository } from 'typeorm';
 import { ImagesService } from '../../images/images.service';
 import { PricingWithoutDriver } from '../pricing-without-driver/pricing-without-driver.entity';
-import { CreateCarDto, UpdateCarDto } from './without-driver.dto';
+import {
+  CreateCarDto,
+  CreatePricingWithoutDriverDto,
+  UpdateCarDto
+} from './without-driver.dto';
 import { Car } from './without-driver.entity';
 
 @Injectable()
@@ -14,6 +18,7 @@ export class CarsService {
 
     @InjectRepository(PricingWithoutDriver)
     private readonly pricingRepository: Repository<PricingWithoutDriver>,
+
     private readonly imageRepository: ImagesService,
   ) { }
 
@@ -42,6 +47,30 @@ export class CarsService {
       statusCode: 201,
       message: 'Car created successfully',
       data: car,
+    }
+  }
+
+  async createNewPrice(createDto: CreatePricingWithoutDriverDto) {
+    const { carId, ...newData } = createDto;
+    const car = await this.carRepository.findOne({
+      where: { id: carId }
+    });
+
+    if (!car) {
+      return {
+        statusCode: 404,
+        message: 'Car not found',
+      }
+    }
+
+    const newPricing = this.pricingRepository.create(newData);
+    newPricing.car = car;
+    await this.pricingRepository.save(newPricing);
+
+    return {
+      statusCode: 201,
+      message: 'Pricing without driver created successfully',
+      data: newPricing,
     }
   }
 
@@ -133,7 +162,6 @@ export class CarsService {
       data: updateCar,
     }
   }
-
 
   async remove(id: number) {
     const car = await this.carRepository.findOne({

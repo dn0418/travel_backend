@@ -114,3 +114,29 @@ class CreatePricingDto {
   @IsNumber()
   bus_35seat: number;
 }
+
+export class CreatePricingWithoutDriverDto {
+  @IsNotEmpty()
+  @IsString()
+  destination: string;
+
+  @IsOptional()
+  @IsNumber()
+  sedan_3seat: number;
+
+  @IsOptional()
+  @IsNumber()
+  minivan_7seat: number;
+
+  @IsOptional()
+  @IsNumber()
+  minibus_18seat: number;
+
+  @IsOptional()
+  @IsNumber()
+  bus_35seat: number;
+
+  @IsNumber()
+  @IsNotEmpty()
+  carId: number;
+}
