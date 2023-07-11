@@ -6,6 +6,7 @@ import { ThingToDo } from "../thing-to-do/thing-to-do.entity";
 import { ThingToSee } from "../thing-to-see/thing-to-see.entity";
 import { TourAccessory } from "../tour-accessories/tour-accessory.entity";
 import { Tours } from "../tours/tour.entity";
+import { AirportTransport } from "../transport/airport-transport/airport-transport.entity";
 import { WithDriver } from "../transport/with-driver/with-driver.entity";
 import { Car } from "../transport/without-driver/without-driver.entity";
 
@@ -37,4 +38,7 @@ export class Images extends CommonEntity {
 
   @ManyToOne(() => WithDriver, (withDriver) => withDriver.images)
   withDriver: WithDriver;
+
+  @ManyToOne(() => AirportTransport, (airportTransport) => airportTransport.images)
+  airportTransport: AirportTransport;
 }

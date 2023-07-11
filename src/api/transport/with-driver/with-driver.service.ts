@@ -96,7 +96,11 @@ export class WithDriverService {
   }
 
   async findAll() {
-    const data = await this.carWithDriverRepository.find();
+    const data = await this.carWithDriverRepository.find(
+      {
+        relations: ["pricing", "images"]
+      }
+    );
     return {
       statusCode: 200,
       data: data,

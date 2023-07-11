@@ -39,6 +39,14 @@ export class ImagesService {
     await this.imagesRepository.save(newImage);
   }
 
+  async addAirportTransportImage(image: string, transport) {
+    const newImage = this.imagesRepository.create({
+      url: image,
+      airportTransport: transport
+    });
+    await this.imagesRepository.save(newImage);
+  }
+
   addThingToSeeImage(image: string, thing) {
     const newImage = this.imagesRepository.create({
       url: image,
