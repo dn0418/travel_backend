@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
 import { CreateReviewDto, UpdateReviewDto } from './reviews.dto';
 import { ReviewsService } from './reviews.service';
 
@@ -16,9 +16,9 @@ export class ReviewsController {
     return this.reviewsService.findAll(page || 1, limit || 10);
   }
 
-  @Get('pending')
+  @Get('admin-reviews')
   findAllInactiveReviews(@Query('page') page: number, @Query('limit') limit: number) {
-    return this.reviewsService.findAllInactiveReviews(+page || 1, +limit || 10);
+    return this.reviewsService.findAllForAdmin(+page || 1, +limit || 10);
   }
 
   @Get('car/:id')
@@ -61,12 +61,12 @@ export class ReviewsController {
     return this.reviewsService.findFoodAndDrinksReview(+id);
   }
 
-  @Patch(':id')
+  @Put('update/:id')
   update(@Param('id') id: string, @Body() updateReviewDto: UpdateReviewDto) {
     return this.reviewsService.update(+id, updateReviewDto);
   }
 
-  @Delete(':id')
+  @Delete('delete/:id')
   remove(@Param('id') id: string) {
     return this.reviewsService.remove(+id);
   }

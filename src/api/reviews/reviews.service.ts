@@ -143,15 +143,14 @@ export class ReviewsService {
     };
   }
 
-  async findAllInactiveReviews(page: number, limit: number) {
+  async findAllForAdmin(page: number, limit: number) {
     const skip = (page - 1) * limit;
 
-    const [reviews, total] = await this.reviewsRepository.findAndCount({
-      where: { isActive: false },
+    const reviews = await this.reviewsRepository.find({
       skip,
       take: limit,
     });
-
+    const total = reviews.length;
     const totalPages = Math.ceil(total / limit);
 
     return {

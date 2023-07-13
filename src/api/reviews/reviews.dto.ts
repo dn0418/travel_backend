@@ -85,6 +85,10 @@ export class UpdateReviewDto {
 
   @IsOptional()
   @IsNumber()
+  id: number;
+
+  @IsOptional()
+  @IsNumber()
   rating: number;
 
   @IsOptional()
@@ -94,4 +98,12 @@ export class UpdateReviewDto {
   @IsOptional()
   @IsBoolean()
   isActive: boolean;
+
+  @IsOptional()
+  @IsString()
+  createdAt: string;
+
+  @IsOptional()
+  @IsString()
+  updatedAt: string;
 }
