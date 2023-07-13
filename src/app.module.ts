@@ -15,6 +15,7 @@ import { TransportModule } from './api/transport/transport.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { DatabaseConfig } from './config/db.config';
+import { MiceModule } from './api/mice/mice.module';
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { DatabaseConfig } from './config/db.config';
     ThingToSeeModule,
     FoodAndDrinksModule,
     TransportModule,
+    MiceModule,
   ],
   controllers: [AppController],
   providers: [AppService],
