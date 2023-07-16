@@ -7,6 +7,14 @@ export class CreateHotelDto {
 
   @IsString()
   @IsNotEmpty()
+  name_ru: string;
+
+  @IsString()
+  @IsNotEmpty()
+  name_hy: string;
+
+  @IsString()
+  @IsNotEmpty()
   thumbnail: string;
 
   @IsString()
@@ -27,7 +35,23 @@ export class CreateHotelDto {
 
   @IsString()
   @IsNotEmpty()
+  country_ru: string;
+
+  @IsString()
+  @IsNotEmpty()
+  country_hy: string;
+
+  @IsString()
+  @IsNotEmpty()
   city: string;
+
+  @IsString()
+  @IsNotEmpty()
+  city_ru: string;
+
+  @IsString()
+  @IsNotEmpty()
+  city_hy: string;
 
   @IsNumber()
   @IsNotEmpty()
@@ -51,7 +75,23 @@ export class CreateHotelDto {
 
   @IsString()
   @IsNotEmpty()
+  shortDescription_ru: string;
+
+  @IsString()
+  @IsNotEmpty()
+  shortDescription_hy: string;
+
+  @IsString()
+  @IsNotEmpty()
   longDescription: string;
+
+  @IsString()
+  @IsNotEmpty()
+  longDescription_ru: string;
+
+  @IsString()
+  @IsNotEmpty()
+  longDescription_hy: string;
 
   @IsArray()
   @IsOptional()
@@ -61,14 +101,112 @@ export class CreateHotelDto {
   @IsOptional()
   pricingData: Array<PricingTableDto>;
 }
-export class UpdateHotelDto { }
+export class UpdateHotelDto {
+  @IsOptional()
+  @IsString()
+  name: string;
 
+  @IsOptional()
+  @IsString()
+  name_ru: string;
 
+  @IsOptional()
+  @IsString()
+  name_hy: string;
+
+  @IsOptional()
+  @IsString()
+  thumbnail: string;
+
+  @IsOptional()
+  @IsString()
+  googleMap: string;
+
+  @IsOptional()
+  @IsNumber()
+  price: number;
+
+  @IsOptional()
+  @IsBoolean()
+  fromAirport: boolean;
+
+  @IsOptional()
+  @IsString()
+  country: string;
+
+  @IsOptional()
+  @IsString()
+  country_ru: string;
+
+  @IsOptional()
+  @IsString()
+  country_hy: string;
+
+  @IsOptional()
+  @IsString()
+  city: string;
+
+  @IsOptional()
+  @IsString()
+  city_ru: string;
+
+  @IsOptional()
+  @IsString()
+  city_hy: string;
+
+  @IsOptional()
+  @IsNumber()
+  type: number;
+
+  @IsOptional()
+  @IsBoolean()
+  freeCancellation: boolean;
+
+  @IsOptional()
+  @IsString()
+  checkInTime: string;
+
+  @IsOptional()
+  @IsString()
+  checkOutTime: string;
+
+  @IsOptional()
+  @IsString()
+  shortDescription: string;
+
+  @IsOptional()
+  @IsString()
+  shortDescription_ru: string;
+
+  @IsOptional()
+  @IsString()
+  shortDescription_hy: string;
+
+  @IsOptional()
+  @IsString()
+  longDescription: string;
+
+  @IsOptional()
+  @IsString()
+  longDescription_ru: string;
+
+  @IsOptional()
+  @IsString()
+  longDescription_hy: string;
+}
 
 class PricingTableDto {
+  @IsOptional()
   @IsString()
-  @IsNotEmpty()
   name: string;
+
+  @IsOptional()
+  @IsString()
+  name_ru: string;
+
+  @IsOptional()
+  @IsString()
+  name_hy: string;
 
   @IsNumber()
   @IsNotEmpty()

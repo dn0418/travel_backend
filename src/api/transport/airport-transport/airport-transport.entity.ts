@@ -7,6 +7,12 @@ export class AirportTransport extends CommonEntity {
   @Column('text')
   description: string;
 
-  @OneToMany(() => Images, (image) => image.withDriver)
+  @Column('text')
+  description_hy: string;
+
+  @Column('text')
+  description_ru: string;
+
+  @OneToMany(() => Images, (image) => image.airportTransport)
   images: Images[];
 }

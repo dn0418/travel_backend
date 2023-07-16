@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ImagesService } from 'src/api/images/images.service';
 import { Repository } from 'typeorm';
-import { CreateAirportTransportDto, UpdateAirportTransportDto } from './airport-transport.dto';
+import { CreateAirportTransportDto, CreateNewImageDto, UpdateAirportTransportDto } from './airport-transport.dto';
 import { AirportTransport } from './airport-transport.entity';
 
 
@@ -36,6 +36,27 @@ export class AirportTransportService {
     return {
       message: 'AirportTransport created successfully',
       data: airportTransport,
+    }
+  }
+
+  async createNewImage(newImage: CreateNewImageDto) {
+    const { id, url } = newImage;
+    const findAirportTransport = await this.airportTransportRepository.findOne({
+      where: { id: id }
+    })
+
+    if (!findAirportTransport) {
+      return {
+        message: 'AirportTransport not found',
+        statusCode: 404,
+      }
+    }
+
+    const image = await this.imageRepository.addAirportTransportImage(url, findAirportTransport);
+
+    return {
+      message: 'Image added successfully',
+      data: image,
     }
   }
 

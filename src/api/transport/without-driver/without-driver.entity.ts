@@ -7,7 +7,19 @@ import { PricingWithoutDriver } from "./pricing-without-driver.entity";
 @Entity()
 export class Car extends CommonEntity {
   @Column()
+  isRu: boolean;
+
+  @Column()
+  isHy: boolean;
+
+  @Column()
   name: string;
+
+  @Column()
+  name_ru: string;
+
+  @Column()
+  name_hy: string;
 
   @Column()
   price: number;
@@ -19,7 +31,19 @@ export class Car extends CommonEntity {
   pickup: string;
 
   @Column()
+  pickup_ru: string;
+
+  @Column()
+  pickup_hy: string;
+
+  @Column()
   fuel: string;
+
+  @Column()
+  fuel_ru: string;
+
+  @Column()
+  fuel_hy: string;
 
   @Column()
   year: number;
@@ -34,7 +58,19 @@ export class Car extends CommonEntity {
   shortDescription: string;
 
   @Column('text')
+  shortDescription_ru: string;
+
+  @Column('text')
+  shortDescription_hy: string;
+
+  @Column('text')
   description: string;
+
+  @Column('text')
+  description_ru: string;
+
+  @Column('text')
+  description_hy: string;
 
   @OneToMany(() => Reviews, (review) => review.car)
   reviews: Reviews[];

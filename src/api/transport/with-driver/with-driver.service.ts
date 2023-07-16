@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { ImagesService } from '../../images/images.service';
+import { CreateNewImageDto } from '../airport-transport/airport-transport.dto';
 import { PricingWithDriver } from './pricing-with-driver.entity';
 import { CreateNewPricingWithDriverDto, CreateWithDriverDto, UpdateWithDriverDto } from './with-driver.dto';
 import { WithDriver } from './with-driver.entity';
@@ -51,6 +52,27 @@ export class WithDriverService {
       statusCode: 201,
       message: 'Car With Driver created successfully',
       data: car,
+    }
+  }
+
+  async createNewImage(newImage: CreateNewImageDto) {
+    const { id, url } = newImage;
+    const findWithDriver = await this.carWithDriverRepository.findOne({
+      where: { id: id }
+    })
+
+    if (!findWithDriver) {
+      return {
+        message: 'Car with driver not found',
+        statusCode: 404,
+      }
+    }
+
+    const image = await this.imageRepository.addCarWithDriverImage(url, findWithDriver);
+
+    return {
+      message: 'Image added successfully',
+      data: image,
     }
   }
 

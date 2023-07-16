@@ -8,6 +8,12 @@ export class PricingTable extends CommonEntity {
   name: string;
 
   @Column()
+  name_ru: string;
+
+  @Column()
+  name_hy: string;
+
+  @Column()
   firstPart: number;
 
   @Column()

@@ -8,6 +8,12 @@ export class AccessoriesPricing extends CommonEntity {
   duration: string;
 
   @Column()
+  duration_ru: string;
+
+  @Column()
+  duration_hy: string;
+
+  @Column()
   price: number;
 
   @ManyToOne(() => TourAccessory, (accessory) => accessory.pricing)

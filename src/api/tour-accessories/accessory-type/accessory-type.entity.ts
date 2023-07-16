@@ -7,6 +7,12 @@ export class AccessoryType extends CommonEntity {
   @Column()
   name: string;
 
+  @Column()
+  name_ru: string;
+
+  @Column()
+  name_hy: string;
+
   @OneToMany(() => TourAccessory, (accessory) => accessory.type)
   accessory: TourAccessory[];
 }

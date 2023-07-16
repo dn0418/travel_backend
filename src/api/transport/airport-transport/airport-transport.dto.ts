@@ -1,9 +1,17 @@
-import { IsArray, IsNotEmpty, IsString } from "class-validator";
+import { IsArray, IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
 
 export class CreateAirportTransportDto {
   @IsString()
   @IsNotEmpty()
   description: string;
+
+  @IsOptional()
+  @IsString()
+  description_hy: string;
+
+  @IsOptional()
+  @IsString()
+  description_ru: string;
 
   @IsArray()
   @IsNotEmpty()
@@ -11,7 +19,25 @@ export class CreateAirportTransportDto {
 }
 
 export class UpdateAirportTransportDto {
+  @IsOptional()
+  @IsString()
+  description: string;
+
+  @IsOptional()
+  @IsString()
+  description_hy: string;
+
+  @IsOptional()
+  @IsString()
+  description_ru: string;
+}
+
+export class CreateNewImageDto {
   @IsString()
   @IsNotEmpty()
-  description: string;
+  url: string;
+
+  @IsNumber()
+  @IsNotEmpty()
+  id: number;
 }

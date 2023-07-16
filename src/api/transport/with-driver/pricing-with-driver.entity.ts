@@ -5,7 +5,7 @@ import { WithDriver } from "./with-driver.entity";
 @Entity()
 export class PricingWithDriver extends CommonEntity {
   @Column()
-  duration: string;
+  duration: number;
 
   @Column()
   price: number;

@@ -7,7 +7,23 @@ export class CreateWithDriverDto {
 
   @IsString()
   @IsNotEmpty()
+  title_ru: string;
+
+  @IsString()
+  @IsNotEmpty()
+  title_hy: string;
+
+  @IsString()
+  @IsNotEmpty()
   description: string;
+
+  @IsString()
+  @IsNotEmpty()
+  description_ru: string;
+
+  @IsString()
+  @IsNotEmpty()
+  description_hy: string;
 
   @IsArray()
   @IsOptional()
@@ -25,13 +41,29 @@ export class UpdateWithDriverDto {
 
   @IsString()
   @IsOptional()
+  title_ru: string;
+
+  @IsString()
+  @IsOptional()
+  title_hy: string;
+
+  @IsString()
+  @IsOptional()
   description: string;
+
+  @IsString()
+  @IsOptional()
+  description_ru: string;
+
+  @IsString()
+  @IsOptional()
+  description_hy: string;
 }
 
 class CreatePricingWithDriverDto {
-  @IsString()
+  @IsNumber()
   @IsNotEmpty()
-  duration: string;
+  duration: number;
 
   @IsNumber()
   @IsNotEmpty()
@@ -39,9 +71,9 @@ class CreatePricingWithDriverDto {
 }
 
 export class CreateNewPricingWithDriverDto {
-  @IsString()
+  @IsNumber()
   @IsNotEmpty()
-  duration: string;
+  duration: number;
 
   @IsNumber()
   @IsNotEmpty()

@@ -1,9 +1,23 @@
 import { IsArray, IsBoolean, IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
 
 export class CreateTourAccessoryDto {
+  @IsBoolean()
+  isRu: boolean;
+
+  @IsBoolean()
+  isHy: boolean;
+
   @IsString()
   @IsNotEmpty()
   title: string;
+
+  @IsString()
+  @IsNotEmpty()
+  title_ru: string;
+
+  @IsString()
+  @IsNotEmpty()
+  title_hy: string;
 
   @IsNumber()
   @IsNotEmpty()
@@ -16,6 +30,14 @@ export class CreateTourAccessoryDto {
   @IsString()
   @IsOptional()
   perPax: string;
+
+  @IsString()
+  @IsOptional()
+  perPax_ru: string;
+
+  @IsString()
+  @IsOptional()
+  perPax_hy: string;
 
   @IsNumber()
   @IsNotEmpty()
@@ -31,7 +53,23 @@ export class CreateTourAccessoryDto {
 
   @IsString()
   @IsNotEmpty()
+  rentFrom_ru: string;
+
+  @IsString()
+  @IsNotEmpty()
+  rentFrom_hy: string;
+
+  @IsString()
+  @IsNotEmpty()
   available: string;
+
+  @IsString()
+  @IsNotEmpty()
+  available_ru: string;
+
+  @IsString()
+  @IsNotEmpty()
+  available_hy: string;
 
   @IsString()
   @IsNotEmpty()
@@ -39,7 +77,23 @@ export class CreateTourAccessoryDto {
 
   @IsString()
   @IsNotEmpty()
+  shortDescription_ru: string;
+
+  @IsString()
+  @IsNotEmpty()
+  shortDescription_hy: string;
+
+  @IsString()
+  @IsNotEmpty()
   longDescription: string;
+
+  @IsString()
+  @IsNotEmpty()
+  longDescription_ru: string;
+
+  @IsString()
+  @IsNotEmpty()
+  longDescription_hy: string;
 
   @IsArray()
   @IsOptional()
@@ -50,45 +104,101 @@ export class CreateTourAccessoryDto {
   pricing: Array<Pricing>;
 }
 export class UpdateTourAccessoryDto {
-  @IsString()
   @IsOptional()
+  @IsBoolean()
+  isRu: boolean;
+
+  @IsOptional()
+  @IsBoolean()
+  isHy: boolean;
+
+  @IsOptional()
+  @IsString()
   title: string;
 
-  @IsNumber()
   @IsOptional()
+  @IsString()
+  title_ru: string;
+
+  @IsOptional()
+  @IsString()
+  title_hy: string;
+
+  @IsOptional()
+  @IsNumber()
   price: number;
 
-  @IsString()
   @IsOptional()
+  @IsString()
   thumbnail: string;
 
-  @IsString()
   @IsOptional()
+  @IsString()
   perPax: string;
 
-  @IsNumber()
   @IsOptional()
+  @IsString()
+  perPax_ru: string;
+
+  @IsOptional()
+  @IsString()
+  perPax_hy: string;
+
+  @IsOptional()
+  @IsNumber()
   type: number;
 
-  @IsBoolean()
   @IsOptional()
+  @IsBoolean()
   freeCancellation: boolean;
 
-  @IsString()
   @IsOptional()
+  @IsString()
   rentFrom: string;
 
-  @IsString()
   @IsOptional()
-  avaiable: string;
+  @IsString()
+  rentFrom_ru: string;
 
-  @IsString()
   @IsOptional()
+  @IsString()
+  rentFrom_hy: string;
+
+  @IsOptional()
+  @IsString()
+  available: string;
+
+  @IsOptional()
+  @IsString()
+  available_ru: string;
+
+  @IsOptional()
+  @IsString()
+  available_hy: string;
+
+  @IsOptional()
+  @IsString()
   shortDescription: string;
 
-  @IsString()
   @IsOptional()
+  @IsString()
+  shortDescription_ru: string;
+
+  @IsOptional()
+  @IsString()
+  shortDescription_hy: string;
+
+  @IsOptional()
+  @IsString()
   longDescription: string;
+
+  @IsOptional()
+  @IsString()
+  longDescription_ru: string;
+
+  @IsOptional()
+  @IsString()
+  longDescription_hy: string;
 }
 
 class Pricing {

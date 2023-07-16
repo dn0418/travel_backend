@@ -8,6 +8,12 @@ export class PricingWithoutDriver extends CommonEntity {
   destination: string;
 
   @Column()
+  destination_hy: string;
+
+  @Column()
+  destination_ru: string;
+
+  @Column()
   sedan_3seat: number;
 
   @Column()

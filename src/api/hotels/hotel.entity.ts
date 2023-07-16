@@ -8,7 +8,19 @@ import { PricingTable } from "./pricing-table/pricing-table.entity";
 @Entity()
 export class Hotels extends CommonEntity {
   @Column()
+  isRu: boolean;
+
+  @Column()
+  isHy: boolean;
+
+  @Column()
   name: string;
+
+  @Column()
+  name_ru: string;
+
+  @Column()
+  name_hy: string;
 
   @Column()
   thumbnail: string;
@@ -26,7 +38,19 @@ export class Hotels extends CommonEntity {
   country: string;
 
   @Column()
+  country_ru: string;
+
+  @Column()
+  country_hy: string;
+
+  @Column()
   city: string;
+
+  @Column()
+  city_ru: string;
+
+  @Column()
+  city_hy: string;
 
   @ManyToOne(() => HotelType, (hotelType) => hotelType.hotel)
   type: HotelType;
@@ -44,7 +68,19 @@ export class Hotels extends CommonEntity {
   shortDescription: string;
 
   @Column('text')
+  shortDescription_ru: string;
+
+  @Column('text')
+  shortDescription_hy: string;
+
+  @Column('text')
   longDescription: string;
+
+  @Column('text')
+  longDescription_ru: string;
+
+  @Column('text')
+  longDescription_hy: string;
 
   @OneToMany(() => Reviews, (review) => review.hotel)
   reviews: Reviews[];

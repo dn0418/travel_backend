@@ -5,6 +5,14 @@ export class CreatePricingTableDto {
   @IsNotEmpty()
   name: string;
 
+  @IsString()
+  @IsNotEmpty()
+  name_ru: string;
+
+  @IsString()
+  @IsNotEmpty()
+  name_hy: string;
+
   @IsNumber()
   @IsNotEmpty()
   firstPart: number;
@@ -22,6 +30,14 @@ export class UpdatePricingTableDto {
   @IsOptional()
   @IsString()
   name: string;
+
+  @IsOptional()
+  @IsString()
+  name_ru: string;
+
+  @IsOptional()
+  @IsString()
+  name_hy: string;
 
   @IsOptional()
   @IsNumber()

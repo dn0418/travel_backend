@@ -26,7 +26,7 @@ export class ImagesController {
     return this.imagesService.update(+id, updateImageDto);
   }
 
-  @Delete(':id')
+  @Delete('delete/:id')
   remove(@Param('id') id: string) {
     return this.imagesService.remove(+id);
   }

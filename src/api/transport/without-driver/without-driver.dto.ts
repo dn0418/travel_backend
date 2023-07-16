@@ -5,6 +5,14 @@ export class CreateCarDto {
   @IsNotEmpty()
   name: string;
 
+  @IsString()
+  @IsNotEmpty()
+  name_ru: string;
+
+  @IsString()
+  @IsNotEmpty()
+  name_hy: string;
+
   @IsNumber()
   @IsNotEmpty()
   price: number;
@@ -13,13 +21,35 @@ export class CreateCarDto {
   @IsBoolean()
   freeCancellation: boolean;
 
+  @IsBoolean()
+  isRu: boolean;
+
+  @IsBoolean()
+  isHy: boolean;
+
   @IsString()
   @IsNotEmpty()
   pickup: string;
 
   @IsString()
   @IsNotEmpty()
+  pickup_ru: string;
+
+  @IsString()
+  @IsNotEmpty()
+  pickup_hy: string;
+
+  @IsString()
+  @IsNotEmpty()
   fuel: string;
+
+  @IsString()
+  @IsNotEmpty()
+  fuel_ru: string;
+
+  @IsString()
+  @IsNotEmpty()
+  fuel_hy: string;
 
   @IsNumber()
   @IsNotEmpty()
@@ -39,8 +69,23 @@ export class CreateCarDto {
 
   @IsString()
   @IsNotEmpty()
+  shortDescription_ru: string;
+
+  @IsString()
+  @IsNotEmpty()
+  shortDescription_hy: string;
+
+  @IsString()
+  @IsNotEmpty()
   description: string;
 
+  @IsString()
+  @IsNotEmpty()
+  description_ru: string;
+
+  @IsString()
+  @IsNotEmpty()
+  description_hy: string;
 
   @IsArray()
   @IsOptional()
@@ -57,6 +102,14 @@ export class UpdateCarDto {
   name: string;
 
   @IsOptional()
+  @IsString()
+  name_ru: string;
+
+  @IsOptional()
+  @IsString()
+  name_hy: string;
+
+  @IsOptional()
   @IsNumber()
   price: number;
 
@@ -65,12 +118,36 @@ export class UpdateCarDto {
   freeCancellation: boolean;
 
   @IsOptional()
+  @IsBoolean()
+  isRu: boolean;
+
+  @IsOptional()
+  @IsBoolean()
+  isHy: boolean;
+
+  @IsOptional()
   @IsString()
   pickup: string;
 
   @IsOptional()
   @IsString()
+  pickup_ru: string;
+
+  @IsOptional()
+  @IsString()
+  pickup_hy: string;
+
+  @IsOptional()
+  @IsString()
   fuel: string;
+
+  @IsOptional()
+  @IsString()
+  fuel_ru: string;
+
+  @IsOptional()
+  @IsString()
+  fuel_hy: string;
 
   @IsOptional()
   @IsNumber()
@@ -90,7 +167,24 @@ export class UpdateCarDto {
 
   @IsOptional()
   @IsString()
+  shortDescription_ru: string;
+
+  @IsOptional()
+  @IsString()
+  shortDescription_hy: string;
+
+  @IsOptional()
+  @IsString()
   description: string;
+
+  @IsOptional()
+  @IsString()
+  description_ru: string;
+
+  @IsOptional()
+  @IsString()
+  description_hy: string;
+
 }
 
 class CreatePricingDto {
@@ -98,6 +192,14 @@ class CreatePricingDto {
   @IsString()
   destination: string;
 
+  @IsNotEmpty()
+  @IsString()
+  destination_hy: string;
+
+  @IsNotEmpty()
+  @IsString()
+  destination_ru: string;
+
   @IsOptional()
   @IsNumber()
   sedan_3seat: number;
@@ -115,27 +217,7 @@ class CreatePricingDto {
   bus_35seat: number;
 }
 
-export class CreatePricingWithoutDriverDto {
-  @IsNotEmpty()
-  @IsString()
-  destination: string;
-
-  @IsOptional()
-  @IsNumber()
-  sedan_3seat: number;
-
-  @IsOptional()
-  @IsNumber()
-  minivan_7seat: number;
-
-  @IsOptional()
-  @IsNumber()
-  minibus_18seat: number;
-
-  @IsOptional()
-  @IsNumber()
-  bus_35seat: number;
-
+export class CreatePricingWithoutDriverDto extends CreatePricingDto {
   @IsNumber()
   @IsNotEmpty()
   carId: number;

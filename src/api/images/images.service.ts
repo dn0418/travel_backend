@@ -42,9 +42,9 @@ export class ImagesService {
   async addAirportTransportImage(image: string, transport) {
     const newImage = this.imagesRepository.create({
       url: image,
-      airportTransport: transport
+      airportTransport: { id: transport.id }
     });
-    await this.imagesRepository.save(newImage);
+    return await this.imagesRepository.save(newImage);
   }
 
   addThingToSeeImage(image: string, thing) {
@@ -92,7 +92,7 @@ export class ImagesService {
 
 
   async findAll() {
-    return `This action returns all images`;
+    return await this.imagesRepository.find();
   }
 
   async findOne(id: number) {
@@ -104,6 +104,22 @@ export class ImagesService {
   }
 
   async remove(id: number) {
-    return `This action removes a #${id} image`;
+    const image = await this.imagesRepository.findOne({
+      where: { id: id },
+    });
+
+    if (!image) {
+      return {
+        statusCode: 404,
+        message: 'Image not found',
+      };
+    }
+
+    const res = await this.imagesRepository.remove(image);
+
+    return {
+      statusCode: 200,
+      message: 'Image successfully removed',
+    }
   }
 }

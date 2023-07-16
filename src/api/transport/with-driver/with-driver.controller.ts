@@ -1,4 +1,5 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { CreateNewImageDto } from '../airport-transport/airport-transport.dto';
 import { CreateNewPricingWithDriverDto, CreateWithDriverDto, UpdateWithDriverDto } from './with-driver.dto';
 import { WithDriverService } from './with-driver.service';
 
@@ -9,6 +10,11 @@ export class WithDriverController {
   @Post()
   create(@Body() createWithDriverDto: CreateWithDriverDto) {
     return this.withDriverService.create(createWithDriverDto);
+  }
+
+  @Post('create/image')
+  createNewImage(@Body() createNewImage: CreateNewImageDto) {
+    return this.withDriverService.createNewImage(createNewImage);
   }
 
   @Post('pricing/create')
@@ -26,7 +32,7 @@ export class WithDriverController {
     return this.withDriverService.findAll();
   }
 
-  @Patch(':id')
+  @Put('update/:id')
   update(@Param('id') id: string, @Body() updateWithDriverDto: UpdateWithDriverDto) {
     return this.withDriverService.update(+id, updateWithDriverDto);
   }
