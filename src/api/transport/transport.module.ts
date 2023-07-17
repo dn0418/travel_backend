@@ -1,6 +1,7 @@
-import { Module } from '@nestjs/common';
+import { Module, forwardRef } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ImagesModule } from '../images/images.module';
+import { ReviewsModule } from '../reviews/reviews.module';
 import { AirportTransportController } from './airport-transport/airport-transport.controller';
 import { AirportTransport } from './airport-transport/airport-transport.entity';
 import { AirportTransportService } from './airport-transport/airport-transport.service';
@@ -23,6 +24,7 @@ import { CarsService } from './without-driver/without-driver.service';
       AirportTransport
     ]),
     ImagesModule,
+    forwardRef(() => ReviewsModule)
   ],
   controllers: [CarsController, WithDriverController, AirportTransportController],
   providers: [CarsService, WithDriverService, AirportTransportService],

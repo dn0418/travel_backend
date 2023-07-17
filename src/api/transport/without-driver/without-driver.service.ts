@@ -1,5 +1,6 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable, forwardRef } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { ReviewsService } from 'src/api/reviews/reviews.service';
 import { Like, Repository } from 'typeorm';
 import { ImagesService } from '../../images/images.service';
 import { PricingWithoutDriver } from './pricing-without-driver.entity';
@@ -20,6 +21,9 @@ export class CarsService {
     private readonly pricingRepository: Repository<PricingWithoutDriver>,
 
     private readonly imageRepository: ImagesService,
+
+    @Inject(forwardRef(() => ReviewsService))
+    private reviewRepository: ReviewsService,
   ) { }
 
   async create(createCarDto: CreateCarDto) {
@@ -181,28 +185,41 @@ export class CarsService {
   }
 
   async remove(id: number) {
-    const car = await this.carRepository.findOne({
+    const findCar = await this.carRepository.findOne({
       where: { id },
-      relations: ["priceWithoutDriver"]
+      relations: ["priceWithoutDriver", "images", "reviews"]
     });
 
-    if (car) {
-      if (car.priceWithoutDriver.length > 0) {
-        car.priceWithoutDriver.forEach(async (price) => {
-          await this.pricingRepository.delete(price.id);
-        })
-      }
-
-      await this.carRepository.delete(id);
+    if (!findCar) {
       return {
-        statusCode: 200,
-        message: 'Car deleted successfully',
+        statusCode: 400,
+        message: 'Car not found',
       }
     }
 
+    if (findCar.priceWithoutDriver.length > 0) {
+      await Promise.all(findCar.priceWithoutDriver.map(async (price) => {
+        await this.pricingRepository.delete(price.id);
+      }));
+    }
+
+    if (findCar.images.length > 0) {
+      await Promise.all(findCar.images.map(async (image) => {
+        await this.imageRepository.remove(image.id);
+      }));
+    }
+
+    if (findCar.reviews.length > 0) {
+      await Promise.all(findCar.reviews.map(async (review) => {
+        await this.reviewRepository.remove(review.id);
+      }));
+    }
+
+    await this.carRepository.remove(findCar);
+
     return {
-      statusCode: 400,
-      message: 'Car not found',
+      statusCode: 200,
+      message: 'Car deleted successfully',
     }
   }
 

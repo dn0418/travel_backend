@@ -16,9 +16,11 @@ import { CreateReviewDto, UpdateReviewDto } from './reviews.dto';
 export class ReviewsService {
   constructor(
     private readonly toursRepository: ToursService,
-    private readonly carsRepository: CarsService,
     private readonly hotelRepository: HotelsService,
     private readonly tourAccessoryRepository: TourAccessoriesService,
+
+    @Inject(forwardRef(() => CarsService))
+    private carsRepository: CarsService,
 
     @Inject(forwardRef(() => ThingToSeeService))
     private thingToSeeRepository: ThingToSeeService,

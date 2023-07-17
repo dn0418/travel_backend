@@ -186,7 +186,6 @@ export class UpdateCarDto {
   @IsOptional()
   @IsString()
   description_hy: string;
-
 }
 
 class CreatePricingDto {
