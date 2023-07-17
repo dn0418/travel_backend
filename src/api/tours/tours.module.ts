@@ -16,9 +16,6 @@ import { RoutesService } from './routes/routes.service';
 import { TourServices } from './tour-services/tour-service.entity';
 import { TourServicesController } from './tour-services/tour-services.controller';
 import { TourServicesService } from './tour-services/tour-services.service';
-import { TourTypeController } from './tour-type/tour-type.controller';
-import { TourType } from './tour-type/tour-type.entity';
-import { TourTypeService } from './tour-type/tour-type.service';
 import { Tours } from './tour.entity';
 import { ToursController } from './tours.controller';
 import { ToursService } from './tours.service';
@@ -28,7 +25,6 @@ import { ToursService } from './tours.service';
     TypeOrmModule.forFeature([
       Tours,
       Routes,
-      TourType,
       Destinations,
       IndividualPricing,
       DeparturesPricing,
@@ -40,7 +36,6 @@ import { ToursService } from './tours.service';
     ToursController,
     RoutesController,
     TourServicesController,
-    TourTypeController,
     DestinationsController,
     IndividualPricingController,
     DeparturesPricingController,
@@ -49,7 +44,6 @@ import { ToursService } from './tours.service';
     ToursService,
     RoutesService,
     TourServicesService,
-    TourTypeService,
     DestinationsService,
     IndividualPricingService,
     DeparturesPricingService
