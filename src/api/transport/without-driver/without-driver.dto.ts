@@ -21,9 +21,11 @@ export class CreateCarDto {
   @IsBoolean()
   freeCancellation: boolean;
 
+  @IsOptional()
   @IsBoolean()
   isRu: boolean;
 
+  @IsOptional()
   @IsBoolean()
   isHy: boolean;
 

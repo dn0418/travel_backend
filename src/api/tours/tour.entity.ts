@@ -14,6 +14,12 @@ export class Tours extends CommonEntity {
   title: string;
 
   @Column()
+  title_ru: string;
+
+  @Column()
+  title_hy: string;
+
+  @Column()
   price: number;
 
   @Column()
@@ -25,6 +31,12 @@ export class Tours extends CommonEntity {
   @Column()
   bestTime: string;
 
+  @Column()
+  bestTime_ru: string;
+
+  @Column()
+  bestTime_hy: string;
+
   @Column({ nullable: true })
   date: string;
 
@@ -32,13 +44,37 @@ export class Tours extends CommonEntity {
   mainList: string;
 
   @Column()
+  mainList_ru: string;
+
+  @Column()
+  mainList_hy: string;
+
+  @Column()
   childList: string;
+
+  @Column()
+  childList_ru: string;
+
+  @Column()
+  childList_hy: string;
 
   @Column('text')
   shortDescription: string;
 
   @Column('text')
+  shortDescription_ru: string;
+
+  @Column('text')
+  shortDescription_hy: string;
+
+  @Column('text')
   longDescription: string;
+
+  @Column('text')
+  longDescription_ru: string;
+
+  @Column('text')
+  longDescription_hy: string;
 
   @Column({ default: true })
   freeCancelation: boolean;

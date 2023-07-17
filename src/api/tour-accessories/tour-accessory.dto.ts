@@ -1,9 +1,11 @@
 import { IsArray, IsBoolean, IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
 
 export class CreateTourAccessoryDto {
+  @IsOptional()
   @IsBoolean()
   isRu: boolean;
 
+  @IsOptional()
   @IsBoolean()
   isHy: boolean;
 

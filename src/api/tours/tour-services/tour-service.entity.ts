@@ -7,6 +7,12 @@ export class TourServices extends CommonEntity {
   @Column('text')
   text: string;
 
+  @Column('text')
+  text_ru: string;
+
+  @Column('text')
+  text_hy: string;
+
   @Column({ enum: ['include', 'exclude'] })
   type: string;
 

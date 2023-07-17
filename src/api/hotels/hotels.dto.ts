@@ -1,6 +1,14 @@
 import { IsArray, IsBoolean, IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
 
 export class CreateHotelDto {
+  @IsOptional()
+  @IsBoolean()
+  isRu: boolean;
+
+  @IsOptional()
+  @IsBoolean()
+  isHy: boolean;
+
   @IsString()
   @IsNotEmpty()
   name: string;
@@ -102,6 +110,14 @@ export class CreateHotelDto {
   pricingData: Array<PricingTableDto>;
 }
 export class UpdateHotelDto {
+  @IsOptional()
+  @IsBoolean()
+  isRu: boolean;
+
+  @IsOptional()
+  @IsBoolean()
+  isHy: boolean;
+
   @IsOptional()
   @IsString()
   name: string;

@@ -8,7 +8,19 @@ export class Destinations extends CommonEntity {
   name: string;
 
   @Column()
+  name_ru: string;
+
+  @Column()
+  name_hy: string;
+
+  @Column()
   country: string;
+
+  @Column()
+  country_ru: string;
+
+  @Column()
+  country_hy: string;
 
   @OneToMany(() => Tours, (tour) => tour.destination)
   tour: Tours[];
