@@ -25,7 +25,6 @@ export class CreateFoodAndDrinkDto {
   @IsString()
   thumbnail: string;
 
-
   @IsNotEmpty()
   @IsString()
   shortDescription: string;
@@ -53,26 +52,6 @@ export class CreateFoodAndDrinkDto {
   @IsNotEmpty()
   @IsString()
   type: string;
-
-  @IsOptional()
-  @IsString()
-  type_ru: string;
-
-  @IsOptional()
-  @IsString()
-  type_hy: string;
-
-  @IsNotEmpty()
-  @IsString()
-  location: string;
-
-  @IsOptional()
-  @IsString()
-  location_ru: string;
-
-  @IsOptional()
-  @IsString()
-  location_hy: string;
 
   @IsNotEmpty()
   @IsString()
@@ -192,26 +171,6 @@ export class UpdateFoodAndDrinkDto {
 
   @IsOptional()
   @IsString()
-  type_ru: string;
-
-  @IsOptional()
-  @IsString()
-  type_hy: string;
-
-  @IsOptional()
-  @IsString()
-  location: string;
-
-  @IsOptional()
-  @IsString()
-  location_ru: string;
-
-  @IsOptional()
-  @IsString()
-  location_hy: string;
-
-  @IsOptional()
-  @IsString()
   fromYerevan: string;
 
   @IsOptional()
@@ -270,3 +229,4 @@ export class UpdateFoodAndDrinkDto {
   @IsString()
   entrance_hy: string;
 }
+

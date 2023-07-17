@@ -53,26 +53,6 @@ export class CreateThingToSeeDto {
   @IsString()
   type: string;
 
-  @IsOptional()
-  @IsString()
-  type_ru: string;
-
-  @IsOptional()
-  @IsString()
-  type_hy: string;
-
-  @IsNotEmpty()
-  @IsString()
-  location: string;
-
-  @IsOptional()
-  @IsString()
-  location_ru: string;
-
-  @IsOptional()
-  @IsString()
-  location_hy: string;
-
   @IsNotEmpty()
   @IsString()
   fromYerevan: string;
@@ -181,26 +161,6 @@ export class UpdateThingToSeeDto {
   @IsOptional()
   @IsString()
   type: string;
-
-  @IsOptional()
-  @IsString()
-  type_ru: string;
-
-  @IsOptional()
-  @IsString()
-  type_hy: string;
-
-  @IsOptional()
-  @IsString()
-  location: string;
-
-  @IsOptional()
-  @IsString()
-  location_ru: string;
-
-  @IsOptional()
-  @IsString()
-  location_hy: string;
 
   @IsOptional()
   @IsString()

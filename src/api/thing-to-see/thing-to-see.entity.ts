@@ -45,21 +45,6 @@ export class ThingToSee extends CommonEntity {
   type: string;
 
   @Column()
-  type_ru: string;
-
-  @Column()
-  type_hy: string;
-
-  @Column()
-  location: string;
-
-  @Column()
-  location_ru: string;
-
-  @Column()
-  location_hy: string;
-
-  @Column()
   fromYerevan: string;
 
   @Column()

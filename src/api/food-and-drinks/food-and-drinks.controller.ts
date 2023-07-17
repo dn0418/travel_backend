@@ -16,9 +16,10 @@ export class FoodAndDrinksController {
     @Query("type") type?: string,
     @Query('page') page?: string,
     @Query('limit') limit?: string,
+    @Query('lan') language?: string,
     @Query('search') searchQuery?: string,
   ) {
-    return this.foodAndDrinksService.findAll(type, +page || 1, +limit || 6, searchQuery);
+    return this.foodAndDrinksService.findAll(type, +page || 1, +limit || 6, searchQuery, language);
   }
 
   @Get(':id')

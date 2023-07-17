@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable, forwardRef } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { FoodAndDrinksService } from '../food-and-drinks/food-and-drinks.service';
@@ -19,9 +19,15 @@ export class ReviewsService {
     private readonly carsRepository: CarsService,
     private readonly hotelRepository: HotelsService,
     private readonly tourAccessoryRepository: TourAccessoriesService,
-    private readonly thingToSeeRepository: ThingToSeeService,
-    private readonly thingToDoRepository: ThingToDoService,
-    private readonly foodDrinksRepository: FoodAndDrinksService,
+
+    @Inject(forwardRef(() => ThingToSeeService))
+    private thingToSeeRepository: ThingToSeeService,
+
+    @Inject(forwardRef(() => FoodAndDrinksService))
+    private foodDrinksRepository: FoodAndDrinksService,
+
+    @Inject(forwardRef(() => ThingToDoService))
+    private thingToDoRepository: ThingToDoService,
 
     @InjectRepository(Reviews)
     private readonly reviewsRepository: Repository<Reviews>,

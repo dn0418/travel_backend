@@ -1,7 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable, forwardRef } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Like, Repository } from 'typeorm';
 import { ImagesService } from '../images/images.service';
+import { ReviewsService } from '../reviews/reviews.service';
 import { CreateFoodAndDrinkDto, UpdateFoodAndDrinkDto } from './food-and-drink.dto';
 import { FoodAndDrink } from './food-and-drink.entity';
 
@@ -11,6 +12,9 @@ export class FoodAndDrinksService {
     @InjectRepository(FoodAndDrink)
     private readonly foodDrinksRepository: Repository<FoodAndDrink>,
     private readonly imageRepository: ImagesService,
+
+    @Inject(forwardRef(() => ReviewsService))
+    private reviewRepository: ReviewsService,
   ) { }
 
 
@@ -36,12 +40,19 @@ export class FoodAndDrinksService {
     type: string,
     page: number,
     limit: number,
-    searchQuery: string
+    searchQuery: string,
+    language: string
   ) {
     let conditions = {}
 
     if (type) {
       conditions = { ...conditions, type: type }
+    }
+
+    if (language && language === 'ru') {
+      conditions = { ...conditions, isRu: true }
+    } else if (language && language === 'hy') {
+      conditions = { ...conditions, isHy: true }
     }
 
     if (searchQuery) {
@@ -125,21 +136,36 @@ export class FoodAndDrinksService {
 
 
   async remove(id: number) {
-    const foodAndDrink = await this.foodDrinksRepository.findOne({ where: { id: id } });
+    const foodAndDrink = await this.foodDrinksRepository.findOne({
+      where: { id: id },
+      relations: ["reviews", "images"]
+    });
 
     if (!foodAndDrink) {
       return {
         statusCode: 404,
         message: 'Food and Drinks not found'
-      }
+      };
     }
 
-    await this.foodDrinksRepository.delete(id);
+    if (foodAndDrink.images.length > 0) {
+      await Promise.all(foodAndDrink.images.map(async (image) => {
+        await this.imageRepository.remove(image.id);
+      }));
+    }
+
+    if (foodAndDrink.reviews.length > 0) {
+      await Promise.all(foodAndDrink.reviews.map(async (review) => {
+        await this.reviewRepository.remove(review.id);
+      }));
+    }
+
+    await this.foodDrinksRepository.remove(foodAndDrink);
 
     return {
       statusCode: 200,
       message: 'Food and Drinks deleted successfully'
-    }
+    };
   }
 
   async findById(id: number) {

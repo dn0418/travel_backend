@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, forwardRef } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { FoodAndDrinksModule } from '../food-and-drinks/food-and-drinks.module';
 import { HotelsModule } from '../hotels/hotels.module';
@@ -19,12 +19,13 @@ import { ReviewsService } from './reviews.service';
     TransportModule,
     HotelsModule,
     TourAccessoriesModule,
-    ThingToSeeModule,
-    ThingToDoModule,
-    FoodAndDrinksModule
+    forwardRef(() => FoodAndDrinksModule),
+    forwardRef(() => ThingToSeeModule),
+    forwardRef(() => ThingToDoModule)
   ],
   controllers: [ReviewsController],
-  providers: [ReviewsService]
+  providers: [ReviewsService],
+  exports: [ReviewsService]
 })
 
 export class ReviewsModule { }

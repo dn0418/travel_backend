@@ -1,7 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable, forwardRef } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Like, Repository } from 'typeorm';
 import { ImagesService } from '../images/images.service';
+import { ReviewsService } from '../reviews/reviews.service';
 import { CreateThingToSeeDto, UpdateThingToSeeDto } from './thing-to-see.dto';
 import { ThingToSee } from './thing-to-see.entity';
 
@@ -11,6 +12,8 @@ export class ThingToSeeService {
     @InjectRepository(ThingToSee)
     private readonly thingToSeeRepository: Repository<ThingToSee>,
     private readonly imageRepository: ImagesService,
+    @Inject(forwardRef(() => ReviewsService))
+    private reviewRepository: ReviewsService,
   ) { }
 
   async create(createThingToSeeDto: CreateThingToSeeDto) {
@@ -35,12 +38,19 @@ export class ThingToSeeService {
     type: string,
     page: number,
     limit: number,
-    searchQuery: string
+    searchQuery: string,
+    language: string
   ) {
     let conditions = {}
 
     if (type) {
       conditions = { ...conditions, type: type }
+    }
+
+    if (language && language === 'ru') {
+      conditions = { ...conditions, isRu: true }
+    } else if (language && language === 'hy') {
+      conditions = { ...conditions, isHy: true }
     }
 
     if (searchQuery) {
@@ -124,7 +134,10 @@ export class ThingToSeeService {
 
 
   async remove(id: number) {
-    const thingToSee = await this.thingToSeeRepository.findOne({ where: { id: id } });
+    const thingToSee = await this.thingToSeeRepository.findOne({
+      where: { id: id },
+      relations: ["reviews", "images"]
+    });
 
     if (!thingToSee) {
       return {
@@ -132,7 +145,17 @@ export class ThingToSeeService {
         message: 'Thing to see not found'
       }
     }
+    if (thingToSee.images.length > 0) {
+      await Promise.all(thingToSee.images.map(async (image) => {
+        await this.imageRepository.remove(image.id);
+      }));
+    }
 
+    if (thingToSee.reviews.length > 0) {
+      await Promise.all(thingToSee.reviews.map(async (review) => {
+        await this.reviewRepository.remove(review.id);
+      }));
+    }
     await this.thingToSeeRepository.delete(id);
 
     return {
