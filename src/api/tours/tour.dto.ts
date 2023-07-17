@@ -5,6 +5,14 @@ export class CreateTourDto {
   @IsString()
   title: string;
 
+  @IsOptional()
+  @IsString()
+  title_ru: string;
+
+  @IsOptional()
+  @IsString()
+  title_hy: string;
+
   @IsNotEmpty()
   @IsNumber()
   price: number;
@@ -23,23 +31,63 @@ export class CreateTourDto {
 
   @IsOptional()
   @IsString()
+  bestTime_ru: string;
+
+  @IsOptional()
+  @IsString()
+  bestTime_hy: string;
+
+  @IsOptional()
+  @IsString()
   date: string;
 
   @IsNotEmpty()
   @IsString()
   mainList: string;
 
+  @IsOptional()
+  @IsString()
+  mainList_ru: string;
+
+  @IsOptional()
+  @IsString()
+  mainList_hy: string;
+
   @IsNotEmpty()
   @IsString()
   childList: string;
+
+  @IsOptional()
+  @IsString()
+  childList_ru: string;
+
+  @IsOptional()
+  @IsString()
+  childList_hy: string;
 
   @IsNotEmpty()
   @IsString()
   shortDescription: string;
 
+  @IsOptional()
+  @IsString()
+  shortDescription_ru: string;
+
+  @IsOptional()
+  @IsString()
+  shortDescription_hy: string;
+
   @IsNotEmpty()
   @IsString()
   longDescription: string;
+
+  @IsOptional()
+  @IsString()
+  longDescription_ru: string;
+
+  @IsOptional()
+  @IsString()
+  longDescription_hy: string;
 
   @IsOptional()
   @IsBoolean()
@@ -93,6 +141,14 @@ export class UpdateTourDto {
   title: string;
 
   @IsOptional()
+  @IsString()
+  title_ru: string;
+
+  @IsOptional()
+  @IsString()
+  title_hy: string;
+
+  @IsOptional()
   @IsNumber()
   price: number;
 
@@ -110,6 +166,14 @@ export class UpdateTourDto {
 
   @IsOptional()
   @IsString()
+  bestTime_ru: string;
+
+  @IsOptional()
+  @IsString()
+  bestTime_hy: string;
+
+  @IsOptional()
+  @IsString()
   date: string;
 
   @IsOptional()
@@ -118,7 +182,23 @@ export class UpdateTourDto {
 
   @IsOptional()
   @IsString()
+  mainList_ru: string;
+
+  @IsOptional()
+  @IsString()
+  mainList_hy: string;
+
+  @IsOptional()
+  @IsString()
   childList: string;
+
+  @IsOptional()
+  @IsString()
+  childList_ru: string;
+
+  @IsOptional()
+  @IsString()
+  childList_hy: string;
 
   @IsOptional()
   @IsString()
@@ -126,10 +206,26 @@ export class UpdateTourDto {
 
   @IsOptional()
   @IsString()
+  shortDescription_ru: string;
+
+  @IsOptional()
+  @IsString()
+  shortDescription_hy: string;
+
+  @IsOptional()
+  @IsString()
   longDescription: string;
 
   @IsOptional()
   @IsString()
+  longDescription_ru: string;
+
+  @IsOptional()
+  @IsString()
+  longDescription_hy: string;
+
+  @IsOptional()
+  @IsBoolean()
   freeCancelation: boolean;
 
   @IsOptional()
@@ -147,29 +243,77 @@ export class UpdateTourDto {
 
 
 class RouteDto {
-  @IsString()
   @IsNotEmpty()
+  @IsString()
   title: string;
 
+  @IsOptional()
   @IsString()
+  title_ru: string;
+
+  @IsOptional()
+  @IsString()
+  title_hy: string;
+
   @IsNotEmpty()
+  @IsString()
   description: string;
 
+  @IsOptional()
   @IsString()
+  description_ru: string;
+
+  @IsOptional()
+  @IsString()
+  description_hy: string;
+
   @IsNotEmpty()
+  @IsString()
   time: string;
 
+  @IsOptional()
   @IsString()
+  time_ru: string;
+
+  @IsOptional()
+  @IsString()
+  time_hy: string;
+
   @IsNotEmpty()
+  @IsString()
   distance: string;
 
+  @IsOptional()
   @IsString()
+  distance_ru: string;
+
+  @IsOptional()
+  @IsString()
+  distance_hy: string;
+
   @IsNotEmpty()
+  @IsString()
   meals: string;
 
+  @IsOptional()
   @IsString()
+  meals_ru: string;
+
+  @IsOptional()
+  @IsString()
+  meals_hy: string;
+
   @IsNotEmpty()
+  @IsString()
   hotel: string;
+
+  @IsOptional()
+  @IsString()
+  hotel_ru: string;
+
+  @IsOptional()
+  @IsString()
+  hotel_hy: string;
 }
 
 class IndividualPricingDto {
