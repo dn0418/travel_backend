@@ -21,6 +21,7 @@ export class ToursController {
     @Query('days') days?: string,
     @Query('month') month?: string,
     @Query('search') searchQuery?: string,
+    @Query('lan') language?: string,
   ) {
     return this.toursService.findAll(
       type,
@@ -30,6 +31,7 @@ export class ToursController {
       destination,
       days,
       month,
+      language
     );
   }
 

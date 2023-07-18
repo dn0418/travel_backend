@@ -94,7 +94,7 @@ export class RoutesService {
       }
     }
 
-    await this.routesRepository.delete(id);
+    await this.routesRepository.remove(route);
 
     return {
       message: 'Route deleted successfully',

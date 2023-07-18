@@ -38,32 +38,24 @@ export class CreateTourDto {
   bestTime_hy: string;
 
   @IsOptional()
+  @IsBoolean()
+  isFixedDate: boolean;
+
+  @IsOptional()
   @IsString()
-  date: string;
+  startDate: string;
+
+  @IsOptional()
+  @IsString()
+  endDate: string;
 
   @IsNotEmpty()
   @IsString()
   mainList: string;
 
-  @IsOptional()
-  @IsString()
-  mainList_ru: string;
-
-  @IsOptional()
-  @IsString()
-  mainList_hy: string;
-
   @IsNotEmpty()
   @IsString()
   childList: string;
-
-  @IsOptional()
-  @IsString()
-  childList_ru: string;
-
-  @IsOptional()
-  @IsString()
-  childList_hy: string;
 
   @IsNotEmpty()
   @IsString()
@@ -111,11 +103,19 @@ export class CreateTourDto {
 
   @IsOptional()
   @IsArray()
-  includesServices: Array<string>;
+  includesServices: {
+    en: string;
+    ru: string;
+    hy: string;
+  }[];
 
   @IsOptional()
   @IsArray()
-  excludeServices: Array<string>;
+  excludeServices: {
+    en: string;
+    ru: string;
+    hy: string;
+  }[];
 
   @IsOptional()
   @IsArray()
@@ -173,8 +173,16 @@ export class UpdateTourDto {
   bestTime_hy: string;
 
   @IsOptional()
+  @IsBoolean()
+  isFixedDate: boolean;
+
+  @IsOptional()
   @IsString()
-  date: string;
+  startDate: string;
+
+  @IsOptional()
+  @IsString()
+  endDate: string;
 
   @IsOptional()
   @IsString()
@@ -182,23 +190,7 @@ export class UpdateTourDto {
 
   @IsOptional()
   @IsString()
-  mainList_ru: string;
-
-  @IsOptional()
-  @IsString()
-  mainList_hy: string;
-
-  @IsOptional()
-  @IsString()
   childList: string;
-
-  @IsOptional()
-  @IsString()
-  childList_ru: string;
-
-  @IsOptional()
-  @IsString()
-  childList_hy: string;
 
   @IsOptional()
   @IsString()

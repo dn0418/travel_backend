@@ -76,15 +76,21 @@ export class HotelTypeService {
 
   async remove(id: number) {
     const findHotelType = await this.hotelTypeRepository.findOne({
-      where: {
-        id: id,
-      }
+      where: { id: id },
+      relations: ['hotel']
     });
 
     if (!findHotelType) {
       return {
         statusCode: 404,
         message: 'Hotel type not found',
+      }
+    }
+
+    if (findHotelType.hotel.length > 0) {
+      return {
+        statusCode: 400,
+        message: 'Hotel type is in use',
       }
     }
 

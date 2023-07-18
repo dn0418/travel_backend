@@ -69,12 +69,20 @@ export class DestinationsService {
   async remove(id: number) {
     const destination = await this.destinationsRepository.findOne({
       where: { id: id },
+      relations: ['tour']
     });
 
     if (!destination) {
       return {
         statusCode: 404,
         message: 'Destination not found by this ID',
+      }
+    }
+
+    if (destination.tour.length > 0) {
+      return {
+        statusCode: 400,
+        message: 'Destination has tours, can not be delete!',
       }
     }
 

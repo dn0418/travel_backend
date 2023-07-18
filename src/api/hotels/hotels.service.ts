@@ -1,7 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable, forwardRef } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Like, Repository } from 'typeorm';
 import { ImagesService } from '../images/images.service';
+import { ReviewsService } from '../reviews/reviews.service';
 import { HotelTypeService } from './hotel-type/hotel-type.service';
 import { Hotels } from './hotel.entity';
 import { CreateHotelDto, UpdateHotelDto } from './hotels.dto';
@@ -15,6 +16,9 @@ export class HotelsService {
 
     @InjectRepository(PricingTable)
     private readonly pricingRepository: Repository<PricingTable>,
+
+    @Inject(forwardRef(() => ReviewsService))
+    private reviewRepository: ReviewsService,
 
     private readonly imageRepository: ImagesService,
     private readonly hotelTypeRepository: HotelTypeService,
@@ -57,7 +61,9 @@ export class HotelsService {
     type: string,
     page: number,
     limit: number,
-    searchQuery: string) {
+    searchQuery: string,
+    language: string,
+  ) {
     let conditions = {}
 
     if (country) {
@@ -70,6 +76,12 @@ export class HotelsService {
 
     if (type) {
       conditions['type'] = { id: parseInt(type) };
+    }
+
+    if (language && language === 'ru') {
+      conditions = { ...conditions, isRu: true }
+    } else if (language && language === 'hy') {
+      conditions = { ...conditions, isHy: true }
     }
 
     if (searchQuery) {
@@ -130,16 +142,59 @@ export class HotelsService {
 
 
   async update(id: number, updateHotelDto: UpdateHotelDto) {
-    return `This action updates a #${id} hotel`;
-  }
+    const { type, ...newData } = updateHotelDto;
+    const findHotel = await this.hotelsRepository.findOne({ where: { id: id } })
 
-  async remove(id: number) {
-    const findHotel = await this.hotelsRepository.findOne({ where: { id: id } });
     if (!findHotel) {
       return {
         statusCode: 404,
         message: 'Hotel not found',
       }
+    }
+
+    let updatedData = { ...findHotel, ...newData };
+    const findType = await this.hotelTypeRepository.findHotelTypeByHotelId(type);
+    if (findType) {
+      updatedData.type = findType;
+    }
+    const updatedHotel = await this.hotelsRepository.save(updatedData);
+
+    return {
+      statusCode: 200,
+      message: 'Hotel updated successfully',
+      data: updatedHotel,
+    }
+  }
+
+  async remove(id: number) {
+    const findHotel = await this.hotelsRepository.findOne({
+      where: { id: id },
+      relations: ["images", "pricingTable", "reviews"]
+    });
+
+    if (!findHotel) {
+      return {
+        statusCode: 404,
+        message: 'Hotel not found',
+      }
+    }
+
+    if (findHotel.images.length > 0) {
+      await Promise.all(findHotel.images.map(async (image) => {
+        await this.imageRepository.remove(image.id);
+      }));
+    }
+
+    if (findHotel.reviews.length > 0) {
+      await Promise.all(findHotel.reviews.map(async (review) => {
+        await this.reviewRepository.remove(review.id);
+      }));
+    }
+
+    if (findHotel.pricingTable.length > 0) {
+      await Promise.all(findHotel.pricingTable.map(async (pricing) => {
+        await this.pricingRepository.remove(pricing);
+      }));
     }
 
     await this.hotelsRepository.remove(findHotel);

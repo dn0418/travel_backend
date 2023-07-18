@@ -86,7 +86,7 @@ export class TourServicesService {
       }
     }
 
-    const deletedService = await this.servicesRepository.delete(id);
+    const deletedService = await this.servicesRepository.remove(findService);
 
     return {
       statusCode: 200,

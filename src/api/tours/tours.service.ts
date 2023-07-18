@@ -1,7 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable, forwardRef } from '@nestjs/common';
 import { InjectConnection, InjectRepository } from '@nestjs/typeorm';
 import { Connection, Like, Repository } from 'typeorm';
 import { ImagesService } from '../images/images.service';
+import { ReviewsService } from '../reviews/reviews.service';
 import { DeparturesPricing } from './departures-pricing/departures-pricing.entity';
 import { DestinationsService } from './destinations/destinations.service';
 import { IndividualPricing } from './individual-pricing/individual-pricing.entity';
@@ -27,6 +28,9 @@ export class ToursService {
 
     @InjectRepository(DeparturesPricing)
     private readonly departuresRepository: Repository<DeparturesPricing>,
+
+    @Inject(forwardRef(() => ReviewsService))
+    private reviewRepository: ReviewsService,
 
     private readonly destinationRepository: DestinationsService,
 
@@ -62,7 +66,9 @@ export class ToursService {
     if (includesServices.length > 0) {
       includesServices.forEach(async (service) => {
         const newService = this.servicesRepository.create({
-          text: service,
+          text: service.en,
+          text_ru: service.ru,
+          text_hy: service.hy,
           tour: tour,
           type: 'include'
         });
@@ -73,7 +79,9 @@ export class ToursService {
     if (excludeServices.length > 0) {
       excludeServices.forEach(async (service) => {
         const newService = this.servicesRepository.create({
-          text: service,
+          text: service.en,
+          text_ru: service.ru,
+          text_hy: service.hy,
           tour: tour,
           type: 'exclude'
         });
@@ -133,11 +141,18 @@ export class ToursService {
     destination: string,
     days: string,
     month: string,
+    language: string,
   ) {
     let conditions = {}
 
     if (type) {
       conditions['mainList'] = type;
+    }
+
+    if (language && language === 'ru') {
+      conditions = { ...conditions, isRu: true }
+    } else if (language && language === 'hy') {
+      conditions = { ...conditions, isHy: true }
     }
 
     if (days) {
@@ -251,19 +266,73 @@ export class ToursService {
 
   // Remove Tour By Id
   async remove(id: number) {
-    const tour = await this.toursRepository.findOneById(id);
+    const tour = await this.toursRepository.findOne({
+      where: { id: id },
+      relations: [
+        'includesServices',
+        'excludeServices',
+        'images',
+        'routes',
+        'individualPricing',
+        'departuresPricing',
+        'reviews'
+      ]
+    });
 
-    if (tour) {
-      await this.toursRepository.remove(tour);
+    if (!tour) {
       return {
-        statusCode: 200,
-        message: 'Tour deleted successfully'
+        statusCode: 404,
+        message: 'Tour not found'
       }
     }
 
+    if (tour.includesServices.length > 0) {
+      await Promise.all(tour.includesServices.map(async (service) => {
+        await this.servicesRepository.remove(service);
+      }));
+    }
+
+    if (tour.excludeServices.length > 0) {
+      await Promise.all(tour.excludeServices.map(async (service) => {
+        await this.servicesRepository.remove(service);
+      }));
+    }
+
+    if (tour.images.length > 0) {
+      await Promise.all(tour.images.map(async (image) => {
+        await this.imageRepository.remove(image.id);
+      }));
+    }
+
+    if (tour.routes.length > 0) {
+      await Promise.all(tour.routes.map(async (route) => {
+        await this.routesRepository.remove(route);
+      }));
+    }
+
+    if (tour.individualPricing.length > 0) {
+      await Promise.all(tour.individualPricing.map(async (individual) => {
+        await this.individualRepository.remove(individual);
+      }));
+    }
+
+    if (tour.departuresPricing.length > 0) {
+      await Promise.all(tour.departuresPricing.map(async (departure) => {
+        await this.departuresRepository.remove(departure);
+      }));
+    }
+
+    if (tour.reviews.length > 0) {
+      await Promise.all(tour.reviews.map(async (review) => {
+        await this.reviewRepository.remove(review.id);
+      }));
+    }
+
+    await this.toursRepository.remove(tour);
+
     return {
-      statusCode: 404,
-      message: 'Tour not found'
+      statusCode: 200,
+      message: 'Tour deleted successfully'
     }
   }
 

@@ -95,8 +95,14 @@ export class CarsService {
     }
   }
 
-  async findAll(page: number, limit: number, searchQuery?: string) {
+  async findAll(page: number, limit: number, searchQuery?: string, language?: string) {
     let conditions = {}
+
+    if (language && language === 'ru') {
+      conditions = { ...conditions, isRu: true }
+    } else if (language && language === 'hy') {
+      conditions = { ...conditions, isHy: true }
+    }
 
     if (searchQuery) {
       conditions = {

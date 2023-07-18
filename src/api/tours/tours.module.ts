@@ -1,6 +1,7 @@
-import { Module } from '@nestjs/common';
+import { Module, forwardRef } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ImagesModule } from '../images/images.module';
+import { ReviewsModule } from '../reviews/reviews.module';
 import { DeparturesPricingController } from './departures-pricing/departures-pricing.controller';
 import { DeparturesPricing } from './departures-pricing/departures-pricing.entity';
 import { DeparturesPricingService } from './departures-pricing/departures-pricing.service';
@@ -30,7 +31,8 @@ import { ToursService } from './tours.service';
       DeparturesPricing,
       TourServices
     ]),
-    ImagesModule
+    ImagesModule,
+    forwardRef(() => ReviewsModule)
   ],
   controllers: [
     ToursController,

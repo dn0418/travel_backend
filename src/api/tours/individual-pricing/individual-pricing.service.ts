@@ -100,7 +100,7 @@ export class IndividualPricingService {
       }
     }
 
-    await this.individualRepository.delete(id);
+    await this.individualRepository.remove(individualPricing);
 
     return {
       statusCode: 200,

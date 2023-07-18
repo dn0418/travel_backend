@@ -1,7 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable, forwardRef } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Like, Repository } from 'typeorm';
 import { ImagesService } from '../images/images.service';
+import { ReviewsService } from '../reviews/reviews.service';
 import { AccessoriesPricingService } from './accessories-pricing/accessories-pricing.service';
 import { AccessoryTypeService } from './accessory-type/accessory-type.service';
 import { CreateTourAccessoryDto, UpdateTourAccessoryDto } from './tour-accessory.dto';
@@ -12,6 +13,10 @@ export class TourAccessoriesService {
   constructor(
     @InjectRepository(TourAccessory)
     private readonly tourAccessoryRepository: Repository<TourAccessory>,
+
+    @Inject(forwardRef(() => ReviewsService))
+    private reviewRepository: ReviewsService,
+
     private readonly imageRepository: ImagesService,
     private readonly typeRepository: AccessoryTypeService,
     private readonly pricingRepository: AccessoriesPricingService,
@@ -49,9 +54,16 @@ export class TourAccessoriesService {
   async findAll(
     page: number,
     limit: number,
-    searchQuery: string) {
+    searchQuery: string,
+    language: string
+  ) {
     let conditions = {}
 
+    if (language && language === 'ru') {
+      conditions = { ...conditions, isRu: true }
+    } else if (language && language === 'hy') {
+      conditions = { ...conditions, isHy: true }
+    }
 
     if (searchQuery) {
       conditions = {
@@ -135,7 +147,36 @@ export class TourAccessoriesService {
   }
 
   async remove(id: number) {
-    const accessory = await this.tourAccessoryRepository.findOne({ where: { id } });
+    const accessory = await this.tourAccessoryRepository.findOne({
+      where: { id },
+      relations: ["images", "pricing", "reviews"]
+    });
+
+    if (!accessory) {
+      return {
+        statusCode: 404,
+        message: 'Accessory not found',
+      }
+    }
+
+    if (accessory.images.length > 0) {
+      await Promise.all(accessory.images.map(async (image) => {
+        await this.imageRepository.remove(image.id);
+      }));
+    }
+
+    if (accessory.pricing.length > 0) {
+      await Promise.all(accessory.pricing.map(async (price) => {
+        await this.pricingRepository.remove(price.id);
+      }));
+    }
+
+    if (accessory.reviews.length > 0) {
+      await Promise.all(accessory.reviews.map(async (review) => {
+        await this.reviewRepository.remove(review.id);
+      }));
+    }
+
     await this.tourAccessoryRepository.remove(accessory);
 
     return {

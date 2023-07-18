@@ -145,6 +145,7 @@ export class ThingToSeeService {
         message: 'Thing to see not found'
       }
     }
+
     if (thingToSee.images.length > 0) {
       await Promise.all(thingToSee.images.map(async (image) => {
         await this.imageRepository.remove(image.id);
@@ -156,7 +157,8 @@ export class ThingToSeeService {
         await this.reviewRepository.remove(review.id);
       }));
     }
-    await this.thingToSeeRepository.delete(id);
+
+    await this.thingToSeeRepository.remove(thingToSee);
 
     return {
       statusCode: 200,

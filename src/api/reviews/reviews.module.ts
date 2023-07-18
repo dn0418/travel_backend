@@ -16,12 +16,12 @@ import { ReviewsService } from './reviews.service';
   imports: [
     TypeOrmModule.forFeature([Reviews]),
     ToursModule,
-    HotelsModule,
-    TourAccessoriesModule,
     forwardRef(() => FoodAndDrinksModule),
     forwardRef(() => ThingToSeeModule),
     forwardRef(() => TransportModule),
-    forwardRef(() => ThingToDoModule)
+    forwardRef(() => ThingToDoModule),
+    forwardRef(() => HotelsModule),
+    forwardRef(() => TourAccessoriesModule),
   ],
   controllers: [ReviewsController],
   providers: [ReviewsService],

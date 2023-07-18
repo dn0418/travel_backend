@@ -37,26 +37,20 @@ export class Tours extends CommonEntity {
   @Column()
   bestTime_hy: string;
 
+  @Column()
+  isFixedDate: boolean;
+
   @Column({ nullable: true })
-  date: string;
+  startDate: string;
+
+  @Column({ nullable: true })
+  endDate: string;
 
   @Column()
   mainList: string;
 
   @Column()
-  mainList_ru: string;
-
-  @Column()
-  mainList_hy: string;
-
-  @Column()
   childList: string;
-
-  @Column()
-  childList_ru: string;
-
-  @Column()
-  childList_hy: string;
 
   @Column('text')
   shortDescription: string;

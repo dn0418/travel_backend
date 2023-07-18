@@ -76,15 +76,21 @@ export class AccessoryTypeService {
 
   async remove(id: number) {
     const findaccessoryType = await this.accessoryTypeRepository.findOne({
-      where: {
-        id: id,
-      }
+      where: { id: id },
+      relations: ['accessory']
     });
 
     if (!findaccessoryType) {
       return {
         statusCode: 404,
         message: 'Accessory type not found',
+      }
+    }
+
+    if (findaccessoryType.accessory.length > 0) {
+      return {
+        statusCode: 400,
+        message: 'Accessory type has been used!',
       }
     }
 

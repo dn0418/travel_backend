@@ -16,8 +16,9 @@ export class TourAccessoriesController {
     @Query('page') page?: string,
     @Query('limit') limit?: string,
     @Query('search') searchQuery?: string,
+    @Query('lan') language?: string,
   ) {
-    return this.tourAccessoriesService.findAll(+page || 1, +limit || 6, searchQuery);
+    return this.tourAccessoriesService.findAll(+page || 1, +limit || 6, searchQuery, language);
   }
 
   @Get(':id')

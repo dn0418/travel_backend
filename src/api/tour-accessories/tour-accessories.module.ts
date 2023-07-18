@@ -1,6 +1,7 @@
-import { Module } from '@nestjs/common';
+import { Module, forwardRef } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ImagesModule } from '../images/images.module';
+import { ReviewsModule } from '../reviews/reviews.module';
 import { AccessoriesPricingController } from './accessories-pricing/accessories-pricing.controller';
 import { AccessoriesPricing } from './accessories-pricing/accessories-pricing.entity';
 import { AccessoriesPricingService } from './accessories-pricing/accessories-pricing.service';
@@ -16,6 +17,7 @@ import { TourAccessory } from './tour-accessory.entity';
     TypeOrmModule.forFeature(
       [TourAccessory, AccessoryType, AccessoriesPricing]),
     ImagesModule,
+    forwardRef(() => ReviewsModule)
   ],
   controllers: [
     TourAccessoriesController,
