@@ -33,7 +33,7 @@ export class CreateHotelDto {
   @IsNotEmpty()
   price: number;
 
-  @IsBoolean()
+  @IsString()
   @IsNotEmpty()
   fromAirport: boolean;
 
@@ -109,6 +109,30 @@ export class CreateHotelDto {
   @IsOptional()
   pricingData: Array<PricingTableDto>;
 }
+
+
+class PricingTableDto {
+  @IsOptional()
+  @IsString()
+  name: string;
+
+  @IsOptional()
+  @IsString()
+  name_ru: string;
+
+  @IsOptional()
+  @IsString()
+  name_hy: string;
+
+  @IsNumber()
+  @IsNotEmpty()
+  firstPart: number;
+
+  @IsNumber()
+  @IsNotEmpty()
+  lastPart: number;
+}
+
 export class UpdateHotelDto {
   @IsOptional()
   @IsBoolean()
@@ -143,7 +167,7 @@ export class UpdateHotelDto {
   price: number;
 
   @IsOptional()
-  @IsBoolean()
+  @IsString()
   fromAirport: boolean;
 
   @IsOptional()
@@ -209,26 +233,4 @@ export class UpdateHotelDto {
   @IsOptional()
   @IsString()
   longDescription_hy: string;
-}
-
-class PricingTableDto {
-  @IsOptional()
-  @IsString()
-  name: string;
-
-  @IsOptional()
-  @IsString()
-  name_ru: string;
-
-  @IsOptional()
-  @IsString()
-  name_hy: string;
-
-  @IsNumber()
-  @IsNotEmpty()
-  firstPart: number;
-
-  @IsNumber()
-  @IsNotEmpty()
-  lastPart: number;
 }
