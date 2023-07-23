@@ -20,7 +20,7 @@ export class ImagesService {
       url: image,
       hotel: hotel
     });
-    await this.imagesRepository.save(newImage);
+    return await this.imagesRepository.save(newImage);
   }
 
   async addCarImage(image: string, car) {
@@ -36,7 +36,7 @@ export class ImagesService {
       url: image,
       withDriver: car
     });
-    await this.imagesRepository.save(newImage);
+    return await this.imagesRepository.save(newImage);
   }
 
   async addAirportTransportImage(image: string, transport) {
@@ -53,7 +53,6 @@ export class ImagesService {
       thingToSee: thing
     });
     return this.imagesRepository.save(newImage);
-
   }
 
   addThingToDoImage(image: string, thing) {
@@ -62,7 +61,6 @@ export class ImagesService {
       thingToDo: thing
     });
     return this.imagesRepository.save(newImage);
-
   }
 
   addFoodAndDrinksImage(image: string, foodAndDrinks) {
@@ -78,7 +76,7 @@ export class ImagesService {
       url: image,
       tour: tour
     });
-    await this.imagesRepository.save(newImage);
+    return await this.imagesRepository.save(newImage);
   }
 
   async AddaccessoryImage(image: string, accessory) {
@@ -87,7 +85,7 @@ export class ImagesService {
       accessory: accessory
     });
 
-    await this.imagesRepository.save(newImage);
+    return await this.imagesRepository.save(newImage);
   }
 
 

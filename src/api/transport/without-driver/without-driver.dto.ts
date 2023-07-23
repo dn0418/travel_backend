@@ -5,12 +5,12 @@ export class CreateCarDto {
   @IsNotEmpty()
   name: string;
 
+  @IsOptional()
   @IsString()
-  @IsNotEmpty()
   name_ru: string;
 
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   name_hy: string;
 
   @IsNumber()
@@ -33,12 +33,12 @@ export class CreateCarDto {
   @IsNotEmpty()
   pickup: string;
 
+  @IsOptional()
   @IsString()
-  @IsNotEmpty()
   pickup_ru: string;
 
+  @IsOptional()
   @IsString()
-  @IsNotEmpty()
   pickup_hy: string;
 
   @IsString()
@@ -46,11 +46,11 @@ export class CreateCarDto {
   fuel: string;
 
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   fuel_ru: string;
 
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   fuel_hy: string;
 
   @IsNumber()
@@ -70,11 +70,11 @@ export class CreateCarDto {
   shortDescription: string;
 
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   shortDescription_ru: string;
 
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   shortDescription_hy: string;
 
   @IsString()
@@ -82,11 +82,11 @@ export class CreateCarDto {
   description: string;
 
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   description_ru: string;
 
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   description_hy: string;
 
   @IsArray()
