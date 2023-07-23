@@ -1,5 +1,5 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
-import { CreateCarDto, CreatePricingWithoutDriverDto, UpdateCarDto } from './without-driver.dto';
+import { CreateCarDto, CreateImageDto, CreatePricingWithoutDriverDto, UpdateCarDto, UpdatePricingWithoutDriverDto } from './without-driver.dto';
 import { CarsService } from './without-driver.service';
 
 @Controller('without-driver')
@@ -16,9 +16,21 @@ export class CarsController {
     return this.carsService.createNewPrice(createPriceDto);
   }
 
+  @Post('image/create')
+  createNewImage(@Body() createImageDto: CreateImageDto) {
+    return this.carsService.createNewImage(createImageDto);
+  }
+
   @Delete('pricing/delete/:id')
   deletePrice(@Param('id') id: string) {
     return this.carsService.deletePrice(+id);
+  }
+
+  @Put('pricing/update/:id')
+  updatePrice(
+    @Param('id') id: string,
+    @Body() updatePriceDto: UpdatePricingWithoutDriverDto) {
+    return this.carsService.updatePricing(+id, updatePriceDto);
   }
 
   @Get()

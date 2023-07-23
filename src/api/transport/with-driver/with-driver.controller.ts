@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
 import { CreateNewImageDto } from '../airport-transport/airport-transport.dto';
-import { CreateNewPricingWithDriverDto, CreateWithDriverDto, UpdateWithDriverDto } from './with-driver.dto';
+import { CreateNewPricingWithDriverDto, CreateWithDriverDto, UpdatePricingWithDriverDto, UpdateWithDriverDto } from './with-driver.dto';
 import { WithDriverService } from './with-driver.service';
 
 @Controller('with-driver')
@@ -20,6 +20,13 @@ export class WithDriverController {
   @Post('pricing/create')
   createNewPrice(@Body() createPriceDto: CreateNewPricingWithDriverDto) {
     return this.withDriverService.createNewPrice(createPriceDto);
+  }
+
+  @Put('pricing/update/:id')
+  updatePrice(
+    @Param('id') id: string,
+    @Body() updatePriceDto: UpdatePricingWithDriverDto) {
+    return this.withDriverService.updatePrice(+id, updatePriceDto);
   }
 
   @Delete('pricing/delete/:id')

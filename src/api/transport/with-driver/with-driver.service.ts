@@ -4,7 +4,7 @@ import { Repository } from 'typeorm';
 import { ImagesService } from '../../images/images.service';
 import { CreateNewImageDto } from '../airport-transport/airport-transport.dto';
 import { PricingWithDriver } from './pricing-with-driver.entity';
-import { CreateNewPricingWithDriverDto, CreateWithDriverDto, UpdateWithDriverDto } from './with-driver.dto';
+import { CreateNewPricingWithDriverDto, CreateWithDriverDto, UpdatePricingWithDriverDto, UpdateWithDriverDto } from './with-driver.dto';
 import { WithDriver } from './with-driver.entity';
 
 @Injectable()
@@ -97,6 +97,27 @@ export class WithDriverService {
       statusCode: 201,
       message: 'Pricing with driver created successfully',
       data: newPricing,
+    }
+  }
+
+  async updatePrice(id: number, updateDto: UpdatePricingWithDriverDto) {
+    const findPrice = await this.pricingRepository.findOne({ where: { id } });
+    if (!findPrice) {
+      return {
+        statusCode: 400,
+        message: 'Pricing with driver not found',
+      }
+    }
+
+    const updatePrice = await this.pricingRepository.save({
+      ...findPrice,
+      ...updateDto,
+    });
+
+    return {
+      statusCode: 200,
+      message: 'Pricing with driver updated successfully',
+      data: updatePrice,
     }
   }
 

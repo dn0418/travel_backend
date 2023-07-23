@@ -70,16 +70,11 @@ class CreatePricingWithDriverDto {
   price: number;
 }
 
-export class CreateNewPricingWithDriverDto {
-  @IsNumber()
-  @IsNotEmpty()
-  duration: number;
-
-  @IsNumber()
-  @IsNotEmpty()
-  price: number;
+export class CreateNewPricingWithDriverDto extends CreatePricingWithDriverDto {
 
   @IsNumber()
   @IsNotEmpty()
   carId: number;
 }
+
+export class UpdatePricingWithDriverDto extends CreatePricingWithDriverDto { }

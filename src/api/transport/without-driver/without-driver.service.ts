@@ -6,8 +6,10 @@ import { ImagesService } from '../../images/images.service';
 import { PricingWithoutDriver } from './pricing-without-driver.entity';
 import {
   CreateCarDto,
+  CreateImageDto,
   CreatePricingWithoutDriverDto,
-  UpdateCarDto
+  UpdateCarDto,
+  UpdatePricingWithoutDriverDto
 } from './without-driver.dto';
 import { Car } from './without-driver.entity';
 
@@ -77,6 +79,45 @@ export class CarsService {
       data: newPricing,
     }
   }
+
+  async updatePricing(id: number, priceDto: UpdatePricingWithoutDriverDto) {
+    const findPrice = await this.pricingRepository.findOne({ where: { id } });
+    if (!findPrice) {
+      return {
+        statusCode: 400,
+        message: 'Pricing with driver not found',
+      }
+    }
+    const updatedPricing = await this.pricingRepository.save({
+      ...findPrice,
+      ...priceDto,
+    });
+    return {
+      statusCode: 200,
+      message: 'Pricing with driver updated successfully',
+      data: updatedPricing,
+    }
+  }
+
+
+  async createNewImage(imageDto: CreateImageDto) {
+    const { carId, url } = imageDto;
+    const findCar = await this.carRepository.findOne({ where: { id: carId } });
+    if (!findCar) {
+      return {
+        statusCode: 404,
+        message: 'Car not found',
+      }
+    }
+    const newImage = await this.imageRepository.addCarImage(url, findCar);
+
+    return {
+      statusCode: 201,
+      message: 'Image created successfully',
+      data: newImage
+    }
+  }
+
 
   async deletePrice(id: number) {
     const findPrice = await this.pricingRepository.findOne({ where: { id } });

@@ -28,7 +28,7 @@ export class ImagesService {
       url: image,
       car: car
     });
-    await this.imagesRepository.save(newImage);
+    return await this.imagesRepository.save(newImage);
   }
 
   async addCarWithDriverImage(image: string, car) {

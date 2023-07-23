@@ -95,7 +95,37 @@ export class CreateCarDto {
 
   @IsOptional()
   @IsArray()
-  pricing: Array<CreatePricingDto>;
+  pricing: Array<CreateWithoutPricingDto>;
+}
+
+export class CreateWithoutPricingDto {
+  @IsNotEmpty()
+  @IsString()
+  destination: string;
+
+  @IsNotEmpty()
+  @IsString()
+  destination_hy: string;
+
+  @IsNotEmpty()
+  @IsString()
+  destination_ru: string;
+
+  @IsOptional()
+  @IsNumber()
+  sedan_3seat: number;
+
+  @IsOptional()
+  @IsNumber()
+  minivan_7seat: number;
+
+  @IsOptional()
+  @IsNumber()
+  minibus_18seat: number;
+
+  @IsOptional()
+  @IsNumber()
+  bus_35seat: number;
 }
 
 export class UpdateCarDto {
@@ -188,38 +218,22 @@ export class UpdateCarDto {
   description_hy: string;
 }
 
-class CreatePricingDto {
-  @IsNotEmpty()
-  @IsString()
-  destination: string;
 
-  @IsNotEmpty()
-  @IsString()
-  destination_hy: string;
 
-  @IsNotEmpty()
-  @IsString()
-  destination_ru: string;
-
-  @IsOptional()
-  @IsNumber()
-  sedan_3seat: number;
-
-  @IsOptional()
-  @IsNumber()
-  minivan_7seat: number;
-
-  @IsOptional()
-  @IsNumber()
-  minibus_18seat: number;
-
-  @IsOptional()
-  @IsNumber()
-  bus_35seat: number;
-}
-
-export class CreatePricingWithoutDriverDto extends CreatePricingDto {
+export class CreatePricingWithoutDriverDto extends CreateWithoutPricingDto {
   @IsNumber()
   @IsNotEmpty()
   carId: number;
+}
+
+export class UpdatePricingWithoutDriverDto extends CreateWithoutPricingDto { }
+
+export class CreateImageDto {
+  @IsNumber()
+  @IsNotEmpty()
+  carId: number;
+
+  @IsString()
+  @IsNotEmpty()
+  url: string;
 }

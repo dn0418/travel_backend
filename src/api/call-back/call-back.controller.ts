@@ -16,6 +16,11 @@ export class CallBackController {
     return this.callBackService.findAll();
   }
 
+  @Get('mail')
+  sendMail() {
+    return this.callBackService.sendMail();
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.callBackService.findOne(+id);
