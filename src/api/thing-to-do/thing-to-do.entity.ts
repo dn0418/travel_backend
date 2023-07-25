@@ -53,7 +53,7 @@ export class ThingToDo extends CommonEntity {
   @Column()
   fromYerevan_hy: string;
 
-  @Column()
+  @Column({ nullable: true })
   date: string;
 
   @Column()

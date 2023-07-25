@@ -5,7 +5,7 @@ import { ImagesService } from '../images/images.service';
 import { ReviewsService } from '../reviews/reviews.service';
 import { AccessoriesPricingService } from './accessories-pricing/accessories-pricing.service';
 import { AccessoryTypeService } from './accessory-type/accessory-type.service';
-import { CreateTourAccessoryDto, UpdateTourAccessoryDto } from './tour-accessory.dto';
+import { CreateAccessoryImageDto, CreateTourAccessoryDto, UpdateTourAccessoryDto } from './tour-accessory.dto';
 import { TourAccessory } from './tour-accessory.entity';
 
 @Injectable()
@@ -48,6 +48,23 @@ export class TourAccessoriesService {
       statusCode: 201,
       message: 'Accessory created successfully',
       data: newAccessory,
+    }
+  }
+
+  async createNewImage(imageInput: CreateAccessoryImageDto) {
+    const { accessoryId, url } = imageInput;
+    const findAccessory = await this.tourAccessoryRepository.findOne({ where: { id: accessoryId } });
+    if (!findAccessory) {
+      return {
+        statusCode: 404,
+        message: 'Accessory not found',
+      }
+    }
+    const newImage = await this.imageRepository.AddaccessoryImage(url, findAccessory);
+    return {
+      statusCode: 201,
+      message: 'Image created successfully',
+      data: newImage,
     }
   }
 

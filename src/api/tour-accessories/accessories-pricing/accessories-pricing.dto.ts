@@ -13,7 +13,7 @@ export class CreateAccessoriesPricingDto {
   @IsNotEmpty()
   duration_hy: string;
 
-  @IsString()
+  @IsNumber()
   @IsNotEmpty()
   price: number;
 
@@ -35,7 +35,7 @@ export class UpdateAccessoriesPricingDto {
   @IsOptional()
   duration_hy: string;
 
-  @IsString()
+  @IsNumber()
   @IsOptional()
   price: number;
 }

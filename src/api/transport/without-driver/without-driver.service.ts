@@ -81,6 +81,7 @@ export class CarsService {
   }
 
   async updatePricing(id: number, priceDto: UpdatePricingWithoutDriverDto) {
+    console.log(id)
     const findPrice = await this.pricingRepository.findOne({ where: { id } });
     if (!findPrice) {
       return {

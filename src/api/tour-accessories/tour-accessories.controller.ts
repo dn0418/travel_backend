@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
 import { TourAccessoriesService } from './tour-accessories.service';
-import { CreateTourAccessoryDto, UpdateTourAccessoryDto } from './tour-accessory.dto';
+import { CreateAccessoryImageDto, CreateTourAccessoryDto, UpdateTourAccessoryDto } from './tour-accessory.dto';
 
 @Controller('tour-accessories')
 export class TourAccessoriesController {
@@ -9,6 +9,11 @@ export class TourAccessoriesController {
   @Post('create')
   create(@Body() createTourAccessoryDto: CreateTourAccessoryDto) {
     return this.tourAccessoriesService.create(createTourAccessoryDto);
+  }
+
+  @Post('image/create')
+  createNewImage(@Body() createImageDto: CreateAccessoryImageDto) {
+    return this.tourAccessoriesService.createNewImage(createImageDto);
   }
 
   @Get()

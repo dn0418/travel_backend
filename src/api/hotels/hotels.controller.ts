@@ -1,5 +1,5 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
-import { CreateHotelDto, UpdateHotelDto } from './hotels.dto';
+import { CreateHotelDto, CreateHotelImageDto, UpdateHotelDto } from './hotels.dto';
 import { HotelsService } from './hotels.service';
 
 @Controller('hotels')
@@ -9,6 +9,11 @@ export class HotelsController {
   @Post('create')
   create(@Body() createHotelDto: CreateHotelDto) {
     return this.hotelsService.create(createHotelDto);
+  }
+
+  @Post('image/create')
+  createNewImage(@Body() createImageDto: CreateHotelImageDto) {
+    return this.hotelsService.createNewImage(createImageDto);
   }
 
   @Get()

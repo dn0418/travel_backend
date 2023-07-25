@@ -1,4 +1,4 @@
-import { IsArray, IsBoolean, IsNotEmpty, IsOptional, IsString } from "class-validator";
+import { IsArray, IsBoolean, IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
 
 export class CreateThingToDoDto {
   @IsOptional()
@@ -213,4 +213,14 @@ export class UpdateThingToDoDto {
   @IsOptional()
   @IsString()
   entrance_hy: string;
+}
+
+export class CreateTodoImageDto {
+  @IsString()
+  @IsNotEmpty()
+  url: string;
+
+  @IsNumber()
+  @IsNotEmpty()
+  thingId: number;
 }

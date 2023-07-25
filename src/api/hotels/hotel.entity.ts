@@ -32,7 +32,7 @@ export class Hotels extends CommonEntity {
   price: number;
 
   @Column({ nullable: true })
-  fromAirport: string;
+  fromAirport: boolean;
 
   @Column()
   country: string;

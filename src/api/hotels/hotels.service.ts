@@ -5,7 +5,7 @@ import { ImagesService } from '../images/images.service';
 import { ReviewsService } from '../reviews/reviews.service';
 import { HotelTypeService } from './hotel-type/hotel-type.service';
 import { Hotels } from './hotel.entity';
-import { CreateHotelDto, UpdateHotelDto } from './hotels.dto';
+import { CreateHotelDto, CreateHotelImageDto, UpdateHotelDto } from './hotels.dto';
 import { PricingTable } from './pricing-table/pricing-table.entity';
 
 @Injectable()
@@ -52,6 +52,26 @@ export class HotelsService {
       statusCode: 201,
       message: 'Hotel created successfully',
       data: newHotel,
+    }
+  }
+
+  async createNewImage(imageDto: CreateHotelImageDto) {
+    const { url, hotelId } = imageDto;
+    const hotel = await this.hotelsRepository.findOne({
+      where: { id: hotelId }
+    });
+
+    if (!hotel) {
+      return {
+        statusCode: 404,
+        message: 'Hotel not found',
+      }
+    }
+    const newImage = await this.imageRepository.addHotelImage(url, hotel);
+    return {
+      statusCode: 201,
+      message: 'Image created successfully',
+      data: newImage,
     }
   }
 

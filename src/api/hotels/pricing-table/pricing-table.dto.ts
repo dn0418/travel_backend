@@ -21,7 +21,7 @@ export class CreatePricingTableDto {
   @IsNotEmpty()
   lastPart: number;
 
-  @IsOptional()
+  @IsNotEmpty()
   @IsNumber()
   hotelId: number;
 }

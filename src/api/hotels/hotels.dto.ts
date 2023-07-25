@@ -14,11 +14,11 @@ export class CreateHotelDto {
   name: string;
 
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   name_ru: string;
 
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   name_hy: string;
 
   @IsString()
@@ -33,7 +33,7 @@ export class CreateHotelDto {
   @IsNotEmpty()
   price: number;
 
-  @IsString()
+  @IsBoolean()
   @IsNotEmpty()
   fromAirport: boolean;
 
@@ -42,11 +42,11 @@ export class CreateHotelDto {
   country: string;
 
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   country_ru: string;
 
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   country_hy: string;
 
   @IsString()
@@ -54,11 +54,11 @@ export class CreateHotelDto {
   city: string;
 
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   city_ru: string;
 
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   city_hy: string;
 
   @IsNumber()
@@ -82,11 +82,11 @@ export class CreateHotelDto {
   shortDescription: string;
 
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   shortDescription_ru: string;
 
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   shortDescription_hy: string;
 
   @IsString()
@@ -94,11 +94,11 @@ export class CreateHotelDto {
   longDescription: string;
 
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   longDescription_ru: string;
 
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   longDescription_hy: string;
 
   @IsArray()
@@ -167,7 +167,7 @@ export class UpdateHotelDto {
   price: number;
 
   @IsOptional()
-  @IsString()
+  @IsBoolean()
   fromAirport: boolean;
 
   @IsOptional()
@@ -233,4 +233,14 @@ export class UpdateHotelDto {
   @IsOptional()
   @IsString()
   longDescription_hy: string;
+}
+
+export class CreateHotelImageDto {
+  @IsString()
+  @IsNotEmpty()
+  url: string;
+
+  @IsNumber()
+  @IsNotEmpty()
+  hotelId: number;
 }

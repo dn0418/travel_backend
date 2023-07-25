@@ -105,6 +105,15 @@ export class CreateTourAccessoryDto {
   @IsOptional()
   pricing: Array<Pricing>;
 }
+
+class Pricing {
+  @IsString()
+  duration: string;
+
+  @IsNumber()
+  price: number;
+}
+
 export class UpdateTourAccessoryDto {
   @IsOptional()
   @IsBoolean()
@@ -203,10 +212,12 @@ export class UpdateTourAccessoryDto {
   longDescription_hy: string;
 }
 
-class Pricing {
+export class CreateAccessoryImageDto {
   @IsString()
-  duration: string;
+  @IsNotEmpty()
+  url: string;
 
   @IsNumber()
-  price: number;
+  @IsNotEmpty()
+  accessoryId: number;
 }

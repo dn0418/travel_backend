@@ -2,7 +2,7 @@ import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common'
 import { CreatePricingTableDto, UpdatePricingTableDto } from './pricing-table.dto';
 import { PricingTableService } from './pricing-table.service';
 
-@Controller('pricing-table')
+@Controller('hotels/pricing')
 export class PricingTableController {
   constructor(private readonly pricingTableService: PricingTableService) { }
 
