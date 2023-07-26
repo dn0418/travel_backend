@@ -1,4 +1,4 @@
-import { IsArray, IsBoolean, IsNotEmpty, IsOptional, IsString } from "class-validator";
+import { IsArray, IsBoolean, IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
 
 export class CreateThingToSeeDto {
   @IsOptional()
@@ -213,4 +213,14 @@ export class UpdateThingToSeeDto {
   @IsOptional()
   @IsString()
   entrance_hy: string;
+}
+
+export class CreateToSeeImageDto {
+  @IsString()
+  @IsNotEmpty()
+  url: string;
+
+  @IsNumber()
+  @IsNotEmpty()
+  thingId: number;
 }

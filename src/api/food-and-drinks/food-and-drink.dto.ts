@@ -1,4 +1,4 @@
-import { IsArray, IsBoolean, IsNotEmpty, IsOptional, IsString } from "class-validator";
+import { IsArray, IsBoolean, IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
 
 export class CreateFoodAndDrinkDto {
   @IsOptional()
@@ -230,3 +230,12 @@ export class UpdateFoodAndDrinkDto {
   entrance_hy: string;
 }
 
+export class CreateFoodImageDto {
+  @IsString()
+  @IsNotEmpty()
+  url: string;
+
+  @IsNumber()
+  @IsNotEmpty()
+  foodId: number;
+}

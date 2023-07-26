@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Like, Repository } from 'typeorm';
 import { ImagesService } from '../images/images.service';
 import { ReviewsService } from '../reviews/reviews.service';
-import { CreateFoodAndDrinkDto, UpdateFoodAndDrinkDto } from './food-and-drink.dto';
+import { CreateFoodAndDrinkDto, CreateFoodImageDto, UpdateFoodAndDrinkDto } from './food-and-drink.dto';
 import { FoodAndDrink } from './food-and-drink.entity';
 
 @Injectable()
@@ -33,6 +33,27 @@ export class FoodAndDrinksService {
       statusCode: 201,
       data: foodDrinks,
       message: 'Food and Drinks created successfully'
+    }
+  }
+
+  async createNewImage(newImage: CreateFoodImageDto) {
+    const { foodId, url } = newImage;
+    const thingToDo = await this.foodDrinksRepository.findOne({
+      where: { id: foodId },
+    });
+
+    if (!thingToDo) {
+      return {
+        statusCode: 404,
+        message: 'Food and Drinks not found'
+      }
+    }
+    const image = await this.imageRepository.addFoodAndDrinksImage(url, thingToDo);
+
+    return {
+      statusCode: 201,
+      data: image,
+      message: 'Image added successfully'
     }
   }
 

@@ -1,5 +1,5 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
-import { CreateThingToSeeDto, UpdateThingToSeeDto } from './thing-to-see.dto';
+import { CreateThingToSeeDto, CreateToSeeImageDto, UpdateThingToSeeDto } from './thing-to-see.dto';
 import { ThingToSeeService } from './thing-to-see.service';
 
 @Controller('thing-to-see')
@@ -9,6 +9,12 @@ export class ThingToSeeController {
   @Post('create')
   create(@Body() createThingToSeeDto: CreateThingToSeeDto) {
     return this.thingToSeeService.create(createThingToSeeDto);
+  }
+
+
+  @Post('image/create')
+  createNewImage(@Body() createImageDto: CreateToSeeImageDto) {
+    return this.thingToSeeService.createNewImage(createImageDto);
   }
 
   @Get()

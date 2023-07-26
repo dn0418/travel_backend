@@ -1,5 +1,5 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
-import { CreateFoodAndDrinkDto, UpdateFoodAndDrinkDto } from './food-and-drink.dto';
+import { CreateFoodAndDrinkDto, CreateFoodImageDto, UpdateFoodAndDrinkDto } from './food-and-drink.dto';
 import { FoodAndDrinksService } from './food-and-drinks.service';
 
 @Controller('food-and-drinks')
@@ -9,6 +9,11 @@ export class FoodAndDrinksController {
   @Post('create')
   create(@Body() createFoodAndDrinkDto: CreateFoodAndDrinkDto) {
     return this.foodAndDrinksService.create(createFoodAndDrinkDto);
+  }
+
+  @Post('image/create')
+  createNewImage(@Body() createImageDto: CreateFoodImageDto) {
+    return this.foodAndDrinksService.createNewImage(createImageDto);
   }
 
   @Get()
