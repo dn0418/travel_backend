@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
 import { CreateRidePlanDto, UpdateRidePlanDto } from './ride-plan.dto';
 import { RidePlanService } from './ride-plan.service';
 
@@ -12,8 +12,8 @@ export class RidePlanController {
   }
 
   @Get()
-  findAll() {
-    return this.ridePlanService.findAll();
+  findAll(@Query('page') page?: string) {
+    return this.ridePlanService.findAll(+page || 1);
   }
 
   @Get(':id')
@@ -21,12 +21,12 @@ export class RidePlanController {
     return this.ridePlanService.findOne(+id);
   }
 
-  @Patch(':id')
+  @Put('update/:id')
   update(@Param('id') id: string, @Body() updateRidePlanDto: UpdateRidePlanDto) {
     return this.ridePlanService.update(+id, updateRidePlanDto);
   }
 
-  @Delete(':id')
+  @Delete('delete/:id')
   remove(@Param('id') id: string) {
     return this.ridePlanService.remove(+id);
   }

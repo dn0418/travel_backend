@@ -1,4 +1,4 @@
-import { Inject, Injectable, forwardRef } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException, forwardRef } from '@nestjs/common';
 import { InjectConnection, InjectRepository } from '@nestjs/typeorm';
 import { Connection, Like, Repository } from 'typeorm';
 import { ImagesService } from '../images/images.service';
@@ -8,7 +8,7 @@ import { DestinationsService } from './destinations/destinations.service';
 import { IndividualPricing } from './individual-pricing/individual-pricing.entity';
 import { Routes } from './routes/route.entity';
 import { TourServices } from './tour-services/tour-service.entity';
-import { CreateTourDto, UpdateTourDto } from './tour.dto';
+import { CreateImageDto, CreateTourDto, UpdateTourDto } from './tour.dto';
 import { Tours } from './tour.entity';
 
 @Injectable()
@@ -129,6 +129,20 @@ export class ToursService {
       statusCode: 201,
       message: 'Tour created successfully',
       data: tour
+    }
+  }
+
+  async createNewImage(imageDto: CreateImageDto) {
+    const { tourId, url } = imageDto;
+    const tour = await this.toursRepository.findOne({ where: { id: tourId } });
+    if (!tour) {
+      throw new NotFoundException('Tour not found');
+    }
+
+    const tourImage = await this.imageRepository.addTourImage(url, tour);
+
+    return {
+      data: tourImage,
     }
   }
 

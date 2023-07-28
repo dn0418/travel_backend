@@ -11,6 +11,12 @@ import { TourServices } from './tour-services/tour-service.entity';
 @Entity()
 export class Tours extends CommonEntity {
   @Column()
+  isRu: boolean;
+
+  @Column()
+  isHy: boolean;
+
+  @Column()
   title: string;
 
   @Column()

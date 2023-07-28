@@ -138,6 +138,9 @@ export class ReviewsService {
       where: { isActive: true },
       skip,
       take: limit,
+      order: {
+        id: 'DESC'
+      }
     });
 
     const totalPages = Math.ceil(total / limit);
@@ -161,6 +164,9 @@ export class ReviewsService {
     const reviews = await this.reviewsRepository.find({
       skip,
       take: limit,
+      order: {
+        id: 'DESC'
+      }
     });
     const total = reviews.length;
     const totalPages = Math.ceil(total / limit);

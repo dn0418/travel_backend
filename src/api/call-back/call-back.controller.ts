@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
 import { CreateCallBackDto, UpdateCallBackDto } from './call-back.dto';
 import { CallBackService } from './call-back.service';
 
@@ -12,8 +12,8 @@ export class CallBackController {
   }
 
   @Get()
-  findAll() {
-    return this.callBackService.findAll();
+  findAll(@Query('page') page?: string) {
+    return this.callBackService.findAll(+page || 1);
   }
 
   @Get('mail')
@@ -26,12 +26,12 @@ export class CallBackController {
     return this.callBackService.findOne(+id);
   }
 
-  @Patch(':id')
+  @Put('update/:id')
   update(@Param('id') id: string, @Body() updateCallBackDto: UpdateCallBackDto) {
     return this.callBackService.update(+id, updateCallBackDto);
   }
 
-  @Delete(':id')
+  @Delete('delete/:id')
   remove(@Param('id') id: string) {
     return this.callBackService.remove(+id);
   }

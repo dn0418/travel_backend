@@ -117,6 +117,9 @@ export class HotelsService {
       skip,
       take: +limit,
       relations: ["type", "reviews"],
+      order: {
+        name: 'ASC',
+      }
     });
 
     const totalPages = Math.ceil(totalCount / +limit);

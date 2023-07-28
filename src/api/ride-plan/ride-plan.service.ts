@@ -38,9 +38,15 @@ export class RidePlanService {
     }
   }
 
-  async findAll() {
+  async findAll(page: number) {
+    const skip = (+page - 1) * 20;
     const ridePlans = await this.ridePlanRepository.find({
       relations: ['destination'],
+      skip: skip,
+      take: 20,
+      order: {
+        id: 'DESC'
+      }
     });
 
     return {
@@ -70,7 +76,16 @@ export class RidePlanService {
   async remove(id: number) {
     const ridePlan = await this.ridePlanRepository.findOne({
       where: { id },
+      relations: ['destination'],
     });
+
+    if (ridePlan.destination.length > 0) {
+      await Promise.all(
+        ridePlan.destination.map(async (item) => {
+          await this.rideDestinationRepository.remove(item);
+        }),
+      );
+    }
 
     if (ridePlan) {
       await this.ridePlanRepository.delete(id);

@@ -1,5 +1,5 @@
 import { MailerService } from '@nestjs-modules/mailer';
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateCallBackDto, UpdateCallBackDto } from './call-back.dto';
@@ -31,8 +31,16 @@ export class CallBackService {
     }
   }
 
-  async findAll() {
-    const callBacks = await this.callbackRepository.find();
+  async findAll(page: number) {
+    const skip = (+page - 1) * 20;
+
+    const callBacks = await this.callbackRepository.find({
+      skip: skip,
+      take: 20,
+      order: {
+        id: 'DESC'
+      }
+    });
 
     return {
       statusCode: 200,
@@ -68,6 +76,9 @@ export class CallBackService {
 
   async remove(id: number) {
     const callBack = await this.callbackRepository.findOne({ where: { id: id } });
+    if (!callBack) {
+      throw new NotFoundException('CallBack not found');
+    }
 
     const deletedCallBack = await this.callbackRepository.remove(callBack);
 

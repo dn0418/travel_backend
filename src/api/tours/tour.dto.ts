@@ -1,6 +1,14 @@
 import { IsArray, IsBoolean, IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
 
 export class CreateTourDto {
+  @IsOptional()
+  @IsBoolean()
+  isRu: boolean;
+
+  @IsOptional()
+  @IsBoolean()
+  isHy: boolean;
+
   @IsNotEmpty()
   @IsString()
   title: string;
@@ -136,6 +144,14 @@ export class CreateTourDto {
 
 
 export class UpdateTourDto {
+  @IsOptional()
+  @IsBoolean()
+  isRu: boolean;
+
+  @IsOptional()
+  @IsBoolean()
+  isHy: boolean;
+
   @IsOptional()
   @IsString()
   title: string;
@@ -342,4 +358,14 @@ class DeparturesPricingDto {
   @IsNumber()
   @IsNotEmpty()
   price: number;
+}
+
+export class CreateImageDto {
+  @IsNumber()
+  @IsNotEmpty()
+  tourId: number;
+
+  @IsString()
+  @IsNotEmpty()
+  url: string;
 }
