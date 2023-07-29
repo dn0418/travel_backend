@@ -25,7 +25,7 @@ export class IndividualPricingService {
     const individualPricing = await this.individualRepository.save(newPrice);
 
     return {
-      statusCode: 201,
+      status: 201,
       message: 'Created individual pricing',
       data: individualPricing,
     }
@@ -37,7 +37,7 @@ export class IndividualPricingService {
     });
 
     return {
-      statusCode: 200,
+      status: 200,
       message: 'Found individual pricing',
       data: individualPricings,
     }
@@ -51,13 +51,13 @@ export class IndividualPricingService {
 
     if (!individualPricing) {
       return {
-        statusCode: 404,
+        status: 404,
         message: 'Not found individual pricing',
       }
     }
 
     return {
-      statusCode: 200,
+      status: 200,
       message: 'Found individual pricing',
       data: individualPricing,
     }
@@ -71,7 +71,7 @@ export class IndividualPricingService {
 
     if (!individualPricing) {
       return {
-        statusCode: 404,
+        status: 404,
         message: 'Not found individual pricing',
       }
     }
@@ -82,7 +82,7 @@ export class IndividualPricingService {
     });
 
     return {
-      statusCode: 200,
+      status: 200,
       message: 'Updated individual pricing',
       data: updatedIndividualPricing,
     }
@@ -95,7 +95,7 @@ export class IndividualPricingService {
 
     if (!individualPricing) {
       return {
-        statusCode: 404,
+        status: 404,
         message: 'Not found individual pricing',
       }
     }
@@ -103,7 +103,7 @@ export class IndividualPricingService {
     await this.individualRepository.remove(individualPricing);
 
     return {
-      statusCode: 200,
+      status: 200,
       message: 'Deleted individual pricing',
       data: individualPricing,
     }

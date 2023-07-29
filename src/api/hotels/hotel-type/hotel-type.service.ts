@@ -16,7 +16,7 @@ export class HotelTypeService {
     this.hotelTypeRepository.save(hotelType);
 
     return {
-      statusCode: 201,
+      status: 201,
       message: 'Hotel type created successfully',
       data: hotelType,
     }
@@ -25,7 +25,7 @@ export class HotelTypeService {
   async findAll() {
     const hotelTypes = await this.hotelTypeRepository.find();
     return {
-      statusCode: 200,
+      status: 200,
       message: 'Hotel types fetched successfully',
       data: hotelTypes,
     }
@@ -40,12 +40,12 @@ export class HotelTypeService {
 
     if (!findHotelType) {
       return {
-        statusCode: 404,
+        status: 404,
         message: 'Hotel type not found',
       }
     }
     return {
-      statusCode: 200,
+      status: 200,
       message: 'Hotel type fetched successfully',
       data: findHotelType,
     }
@@ -60,7 +60,7 @@ export class HotelTypeService {
 
     if (!findHotelType) {
       return {
-        statusCode: 404,
+        status: 404,
         message: 'Hotel type not found',
       }
     }
@@ -68,7 +68,7 @@ export class HotelTypeService {
     const updateHotelType = await this.hotelTypeRepository.update(id, updateHotelTypeDto);
 
     return {
-      statusCode: 200,
+      status: 200,
       message: 'Hotel type updated successfully',
       data: updateHotelType,
     }
@@ -82,14 +82,14 @@ export class HotelTypeService {
 
     if (!findHotelType) {
       return {
-        statusCode: 404,
+        status: 404,
         message: 'Hotel type not found',
       }
     }
 
     if (findHotelType.hotel.length > 0) {
       return {
-        statusCode: 400,
+        status: 400,
         message: 'Hotel type is in use',
       }
     }
@@ -97,7 +97,7 @@ export class HotelTypeService {
     const deleteHotelType = await this.hotelTypeRepository.delete(id);
 
     return {
-      statusCode: 200,
+      status: 200,
       message: 'Hotel type deleted successfully',
       data: deleteHotelType,
     }

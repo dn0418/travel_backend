@@ -49,7 +49,7 @@ export class HotelsService {
     }
 
     return {
-      statusCode: 201,
+      status: 201,
       message: 'Hotel created successfully',
       data: newHotel,
     }
@@ -63,13 +63,13 @@ export class HotelsService {
 
     if (!hotel) {
       return {
-        statusCode: 404,
+        status: 404,
         message: 'Hotel not found',
       }
     }
     const newImage = await this.imageRepository.addHotelImage(url, hotel);
     return {
-      statusCode: 201,
+      status: 201,
       message: 'Image created successfully',
       data: newImage,
     }
@@ -133,7 +133,7 @@ export class HotelsService {
     });
 
     return {
-      statusCode: 200,
+      status: 200,
       message: 'Hotels retrieved successfully',
       data: hotelsWithAvgRating,
       meta: {
@@ -153,12 +153,12 @@ export class HotelsService {
 
     if (!hotel) {
       return {
-        statusCode: 404,
+        status: 404,
         message: 'Hotel not found',
       }
     }
     return {
-      statusCode: 200,
+      status: 200,
       data: hotel,
     }
   }
@@ -170,7 +170,7 @@ export class HotelsService {
 
     if (!findHotel) {
       return {
-        statusCode: 404,
+        status: 404,
         message: 'Hotel not found',
       }
     }
@@ -183,7 +183,7 @@ export class HotelsService {
     const updatedHotel = await this.hotelsRepository.save(updatedData);
 
     return {
-      statusCode: 200,
+      status: 200,
       message: 'Hotel updated successfully',
       data: updatedHotel,
     }
@@ -197,7 +197,7 @@ export class HotelsService {
 
     if (!findHotel) {
       return {
-        statusCode: 404,
+        status: 404,
         message: 'Hotel not found',
       }
     }
@@ -223,7 +223,7 @@ export class HotelsService {
     await this.hotelsRepository.remove(findHotel);
 
     return {
-      statusCode: 200,
+      status: 200,
       message: 'Hotel deleted successfully',
     }
   }

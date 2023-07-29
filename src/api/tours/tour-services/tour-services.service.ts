@@ -22,7 +22,7 @@ export class TourServicesService {
     const service = await this.servicesRepository.save(newService);
 
     return {
-      statusCode: 201,
+      status: 201,
       message: 'Tour service created successfully',
       data: service,
     }
@@ -31,7 +31,7 @@ export class TourServicesService {
   async findAll() {
     const services = await this.servicesRepository.find();
     return {
-      statusCode: 200,
+      status: 200,
       message: 'Tour services fetched successfully',
       data: services,
     }
@@ -41,13 +41,13 @@ export class TourServicesService {
     const service = await this.servicesRepository.findOne({ where: { id: id } });
     if (!service) {
       return {
-        statusCode: 404,
+        status: 404,
         message: 'Tour service not found',
       }
     }
 
     return {
-      statusCode: 200,
+      status: 200,
       message: 'Tour service fetched successfully',
       data: service,
     }
@@ -58,7 +58,7 @@ export class TourServicesService {
 
     if (!findService) {
       return {
-        statusCode: 404,
+        status: 404,
         message: 'Tour service not found',
       }
     }
@@ -69,7 +69,7 @@ export class TourServicesService {
     })
 
     return {
-      statusCode: 200,
+      status: 200,
       message: 'Tour service updated successfully',
       data: updatedService,
     }
@@ -81,7 +81,7 @@ export class TourServicesService {
 
     if (!findService) {
       return {
-        statusCode: 404,
+        status: 404,
         message: 'Tour service not found',
       }
     }
@@ -89,7 +89,7 @@ export class TourServicesService {
     const deletedService = await this.servicesRepository.remove(findService);
 
     return {
-      statusCode: 200,
+      status: 200,
       message: 'Tour service deleted successfully',
       data: deletedService,
     }

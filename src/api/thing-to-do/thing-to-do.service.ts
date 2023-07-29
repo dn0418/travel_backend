@@ -28,7 +28,7 @@ export class ThingToDoService {
     }
 
     return {
-      statusCode: 201,
+      status: 201,
       data: thingToDo,
       message: 'Thing to do created successfully'
     }
@@ -41,13 +41,13 @@ export class ThingToDoService {
     });
     if (!thingToDo) {
       return {
-        statusCode: 404,
+        status: 404,
         message: 'Thing to do not found'
       }
     }
     const image = await this.imageRepository.addThingToDoImage(url, thingToDo);
     return {
-      statusCode: 201,
+      status: 201,
       data: image,
       message: 'Image added successfully'
     }
@@ -98,7 +98,7 @@ export class ThingToDoService {
     });
 
     return {
-      statusCode: 200,
+      status: 200,
       message: 'Things retrieved successfully',
       data: thingsWithAvgRating,
       meta: {
@@ -118,13 +118,13 @@ export class ThingToDoService {
 
     if (!thing) {
       return {
-        statusCode: 404,
+        status: 404,
         message: 'Thing to do not found'
       }
     }
 
     return {
-      statusCode: 200,
+      status: 200,
       data: thing
     }
   }
@@ -134,7 +134,7 @@ export class ThingToDoService {
 
     if (!thingToDo) {
       return {
-        statusCode: 404,
+        status: 404,
         message: 'Thing to do not found'
       }
     }
@@ -145,7 +145,7 @@ export class ThingToDoService {
     });
 
     return {
-      statusCode: 200,
+      status: 200,
       data: updatedThingToDo,
       message: 'Thing to do updated successfully'
     }
@@ -160,7 +160,7 @@ export class ThingToDoService {
 
     if (!thingToDo) {
       return {
-        statusCode: 404,
+        status: 404,
         message: 'Thing to do not found'
       }
     }
@@ -180,7 +180,7 @@ export class ThingToDoService {
     await this.thingToDoRepository.remove(thingToDo);
 
     return {
-      statusCode: 200,
+      status: 200,
       message: 'Thing to do deleted successfully'
     }
   }

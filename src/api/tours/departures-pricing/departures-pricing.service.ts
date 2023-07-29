@@ -22,7 +22,7 @@ export class DeparturesPricingService {
     const departure = await this.departureRepository.save(newDeparture);
 
     return {
-      statusCode: 201,
+      status: 201,
       message: 'Departure created successfully',
       data: departure,
     }
@@ -32,7 +32,7 @@ export class DeparturesPricingService {
     const departures = await this.departureRepository.find();
 
     return {
-      statusCode: 200,
+      status: 200,
       message: 'Departures fetched successfully',
       data: departures,
     }
@@ -43,13 +43,13 @@ export class DeparturesPricingService {
 
     if (!departure) {
       return {
-        statusCode: 404,
+        status: 404,
         message: 'Departure not found',
       }
     }
 
     return {
-      statusCode: 200,
+      status: 200,
       message: 'Departure fetched successfully',
       data: departure,
     }
@@ -62,7 +62,7 @@ export class DeparturesPricingService {
 
     if (!findDeparture) {
       return {
-        statusCode: 404,
+        status: 404,
         message: 'Departure not found',
       }
     }
@@ -73,7 +73,7 @@ export class DeparturesPricingService {
     });
 
     return {
-      statusCode: 200,
+      status: 200,
       message: 'Departure updated successfully',
       data: updatedDeparture,
     }
@@ -85,7 +85,7 @@ export class DeparturesPricingService {
 
     if (!departure) {
       return {
-        statusCode: 404,
+        status: 404,
         message: 'Departure not found',
       }
     }
@@ -93,7 +93,7 @@ export class DeparturesPricingService {
     await this.departureRepository.delete(id);
 
     return {
-      statusCode: 200,
+      status: 200,
       message: 'Departure deleted successfully',
       data: departure,
     }

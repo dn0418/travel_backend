@@ -247,6 +247,10 @@ export class UpdateTourDto {
   @IsOptional()
   @IsString()
   thumbnail: string;
+
+  @IsNotEmpty()
+  @IsNumber()
+  destinationId: number;
 }
 
 

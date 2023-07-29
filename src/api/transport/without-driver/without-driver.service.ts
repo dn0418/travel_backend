@@ -50,7 +50,7 @@ export class CarsService {
     }
 
     return {
-      statusCode: 201,
+      status: 201,
       message: 'Car created successfully',
       data: car,
     }
@@ -64,7 +64,7 @@ export class CarsService {
 
     if (!car) {
       return {
-        statusCode: 404,
+        status: 404,
         message: 'Car not found',
       }
     }
@@ -74,7 +74,7 @@ export class CarsService {
     await this.pricingRepository.save(newPricing);
 
     return {
-      statusCode: 201,
+      status: 201,
       message: 'Pricing without driver created successfully',
       data: newPricing,
     }
@@ -85,7 +85,7 @@ export class CarsService {
     const findPrice = await this.pricingRepository.findOne({ where: { id } });
     if (!findPrice) {
       return {
-        statusCode: 400,
+        status: 400,
         message: 'Pricing with driver not found',
       }
     }
@@ -94,7 +94,7 @@ export class CarsService {
       ...priceDto,
     });
     return {
-      statusCode: 200,
+      status: 200,
       message: 'Pricing with driver updated successfully',
       data: updatedPricing,
     }
@@ -106,14 +106,14 @@ export class CarsService {
     const findCar = await this.carRepository.findOne({ where: { id: carId } });
     if (!findCar) {
       return {
-        statusCode: 404,
+        status: 404,
         message: 'Car not found',
       }
     }
     const newImage = await this.imageRepository.addCarImage(url, findCar);
 
     return {
-      statusCode: 201,
+      status: 201,
       message: 'Image created successfully',
       data: newImage
     }
@@ -124,7 +124,7 @@ export class CarsService {
     const findPrice = await this.pricingRepository.findOne({ where: { id } });
     if (!findPrice) {
       return {
-        statusCode: 400,
+        status: 400,
         message: 'Pricing with driver not found',
       }
     }
@@ -132,7 +132,7 @@ export class CarsService {
     await this.pricingRepository.delete(id);
 
     return {
-      statusCode: 200,
+      status: 200,
       message: 'Pricing with driver deleted successfully',
     }
   }
@@ -172,7 +172,7 @@ export class CarsService {
     });
 
     return {
-      statusCode: 200,
+      status: 200,
       message: 'Cars retrieved successfully',
       data: carsWithAvgRating,
       meta: {
@@ -196,7 +196,7 @@ export class CarsService {
       const reviewAverage = totalReview > 0 ? reviewTotal / totalReview : 0;
 
       return {
-        statusCode: 200,
+        status: 200,
         message: 'Car retrieved successfully',
         data: {
           ...car,
@@ -206,7 +206,7 @@ export class CarsService {
       }
     }
     return {
-      statusCode: 400,
+      status: 400,
       message: 'Car not found',
     }
   }
@@ -215,7 +215,7 @@ export class CarsService {
     const findCar = await this.carRepository.findOne({ where: { id } });
     if (!findCar) {
       return {
-        statusCode: 400,
+        status: 400,
         message: 'Car not found',
       }
     }
@@ -226,7 +226,7 @@ export class CarsService {
     });
 
     return {
-      statusCode: 200,
+      status: 200,
       message: 'Car updated successfully',
       data: updateCar,
     }
@@ -240,7 +240,7 @@ export class CarsService {
 
     if (!findCar) {
       return {
-        statusCode: 400,
+        status: 400,
         message: 'Car not found',
       }
     }
@@ -266,7 +266,7 @@ export class CarsService {
     await this.carRepository.remove(findCar);
 
     return {
-      statusCode: 200,
+      status: 200,
       message: 'Car deleted successfully',
     }
   }

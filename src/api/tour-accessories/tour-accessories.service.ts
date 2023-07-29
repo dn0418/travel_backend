@@ -45,7 +45,7 @@ export class TourAccessoriesService {
     }
 
     return {
-      statusCode: 201,
+      status: 201,
       message: 'Accessory created successfully',
       data: newAccessory,
     }
@@ -56,13 +56,13 @@ export class TourAccessoriesService {
     const findAccessory = await this.tourAccessoryRepository.findOne({ where: { id: accessoryId } });
     if (!findAccessory) {
       return {
-        statusCode: 404,
+        status: 404,
         message: 'Accessory not found',
       }
     }
     const newImage = await this.imageRepository.AddaccessoryImage(url, findAccessory);
     return {
-      statusCode: 201,
+      status: 201,
       message: 'Image created successfully',
       data: newImage,
     }
@@ -108,7 +108,7 @@ export class TourAccessoriesService {
     });
 
     return {
-      statusCode: 200,
+      status: 200,
       message: 'Accessories retrieved successfully',
       data: accessoryWithAvgRating,
       meta: {
@@ -128,13 +128,13 @@ export class TourAccessoriesService {
 
     if (!accessory) {
       return {
-        statusCode: 404,
+        status: 404,
         message: 'Accessory not found',
       }
     }
 
     return {
-      statusCode: 200,
+      status: 200,
       message: 'Accessory retrieved successfully',
       data: accessory,
     }
@@ -156,7 +156,7 @@ export class TourAccessoriesService {
     });
 
     return {
-      statusCode: 200,
+      status: 200,
       message: 'Accessory updated successfully',
       data: accessory,
     }
@@ -171,7 +171,7 @@ export class TourAccessoriesService {
 
     if (!accessory) {
       return {
-        statusCode: 404,
+        status: 404,
         message: 'Accessory not found',
       }
     }
@@ -197,7 +197,7 @@ export class TourAccessoriesService {
     await this.tourAccessoryRepository.remove(accessory);
 
     return {
-      statusCode: 200,
+      status: 200,
       message: 'Accessory deleted successfully',
       data: accessory,
     }

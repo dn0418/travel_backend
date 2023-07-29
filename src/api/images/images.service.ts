@@ -108,7 +108,7 @@ export class ImagesService {
 
     if (!image) {
       return {
-        statusCode: 404,
+        status: 404,
         message: 'Image not found',
       };
     }
@@ -116,7 +116,7 @@ export class ImagesService {
     const res = await this.imagesRepository.remove(image);
 
     return {
-      statusCode: 200,
+      status: 200,
       message: 'Image successfully removed',
     }
   }

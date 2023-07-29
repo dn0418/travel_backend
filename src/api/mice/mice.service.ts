@@ -45,7 +45,7 @@ export class MiceService {
     });
 
     return {
-      statusCode: 200,
+      status: 200,
       message: 'Mice retrieved successfully',
       data: micesWithAvgRating,
       meta: {
@@ -65,13 +65,13 @@ export class MiceService {
 
     if (!mice) {
       return {
-        statusCode: 404,
+        status: 404,
         message: 'Mouse not found',
       }
     }
 
     return {
-      statusCode: 200,
+      status: 200,
       data: mice,
     }
   }

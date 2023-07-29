@@ -48,7 +48,7 @@ export class AirportTransportService {
     if (!findAirportTransport) {
       return {
         message: 'AirportTransport not found',
-        statusCode: 404,
+        status: 404,
       }
     }
 
@@ -79,7 +79,7 @@ export class AirportTransportService {
     if (!findAirportTransport) {
       return {
         message: 'AirportTransport not found',
-        statusCode: 404,
+        status: 404,
       }
     }
 
@@ -89,7 +89,7 @@ export class AirportTransportService {
     });
 
     return {
-      statusCode: 200,
+      status: 200,
       message: 'AirportTransport updated successfully',
       data: updatedAirportTransport,
     }

@@ -16,7 +16,7 @@ export class AccessoryTypeService {
     await this.accessoryTypeRepository.save(accessoryType);
 
     return {
-      statusCode: 201,
+      status: 201,
       message: 'Accesssory type created successfully',
       data: accessoryType,
     }
@@ -25,7 +25,7 @@ export class AccessoryTypeService {
   async findAll() {
     const acccessoryTypes = await this.accessoryTypeRepository.find();
     return {
-      statusCode: 200,
+      status: 200,
       message: 'Accessory types fetched successfully',
       data: acccessoryTypes,
     }
@@ -40,12 +40,12 @@ export class AccessoryTypeService {
 
     if (!findAcccessoryType) {
       return {
-        statusCode: 404,
+        status: 404,
         message: 'Accessory type not found',
       }
     }
     return {
-      statusCode: 200,
+      status: 200,
       message: 'Accessory type fetched successfully',
       data: findAcccessoryType,
     }
@@ -60,7 +60,7 @@ export class AccessoryTypeService {
 
     if (!findAcccessoryType) {
       return {
-        statusCode: 404,
+        status: 404,
         message: 'Accessory type not found',
       }
     }
@@ -68,7 +68,7 @@ export class AccessoryTypeService {
     const updateAccessoryType = await this.accessoryTypeRepository.update(id, updateAccessoryTypeDto);
 
     return {
-      statusCode: 200,
+      status: 200,
       message: 'Accessory type updated successfully',
       data: updateAccessoryType,
     }
@@ -82,14 +82,14 @@ export class AccessoryTypeService {
 
     if (!findaccessoryType) {
       return {
-        statusCode: 404,
+        status: 404,
         message: 'Accessory type not found',
       }
     }
 
     if (findaccessoryType.accessory.length > 0) {
       return {
-        statusCode: 400,
+        status: 400,
         message: 'Accessory type has been used!',
       }
     }
@@ -97,7 +97,7 @@ export class AccessoryTypeService {
     const deleteaccessoryType = await this.accessoryTypeRepository.delete(id);
 
     return {
-      statusCode: 200,
+      status: 200,
       message: 'Accessory type deleted successfully',
       data: deleteaccessoryType,
     }

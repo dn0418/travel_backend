@@ -23,7 +23,7 @@ export class WithDriverService {
     const allData = await this.carWithDriverRepository.find();
     if (allData.length !== 0) {
       return {
-        statusCode: 400,
+        status: 400,
         message: 'Car With Driver already exists',
       }
     }
@@ -49,7 +49,7 @@ export class WithDriverService {
     }
 
     return {
-      statusCode: 201,
+      status: 201,
       message: 'Car With Driver created successfully',
       data: car,
     }
@@ -64,7 +64,7 @@ export class WithDriverService {
     if (!findWithDriver) {
       return {
         message: 'Car with driver not found',
-        statusCode: 404,
+        status: 404,
       }
     }
 
@@ -84,7 +84,7 @@ export class WithDriverService {
 
     if (!car) {
       return {
-        statusCode: 404,
+        status: 404,
         message: 'Car not found',
       }
     }
@@ -94,7 +94,7 @@ export class WithDriverService {
     await this.pricingRepository.save(newPricing);
 
     return {
-      statusCode: 201,
+      status: 201,
       message: 'Pricing with driver created successfully',
       data: newPricing,
     }
@@ -104,7 +104,7 @@ export class WithDriverService {
     const findPrice = await this.pricingRepository.findOne({ where: { id } });
     if (!findPrice) {
       return {
-        statusCode: 400,
+        status: 400,
         message: 'Pricing with driver not found',
       }
     }
@@ -115,7 +115,7 @@ export class WithDriverService {
     });
 
     return {
-      statusCode: 200,
+      status: 200,
       message: 'Pricing with driver updated successfully',
       data: updatePrice,
     }
@@ -125,7 +125,7 @@ export class WithDriverService {
     const findPrice = await this.pricingRepository.findOne({ where: { id } });
     if (!findPrice) {
       return {
-        statusCode: 400,
+        status: 400,
         message: 'Pricing with driver not found',
       }
     }
@@ -133,7 +133,7 @@ export class WithDriverService {
     await this.pricingRepository.delete(id);
 
     return {
-      statusCode: 200,
+      status: 200,
       message: 'Pricing with driver deleted successfully',
     }
   }
@@ -145,7 +145,7 @@ export class WithDriverService {
       }
     );
     return {
-      statusCode: 200,
+      status: 200,
       data: data,
     }
   }
@@ -154,7 +154,7 @@ export class WithDriverService {
     const findCar = await this.carWithDriverRepository.findOne({ where: { id } });
     if (!findCar) {
       return {
-        statusCode: 400,
+        status: 400,
         message: 'Car not found',
       }
     }
@@ -165,7 +165,7 @@ export class WithDriverService {
     });
 
     return {
-      statusCode: 200,
+      status: 200,
       message: 'Car updated successfully',
       data: updateCar,
     }

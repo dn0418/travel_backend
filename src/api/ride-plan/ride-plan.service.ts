@@ -32,7 +32,7 @@ export class RidePlanService {
     }
 
     return {
-      statusCode: 201,
+      status: 201,
       message: 'RidePlan created successfully',
       data: ridePlan,
     }
@@ -50,7 +50,7 @@ export class RidePlanService {
     });
 
     return {
-      statusCode: 200,
+      status: 200,
       message: 'RidePlans retrieved successfully',
       data: ridePlans,
     }
@@ -63,7 +63,7 @@ export class RidePlanService {
     });
 
     return {
-      statusCode: 200,
+      status: 200,
       message: 'RidePlan retrieved successfully',
       data: ridePlan,
     }
@@ -92,7 +92,7 @@ export class RidePlanService {
     }
 
     return {
-      statusCode: 200,
+      status: 200,
       message: 'RidePlan deleted successfully',
       data: ridePlan,
     }

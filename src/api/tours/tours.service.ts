@@ -126,7 +126,7 @@ export class ToursService {
     }
 
     return {
-      statusCode: 201,
+      status: 201,
       message: 'Tour created successfully',
       data: tour
     }
@@ -214,7 +214,7 @@ export class ToursService {
     });
 
     return {
-      statusCode: 200,
+      status: 200,
       message: 'Tours retrieved successfully',
       data: toursWithAvgRating,
       meta: {
@@ -246,35 +246,44 @@ export class ToursService {
 
     if (tour) {
       return {
-        statusCode: 200,
+        status: 200,
         data: tour
       }
     }
 
     return {
-      statusCode: 404,
+      status: 404,
       message: 'Tour not found'
     }
   }
 
   async update(id: number, updateTourDto: UpdateTourDto) {
-    const tour = await this.toursRepository.findOneById(id);
+    const { destinationId, ...tourData } = updateTourDto;
+    const tour = await this.toursRepository.findOne({ where: { id: id } });
+    if (!tour) {
+      return {
+        status: 404,
+        message: 'Tour not found'
+      }
+    };
+    const destination = await this.destinationRepository.findDestinationById(destinationId);
 
-    if (tour) {
+    if (destination) {
       await this.toursRepository.save({
         ...tour,
-        ...updateTourDto
+        ...tourData,
+        destination: destination
       });
-
-      return {
-        statusCode: 200,
-        message: 'Tour updated successfully'
-      }
+    } else {
+      await this.toursRepository.save({
+        ...tour,
+        ...tourData
+      });
     }
 
     return {
-      statusCode: 404,
-      message: 'Tour not found'
+      status: 200,
+      message: 'Tour updated successfully'
     }
   }
 
@@ -295,7 +304,7 @@ export class ToursService {
 
     if (!tour) {
       return {
-        statusCode: 404,
+        status: 404,
         message: 'Tour not found'
       }
     }
@@ -345,7 +354,7 @@ export class ToursService {
     await this.toursRepository.remove(tour);
 
     return {
-      statusCode: 200,
+      status: 200,
       message: 'Tour deleted successfully'
     }
   }

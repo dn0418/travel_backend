@@ -30,7 +30,7 @@ export class FoodAndDrinksService {
     }
 
     return {
-      statusCode: 201,
+      status: 201,
       data: foodDrinks,
       message: 'Food and Drinks created successfully'
     }
@@ -44,14 +44,14 @@ export class FoodAndDrinksService {
 
     if (!thingToDo) {
       return {
-        statusCode: 404,
+        status: 404,
         message: 'Food and Drinks not found'
       }
     }
     const image = await this.imageRepository.addFoodAndDrinksImage(url, thingToDo);
 
     return {
-      statusCode: 201,
+      status: 201,
       data: image,
       message: 'Image added successfully'
     }
@@ -102,7 +102,7 @@ export class FoodAndDrinksService {
     });
 
     return {
-      statusCode: 200,
+      status: 200,
       message: 'Food and Drinks retrieved successfully',
       data: foodAndDrinksWithAvgRating,
       meta: {
@@ -122,13 +122,13 @@ export class FoodAndDrinksService {
 
     if (!foodAndDrink) {
       return {
-        statusCode: 404,
+        status: 404,
         message: 'Food and Drinks not found'
       }
     }
 
     return {
-      statusCode: 200,
+      status: 200,
       data: foodAndDrink
     }
   }
@@ -138,7 +138,7 @@ export class FoodAndDrinksService {
 
     if (!foodAndDrink) {
       return {
-        statusCode: 404,
+        status: 404,
         message: 'Food and Drinks not found'
       }
     }
@@ -149,7 +149,7 @@ export class FoodAndDrinksService {
     });
 
     return {
-      statusCode: 200,
+      status: 200,
       data: updatedFoodAndDrinks,
       message: 'Food and Drinks updated successfully'
     }
@@ -164,7 +164,7 @@ export class FoodAndDrinksService {
 
     if (!foodAndDrink) {
       return {
-        statusCode: 404,
+        status: 404,
         message: 'Food and Drinks not found'
       };
     }
@@ -184,7 +184,7 @@ export class FoodAndDrinksService {
     await this.foodDrinksRepository.remove(foodAndDrink);
 
     return {
-      statusCode: 200,
+      status: 200,
       message: 'Food and Drinks deleted successfully'
     };
   }

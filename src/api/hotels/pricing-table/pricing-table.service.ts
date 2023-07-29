@@ -21,7 +21,7 @@ export class PricingTableService {
     const price = await this.pricingRepository.save(newPricingTable);
 
     return {
-      statusCode: 201,
+      status: 201,
       message: 'Pricing table created successfully',
       data: price
     }
@@ -32,7 +32,7 @@ export class PricingTableService {
     const prices = await this.pricingRepository.find();
 
     return {
-      statusCode: 200,
+      status: 200,
       message: 'Pricing table list',
       data: prices
     }
@@ -43,14 +43,14 @@ export class PricingTableService {
 
     if (!price) {
       return {
-        statusCode: 404,
+        status: 404,
         message: 'Pricing table not found',
         data: null
       }
     }
 
     return {
-      statusCode: 200,
+      status: 200,
       message: 'Pricing table',
       data: price
     }
@@ -60,7 +60,7 @@ export class PricingTableService {
     const findPrice = await this.pricingRepository.findOne({ where: { id: id } });
     if (!findPrice) {
       return {
-        statusCode: 404,
+        status: 404,
         message: 'Pricing table not found',
       }
     }
@@ -70,7 +70,7 @@ export class PricingTableService {
     });
 
     return {
-      statusCode: 200,
+      status: 200,
       message: 'Pricing table updated successfully',
       data: updatedPrice
     }
@@ -80,14 +80,14 @@ export class PricingTableService {
     const findPrice = await this.pricingRepository.findOne({ where: { id: id } });
     if (!findPrice) {
       return {
-        statusCode: 404,
+        status: 404,
         message: 'Pricing table not found',
       }
     }
     const deletedPrice = await this.pricingRepository.delete(id);
 
     return {
-      statusCode: 200,
+      status: 200,
       message: 'Pricing table deleted successfully',
       data: deletedPrice
     }

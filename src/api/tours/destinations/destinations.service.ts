@@ -16,7 +16,7 @@ export class DestinationsService {
     const destination = await this.destinationsRepository.save(newDestination);
 
     return {
-      statusCode: 201,
+      status: 201,
       message: 'Destination created successfully',
       data: destination
     }
@@ -26,7 +26,7 @@ export class DestinationsService {
   async findAll() {
     const destinations = await this.destinationsRepository.find();
     return {
-      statusCode: 200,
+      status: 200,
       data: destinations
     }
   }
@@ -41,7 +41,7 @@ export class DestinationsService {
     }
 
     return {
-      statusCode: 200,
+      status: 200,
       data: destination
     };
   }
@@ -53,7 +53,7 @@ export class DestinationsService {
 
     if (!destination) {
       return {
-        statusCode: 404,
+        status: 404,
         message: 'Destination not found by this ID',
       }
     }
@@ -61,7 +61,7 @@ export class DestinationsService {
     await this.destinationsRepository.update(id, updateDestinationDto);
 
     return {
-      statusCode: 200,
+      status: 200,
       message: 'Destination updated successfully',
     }
   }
@@ -74,14 +74,14 @@ export class DestinationsService {
 
     if (!destination) {
       return {
-        statusCode: 404,
+        status: 404,
         message: 'Destination not found by this ID',
       }
     }
 
     if (destination.tour.length > 0) {
       return {
-        statusCode: 400,
+        status: 400,
         message: 'Destination has tours, can not be delete!',
       }
     }

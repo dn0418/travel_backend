@@ -20,7 +20,7 @@ export class AccessoriesPricingService {
 
     const pricing = await this.pricingRepository.save(newPricing);
     return {
-      statusCode: 201,
+      status: 201,
       message: 'Accessories Pricing Created Successfully',
       data: pricing,
     }
@@ -38,7 +38,7 @@ export class AccessoriesPricingService {
   async findAll() {
     const pricing = await this.pricingRepository.find({ relations: ['accessory'] });
     return {
-      statusCode: 200,
+      status: 200,
       message: 'Accessories Pricing Fetched Successfully',
       data: pricing,
     }
@@ -51,13 +51,13 @@ export class AccessoriesPricingService {
 
     if (!pricing) {
       return {
-        statusCode: 404,
+        status: 404,
         message: 'Accessories Pricing Not Found',
       }
     }
 
     return {
-      statusCode: 200,
+      status: 200,
       message: 'Accessories Pricing Fetched Successfully',
       data: pricing,
     }
@@ -67,7 +67,7 @@ export class AccessoriesPricingService {
     const pricing = await this.pricingRepository.findOne({ where: { id: id } });
     if (!pricing) {
       return {
-        statusCode: 404,
+        status: 404,
         message: 'Accessories Pricing Not Found',
       }
     }
@@ -77,7 +77,7 @@ export class AccessoriesPricingService {
     });
 
     return {
-      statusCode: 200,
+      status: 200,
       message: 'Accessories Pricing Updated Successfully',
       data: updatedPricing,
     }
@@ -87,14 +87,14 @@ export class AccessoriesPricingService {
     const pricing = await this.pricingRepository.findOne({ where: { id: id } });
     if (!pricing) {
       return {
-        statusCode: 404,
+        status: 404,
         message: 'Accessories Pricing Not Found',
       }
     }
     await this.pricingRepository.remove(pricing);
 
     return {
-      statusCode: 200,
+      status: 200,
       message: 'Accessories Pricing Deleted Successfully',
     }
   }

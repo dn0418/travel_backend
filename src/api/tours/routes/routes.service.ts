@@ -21,7 +21,7 @@ export class RoutesService {
 
     if (!findTour) {
       return {
-        statusCode: 404,
+        status: 404,
         message: 'Tour not found',
       }
     }
@@ -44,7 +44,7 @@ export class RoutesService {
     return {
       message: 'Route found successfully',
       data: routes,
-      statusCode: 200
+      status: 200
     }
   }
 
@@ -52,7 +52,7 @@ export class RoutesService {
     const route = await this.routesRepository.findOne({ where: { id: id } });
     if (!route) {
       return {
-        statusCode: 404,
+        status: 404,
         message: 'Route not found',
       }
     }
@@ -60,7 +60,7 @@ export class RoutesService {
     return {
       message: 'Route found successfully',
       data: route,
-      statusCode: 200
+      status: 200
     }
   }
 
@@ -68,7 +68,7 @@ export class RoutesService {
     const route = await this.routesRepository.findOne({ where: { id: id } });
     if (!route) {
       return {
-        statusCode: 404,
+        status: 404,
         message: 'Route not found',
       }
     }
@@ -81,7 +81,7 @@ export class RoutesService {
     return {
       message: 'Route updated successfully',
       data: updatedRoute,
-      statusCode: 200
+      status: 200
     }
   }
 
@@ -89,7 +89,7 @@ export class RoutesService {
     const route = await this.routesRepository.findOne({ where: { id: id } });
     if (!route) {
       return {
-        statusCode: 404,
+        status: 404,
         message: 'Route not found',
       }
     }
@@ -98,7 +98,7 @@ export class RoutesService {
 
     return {
       message: 'Route deleted successfully',
-      statusCode: 200,
+      status: 200,
     }
   }
 }

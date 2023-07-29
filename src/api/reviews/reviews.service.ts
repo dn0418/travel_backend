@@ -57,7 +57,7 @@ export class ReviewsService {
       const findTour = await this.toursRepository.findOne(tourId);
       if (!findTour) {
         return {
-          statusCode: 404,
+          status: 404,
           message: 'Tour not found',
         }
       }
@@ -66,7 +66,7 @@ export class ReviewsService {
       const findCar = await this.carsRepository.findOneByID(carId);
       if (!findCar) {
         return {
-          statusCode: 404,
+          status: 404,
           message: 'Car not found',
         }
       }
@@ -75,7 +75,7 @@ export class ReviewsService {
       const findHotel = await this.hotelRepository.findOneById(hotelId);
       if (!findHotel) {
         return {
-          statusCode: 404,
+          status: 404,
           message: 'Hotel not found',
         }
       }
@@ -84,7 +84,7 @@ export class ReviewsService {
       const findAccessory = await this.tourAccessoryRepository.findOneById(accessoryId);
       if (!findAccessory) {
         return {
-          statusCode: 404,
+          status: 404,
           message: 'Accessory not found',
         }
       }
@@ -93,7 +93,7 @@ export class ReviewsService {
       const findThing = await this.thingToSeeRepository.findById(thingToSeeId);
       if (!findThing) {
         return {
-          statustatusCode: 404,
+          statustatus: 404,
           message: 'Could not find thing to see'
         };
       }
@@ -102,7 +102,7 @@ export class ReviewsService {
       const findThing = await this.thingToDoRepository.findById(thingToDoId);
       if (!findThing) {
         return {
-          statustatusCode: 404,
+          statustatus: 404,
           message: 'Could not find thing to see'
         };
       }
@@ -111,7 +111,7 @@ export class ReviewsService {
       const foodAndDrink = await this.foodDrinksRepository.findById(foodAndDrinkId);
       if (!foodAndDrink) {
         return {
-          statustatusCode: 404,
+          statustatus: 404,
           message: 'Could not find food and drink'
         };
       }
@@ -148,7 +148,7 @@ export class ReviewsService {
     return {
       message: 'Reviews found successfully',
       data: reviews,
-      statusCode: 200,
+      status: 200,
       pagination: {
         page,
         limit,
@@ -174,7 +174,7 @@ export class ReviewsService {
     return {
       message: 'Reviews found successfully',
       data: reviews,
-      statusCode: 200,
+      status: 200,
       pagination: {
         page,
         limit,
@@ -205,7 +205,7 @@ export class ReviewsService {
     return {
       message: 'Reviews found successfully',
       data: reviews,
-      statusCode: 200,
+      status: 200,
       meta: {
         total: total,
         avarage: avarage,
@@ -234,7 +234,7 @@ export class ReviewsService {
     return {
       message: 'Reviews found successfully',
       data: reviews,
-      statusCode: 200,
+      status: 200,
       meta: {
         total: total,
         avarage: avarage,
@@ -263,7 +263,7 @@ export class ReviewsService {
     return {
       message: 'Reviews found successfully',
       data: reviews,
-      statusCode: 200,
+      status: 200,
       meta: {
         total: total,
         avarage: avarage,
@@ -292,7 +292,7 @@ export class ReviewsService {
     return {
       message: 'Reviews found successfully',
       data: reviews,
-      statusCode: 200,
+      status: 200,
       meta: {
         total: total,
         avarage: avarage,
@@ -321,7 +321,7 @@ export class ReviewsService {
     return {
       message: 'Reviews found successfully',
       data: reviews,
-      statusCode: 200,
+      status: 200,
       meta: {
         total: total,
         avarage: avarage,
@@ -350,7 +350,7 @@ export class ReviewsService {
     return {
       message: 'Reviews found successfully',
       data: reviews,
-      statusCode: 200,
+      status: 200,
       meta: {
         total: total,
         avarage: avarage,
@@ -379,7 +379,7 @@ export class ReviewsService {
     return {
       message: 'Reviews found successfully',
       data: reviews,
-      statusCode: 200,
+      status: 200,
       meta: {
         total: total,
         avarage: avarage,
@@ -392,7 +392,7 @@ export class ReviewsService {
     if (!review) {
       return {
         message: 'Review not found',
-        statusCode: 404,
+        status: 404,
       }
     }
     review.isActive = true;
@@ -408,7 +408,7 @@ export class ReviewsService {
     if (!review) {
       return {
         message: 'Review not found',
-        statusCode: 404,
+        status: 404,
       }
     }
 
@@ -428,7 +428,7 @@ export class ReviewsService {
     if (!review) {
       return {
         message: 'Review not found',
-        statusCode: 404,
+        status: 404,
       }
     }
 
@@ -436,7 +436,7 @@ export class ReviewsService {
 
     return {
       message: 'Review deleted successfully',
-      statusCode: 200,
+      status: 200,
     }
   }
 }

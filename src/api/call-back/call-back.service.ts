@@ -25,7 +25,7 @@ export class CallBackService {
     });
 
     return {
-      statusCode: 201,
+      status: 201,
       message: 'CallBack created successfully',
       data: callBack,
     }
@@ -43,7 +43,7 @@ export class CallBackService {
     });
 
     return {
-      statusCode: 200,
+      status: 200,
       message: 'CallBacks fetched successfully',
       data: callBacks,
     }
@@ -53,7 +53,7 @@ export class CallBackService {
     const callBack = await this.callbackRepository.findOne({ where: { id: id } });
 
     return {
-      statusCode: 200,
+      status: 200,
       message: 'CallBack fetched successfully',
       data: callBack,
     }
@@ -68,7 +68,7 @@ export class CallBackService {
     });
 
     return {
-      statusCode: 200,
+      status: 200,
       message: 'CallBack updated successfully',
       data: updatedCallBack,
     }
@@ -83,7 +83,7 @@ export class CallBackService {
     const deletedCallBack = await this.callbackRepository.remove(callBack);
 
     return {
-      statusCode: 200,
+      status: 200,
       message: 'CallBack deleted successfully',
       data: deletedCallBack,
     }
