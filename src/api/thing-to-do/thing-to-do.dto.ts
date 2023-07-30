@@ -26,6 +26,14 @@ export class CreateThingToDoDto {
   thumbnail: string;
 
   @IsNotEmpty()
+  @IsNumber()
+  lat: number;
+
+  @IsNotEmpty()
+  @IsNumber()
+  lng: number;
+
+  @IsNotEmpty()
   @IsString()
   shortDescription: string;
 
@@ -133,6 +141,15 @@ export class UpdateThingToDoDto {
   @IsOptional()
   @IsString()
   thumbnail: string;
+
+
+  @IsOptional()
+  @IsNumber()
+  lat: number;
+
+  @IsOptional()
+  @IsNumber()
+  lng: number;
 
   @IsOptional()
   @IsString()

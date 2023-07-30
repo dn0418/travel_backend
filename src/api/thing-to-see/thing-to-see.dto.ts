@@ -26,6 +26,14 @@ export class CreateThingToSeeDto {
   thumbnail: string;
 
   @IsNotEmpty()
+  @IsNumber()
+  lat: number;
+
+  @IsNotEmpty()
+  @IsNumber()
+  lng: number;
+
+  @IsNotEmpty()
   @IsString()
   shortDescription: string;
 
@@ -133,6 +141,14 @@ export class UpdateThingToSeeDto {
   @IsOptional()
   @IsString()
   thumbnail: string;
+
+  @IsOptional()
+  @IsNumber()
+  lat: number;
+
+  @IsOptional()
+  @IsNumber()
+  lng: number;
 
   @IsOptional()
   @IsString()

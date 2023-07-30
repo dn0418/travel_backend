@@ -25,6 +25,14 @@ export class CreateFoodAndDrinkDto {
   @IsString()
   thumbnail: string;
 
+  @IsNumber()
+  @IsNotEmpty()
+  lat: number;
+
+  @IsNumber()
+  @IsNotEmpty()
+  lng: number;
+
   @IsNotEmpty()
   @IsString()
   shortDescription: string;
@@ -140,6 +148,14 @@ export class UpdateFoodAndDrinkDto {
   @IsOptional()
   @IsString()
   thumbnail: string;
+
+  @IsOptional()
+  @IsNumber()
+  lat: number;
+
+  @IsOptional()
+  @IsNumber()
+  lng: number;
 
   @IsOptional()
   @IsString()
