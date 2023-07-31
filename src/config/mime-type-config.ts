@@ -1,0 +1,33 @@
+export enum expectedMimeTypes {
+  AVIF = "image/avif",
+  GIF = "image/gif",
+  JPEG = "image/jpeg",
+  JPG = "image/jpeg",
+  PNG = "image/png",
+  WEBP = "image/webp",
+  TXT = "text/plain",
+  DOC = "application/msword",
+  DOCX = "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+  PPT = "application/vnd.ms-powerpoint",
+  PDF = "application/pdf",
+  XLS = "application/vnd.ms-excel",
+  XLSX = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+  CSV = "text/csv",
+}
+
+export enum expectedFileExtensions {
+  AVIF = ".avif",
+  GIF = ".gif",
+  JPEG = ".jpeg",
+  JPG = ".jpg",
+  PNG = ".png",
+  WEBP = ".webp",
+  TXT = ".txt",
+  DOC = ".doc",
+  DOCX = ".docx",
+  PPT = ".ppt",
+  PDF = ".pdf",
+  XLS = ".xls",
+  XLSX = ".xlsx",
+  CSV = ".csv",
+}
