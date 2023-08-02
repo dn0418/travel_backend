@@ -1,14 +1,14 @@
 export default {
   transport: {
-    host: 'smtp.gmail.com',
+    host: process.env.GMAIL_HOST,
     port: 587,
     secure: false, // upgrade later with STARTTLS
     auth: {
-      user: 'mdabusaidriyaz@gmail.com',
-      pass: 'usaaugfxwgflfoul'
+      user: process.env.GMAIL_USER,
+      pass: process.env.GMAIL_PASSKEY
     },
   },
   defaults: {
-    to: 'mdabusaidriyaz@gmail.com'
+    to: process.env.GMAIL_USER,
   }
 };

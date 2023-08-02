@@ -17,6 +17,7 @@ import { TransportModule } from './api/transport/transport.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { DatabaseConfig } from './config/db.config';
+import { MailModule } from './api/mail/mail.module';
 import mailConfig from './config/email.config';
 
 @Module({
@@ -36,6 +37,7 @@ import mailConfig from './config/email.config';
     TransportModule,
     MiceModule,
     MailerModule.forRoot(mailConfig),
+    MailModule,
   ],
   controllers: [AppController],
   providers: [AppService],
