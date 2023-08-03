@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { FoodAndDrinksService } from '../food-and-drinks/food-and-drinks.service';
 import { HotelsService } from '../hotels/hotels.service';
+import { MiceService } from '../mice/mice.service';
 import { ThingToDoService } from '../thing-to-do/thing-to-do.service';
 import { ThingToSeeService } from '../thing-to-see/thing-to-see.service';
 import { TourAccessoriesService } from '../tour-accessories/tour-accessories.service';
@@ -35,6 +36,9 @@ export class ReviewsService {
     @Inject(forwardRef(() => ThingToDoService))
     private thingToDoRepository: ThingToDoService,
 
+    @Inject(forwardRef(() => MiceService))
+    private miceRepository: MiceService,
+
     @InjectRepository(Reviews)
     private readonly reviewsRepository: Repository<Reviews>,
   ) { }
@@ -48,6 +52,7 @@ export class ReviewsService {
       thingToSeeId,
       thingToDoId,
       foodAndDrinkId,
+      miceId,
       ...reviews
     } = createReviewDto;
 
@@ -116,6 +121,15 @@ export class ReviewsService {
         };
       }
       relations['foodAndDrink'] = foodAndDrink;
+    } else if (miceId) {
+      const mice = await this.miceRepository.findOneById(miceId);
+      if (!mice) {
+        return {
+          statustatus: 404,
+          message: 'Could not find mice'
+        };
+      }
+      relations['mice'] = mice;
     }
 
     const newReview = this.reviewsRepository.create({
@@ -363,6 +377,35 @@ export class ReviewsService {
       where: {
         foodAndDrink: {
           id: foodId
+        },
+        isActive: true
+      }
+    });
+
+    let avarage = reviews.reduce((acc, review) => acc + review.rating, 0) / total;
+
+    if (Number.isNaN(avarage)) {
+      avarage = 0;
+    } else {
+      avarage = parseInt(avarage.toFixed(1));
+    }
+
+    return {
+      message: 'Reviews found successfully',
+      data: reviews,
+      status: 200,
+      meta: {
+        total: total,
+        avarage: avarage,
+      }
+    };
+  }
+
+  async miceReview(miceId: number) {
+    const [reviews, total] = await this.reviewsRepository.findAndCount({
+      where: {
+        mice: {
+          id: miceId
         },
         isActive: true
       }

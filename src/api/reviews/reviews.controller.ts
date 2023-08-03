@@ -61,6 +61,11 @@ export class ReviewsController {
     return this.reviewsService.findFoodAndDrinksReview(+id);
   }
 
+  @Get('mice/:id')
+  miceReview(@Param('id') id: string) {
+    return this.reviewsService.miceReview(+id);
+  }
+
   @Put('update/:id')
   update(@Param('id') id: string, @Body() updateReviewDto: UpdateReviewDto) {
     return this.reviewsService.update(+id, updateReviewDto);

@@ -60,6 +60,10 @@ export class CreateReviewDto {
   @IsNumber()
   @IsOptional()
   foodAndDrinkId: number;
+
+  @IsNumber()
+  @IsOptional()
+  miceId: number;
 }
 
 export class UpdateReviewDto {

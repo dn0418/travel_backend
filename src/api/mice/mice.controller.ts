@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
 import { CreateMiceDto, UpdateMiceDto } from './create-mouse.dto';
 import { MiceService } from './mice.service';
 
@@ -7,7 +7,7 @@ import { MiceService } from './mice.service';
 export class MiceController {
   constructor(private readonly miceService: MiceService) { }
 
-  @Post()
+  @Post('create')
   create(@Body() createMouseDto: CreateMiceDto) {
     return this.miceService.create(createMouseDto);
   }
@@ -17,8 +17,9 @@ export class MiceController {
     @Query('page') page: number,
     @Query('limit') limit: number,
     @Query('search') searchQuery: string,
+    @Query('lan') language?: string,
   ) {
-    return this.miceService.findAll(+page || 1, +limit || 6, searchQuery || '');
+    return this.miceService.findAll(+page || 1, +limit || 6, searchQuery || '', language);
   }
 
   @Get(':id')
@@ -26,12 +27,12 @@ export class MiceController {
     return this.miceService.findOne(+id);
   }
 
-  @Patch(':id')
+  @Put('update/:id')
   update(@Param('id') id: string, @Body() updateMouseDto: UpdateMiceDto) {
     return this.miceService.update(+id, updateMouseDto);
   }
 
-  @Delete(':id')
+  @Delete('delete/:id')
   remove(@Param('id') id: string) {
     return this.miceService.remove(+id);
   }
