@@ -40,6 +40,16 @@ export class ToursController {
     );
   }
 
+  @Get('one-day')
+  findOneDay(@Query('lan') language?: string) {
+    return this.toursService.findOneDay(language);
+  }
+
+  @Get('fixed-date')
+  findFixedDate(@Query('lan') language?: string) {
+    return this.toursService.findFixedDate(language);
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.toursService.findOne(+id);

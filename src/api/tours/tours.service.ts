@@ -226,6 +226,60 @@ export class ToursService {
     }
   }
 
+  // Find one day tour
+  async findOneDay(language: string) {
+    let conditions: any = { dayLength: 1 }
+    if (language && language === 'ru') {
+      conditions = { ...conditions, isRu: true }
+    } else if (language && language === 'hy') {
+      conditions = { ...conditions, isHy: true }
+    }
+    const tours = await this.toursRepository.find({
+      where: conditions,
+      relations: ["reviews"],
+    });
+
+    // Calculate average rating for each hotel
+    const toursWithAvgRating = tours.map((tour) => {
+      const ratings = tour.reviews.map((review) => review.rating);
+      const totalRating = ratings.reduce((sum, rating) => sum + rating, 0);
+      const averageRating = totalRating / ratings.length;
+      return { ...tour, rating: averageRating };
+    });
+
+    return {
+      status: 200,
+      data: toursWithAvgRating
+    }
+  }
+
+  async findFixedDate(language: string) {
+    let conditions: any = { isFixedDate: true }
+    if (language && language === 'ru') {
+      conditions = { ...conditions, isRu: true }
+    } else if (language && language === 'hy') {
+      conditions = { ...conditions, isHy: true }
+    }
+
+    const tours = await this.toursRepository.find({
+      where: conditions,
+      relations: ["reviews"],
+    });
+
+    // Calculate average rating for each hotel
+    const toursWithAvgRating = tours.map((tour) => {
+      const ratings = tour.reviews.map((review) => review.rating);
+      const totalRating = ratings.reduce((sum, rating) => sum + rating, 0);
+      const averageRating = totalRating / ratings.length;
+      return { ...tour, rating: averageRating };
+    });
+
+    return {
+      status: 200,
+      data: toursWithAvgRating
+    }
+  }
+
   // Find Tour By Id
   async findOne(id: number) {
     const tour = await this.toursRepository.findOne(
