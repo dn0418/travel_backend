@@ -18,6 +18,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { DatabaseConfig } from './config/db.config';
 import { MailModule } from './api/mail/mail.module';
+import { CurrencyModule } from './api/currency/currency.module';
 import mailConfig from './config/email.config';
 
 @Module({
@@ -38,6 +39,7 @@ import mailConfig from './config/email.config';
     MiceModule,
     MailerModule.forRoot(mailConfig),
     MailModule,
+    CurrencyModule,
   ],
   controllers: [AppController],
   providers: [AppService],
