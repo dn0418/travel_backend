@@ -19,6 +19,7 @@ import { AppService } from './app.service';
 import { DatabaseConfig } from './config/db.config';
 import { MailModule } from './api/mail/mail.module';
 import { CurrencyModule } from './api/currency/currency.module';
+import { StaticPageModule } from './api/static-page/static-page.module';
 import mailConfig from './config/email.config';
 
 @Module({
@@ -40,6 +41,7 @@ import mailConfig from './config/email.config';
     MailerModule.forRoot(mailConfig),
     MailModule,
     CurrencyModule,
+    StaticPageModule,
   ],
   controllers: [AppController],
   providers: [AppService],
