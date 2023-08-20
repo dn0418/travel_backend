@@ -1,6 +1,6 @@
 import { Inject, Injectable, NotFoundException, forwardRef } from '@nestjs/common';
-import { InjectConnection, InjectRepository } from '@nestjs/typeorm';
-import { Connection, Like, Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Like, Repository } from 'typeorm';
 import { ImagesService } from '../images/images.service';
 import { ReviewsService } from '../reviews/reviews.service';
 import { DeparturesPricing } from './departures-pricing/departures-pricing.entity';
@@ -35,9 +35,6 @@ export class ToursService {
     private readonly destinationRepository: DestinationsService,
 
     private readonly imageRepository: ImagesService,
-
-    @InjectConnection()
-    private connection: Connection,
   ) { }
 
 
@@ -156,11 +153,15 @@ export class ToursService {
     days: string,
     month: string,
     language: string,
+    childType: string,
   ) {
     let conditions = {}
-
     if (type) {
       conditions['mainList'] = type;
+    }
+
+    if (childType) {
+      conditions['childList'] = childType;
     }
 
     if (language && language === 'ru') {
