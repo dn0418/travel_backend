@@ -13,7 +13,7 @@ export class TourServices extends CommonEntity {
   @Column('text')
   text_hy: string;
 
-  @Column({ enum: ['include', 'exclude'] })
+  @Column()
   type: string;
 
   @ManyToOne(() => Tours, (tours) => tours.id)

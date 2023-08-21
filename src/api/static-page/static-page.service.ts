@@ -20,8 +20,8 @@ export class StaticPageService {
     }
   }
 
-  async findOne(id: number) {
-    const page = await this.pageRepository.findOne({ where: { id: id } });
+  async findOne(code: string) {
+    const page = await this.pageRepository.findOne({ where: { code: code } });
     if (!page) {
       throw new NotFoundException('Page not found!');
     }
