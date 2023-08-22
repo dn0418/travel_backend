@@ -56,6 +56,11 @@ export class ReviewsController {
     return this.reviewsService.findThingToDoReview(+id);
   }
 
+  @Get('surrounding/:id')
+  findSurroundingReviews(@Param('id') id: string) {
+    return this.reviewsService.findSurroundingReview(+id);
+  }
+
   @Get('food-and-drink/:id')
   findFoodAndDrinksReview(@Param('id') id: string) {
     return this.reviewsService.findFoodAndDrinksReview(+id);

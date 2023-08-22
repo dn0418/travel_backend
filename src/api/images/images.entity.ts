@@ -3,6 +3,7 @@ import { CommonEntity } from "src/common/common.entity";
 import { Column, Entity, ManyToOne } from "typeorm";
 import { FoodAndDrink } from "../food-and-drinks/food-and-drink.entity";
 import { Mice } from "../mice/mice.entity";
+import { Surrounding } from "../surrounding/surrounding.entity";
 import { ThingToDo } from "../thing-to-do/thing-to-do.entity";
 import { ThingToSee } from "../thing-to-see/thing-to-see.entity";
 import { TourAccessory } from "../tour-accessories/tour-accessory.entity";
@@ -30,6 +31,9 @@ export class Images extends CommonEntity {
 
   @ManyToOne(() => ThingToDo, (thingToDo) => thingToDo.images)
   thingToDo: ThingToDo;
+
+  @ManyToOne(() => Surrounding, (surrounding) => surrounding.images)
+  surrounding: Surrounding;
 
   @ManyToOne(() => FoodAndDrink, (foodAndDrink) => foodAndDrink.images)
   foodAndDrink: FoodAndDrink;

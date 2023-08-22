@@ -71,6 +71,14 @@ export class ImagesService {
     return this.imagesRepository.save(newImage);
   }
 
+  addSurroundingImage(image: string, surrounding) {
+    const newImage = this.imagesRepository.create({
+      url: image,
+      surrounding: surrounding
+    });
+    return this.imagesRepository.save(newImage);
+  }
+
   addFoodAndDrinksImage(image: string, foodAndDrinks) {
     const newImage = this.imagesRepository.create({
       url: image,

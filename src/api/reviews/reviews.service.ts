@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { FoodAndDrinksService } from '../food-and-drinks/food-and-drinks.service';
 import { HotelsService } from '../hotels/hotels.service';
 import { MiceService } from '../mice/mice.service';
+import { SurroundingService } from '../surrounding/surrounding.service';
 import { ThingToDoService } from '../thing-to-do/thing-to-do.service';
 import { ThingToSeeService } from '../thing-to-see/thing-to-see.service';
 import { TourAccessoriesService } from '../tour-accessories/tour-accessories.service';
@@ -36,6 +37,9 @@ export class ReviewsService {
     @Inject(forwardRef(() => ThingToDoService))
     private thingToDoRepository: ThingToDoService,
 
+    @Inject(forwardRef(() => SurroundingService))
+    private surroundingService: SurroundingService,
+
     @Inject(forwardRef(() => MiceService))
     private miceRepository: MiceService,
 
@@ -53,6 +57,7 @@ export class ReviewsService {
       thingToDoId,
       foodAndDrinkId,
       miceId,
+      surroundingId,
       ...reviews
     } = createReviewDto;
 
@@ -130,6 +135,15 @@ export class ReviewsService {
         };
       }
       relations['mice'] = mice;
+    } else if (surroundingId) {
+      const surrounding = await this.surroundingService.findById(miceId);
+      if (!surrounding) {
+        return {
+          statustatus: 404,
+          message: 'Could not find mice'
+        };
+      }
+      relations['surrounding'] = surrounding;
     }
 
     const newReview = this.reviewsRepository.create({
@@ -348,6 +362,34 @@ export class ReviewsService {
       where: {
         thingToDo: {
           id: thingId
+        },
+        isActive: true
+      }
+    });
+
+    let avarage = reviews.reduce((acc, review) => acc + review.rating, 0) / total;
+
+    if (Number.isNaN(avarage)) {
+      avarage = 0;
+    } else {
+      avarage = parseInt(avarage.toFixed(1));
+    }
+
+    return {
+      message: 'Reviews found successfully',
+      data: reviews,
+      status: 200,
+      meta: {
+        total: total,
+        avarage: avarage,
+      }
+    };
+  }
+  async findSurroundingReview(id: number) {
+    const [reviews, total] = await this.reviewsRepository.findAndCount({
+      where: {
+        surrounding: {
+          id: id
         },
         isActive: true
       }

@@ -3,6 +3,7 @@ import { CommonEntity } from "src/common/common.entity";
 import { Column, Entity, ManyToOne } from "typeorm";
 import { FoodAndDrink } from "../food-and-drinks/food-and-drink.entity";
 import { Mice } from "../mice/mice.entity";
+import { Surrounding } from "../surrounding/surrounding.entity";
 import { ThingToDo } from "../thing-to-do/thing-to-do.entity";
 import { ThingToSee } from "../thing-to-see/thing-to-see.entity";
 import { TourAccessory } from "../tour-accessories/tour-accessory.entity";
@@ -52,6 +53,9 @@ export class Reviews extends CommonEntity {
 
   @ManyToOne(() => ThingToDo, (thingToDo) => thingToDo.reviews)
   thingToDo: ThingToDo;
+
+  @ManyToOne(() => Surrounding, (surrounding) => surrounding.reviews)
+  surrounding: Surrounding;
 
   @ManyToOne(() => FoodAndDrink, (foodAndDrink) => foodAndDrink.reviews)
   foodAndDrink: FoodAndDrink;
