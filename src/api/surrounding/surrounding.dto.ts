@@ -63,15 +63,15 @@ export class CreateSurroundingDto {
 
   @IsNotEmpty()
   @IsString()
-  fromYerevan: string;
+  fromTbilisi: string;
 
   @IsOptional()
   @IsString()
-  fromYerevan_ru: string;
+  fromTbilisi_ru: string;
 
   @IsOptional()
   @IsString()
-  fromYerevan_hy: string;
+  fromTbilisi_hy: string;
 
   @IsString()
   @IsNotEmpty()
@@ -181,15 +181,15 @@ export class UpdateSurroundingDto {
 
   @IsOptional()
   @IsString()
-  fromYerevan: string;
+  fromTbilisi: string;
 
   @IsOptional()
   @IsString()
-  fromYerevan_ru: string;
+  fromTbilisi_ru: string;
 
   @IsOptional()
   @IsString()
-  fromYerevan_hy: string;
+  fromTbilisi_hy: string;
 
   @IsOptional()
   @IsString()

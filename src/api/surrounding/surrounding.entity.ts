@@ -51,13 +51,13 @@ export class Surrounding extends CommonEntity {
   type: string;
 
   @Column()
-  fromYerevan: string;
+  fromTbilisi: string;
 
   @Column()
-  fromYerevan_ru: string;
+  fromTbilisi_ru: string;
 
   @Column()
-  fromYerevan_hy: string;
+  fromTbilisi_hy: string;
 
   @Column({ nullable: true })
   date: string;
