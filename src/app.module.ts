@@ -3,6 +3,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CallBackModule } from './api/call-back/call-back.module';
 import { CurrencyModule } from './api/currency/currency.module';
+import { EventsModule } from './api/events/events.module';
 import { FileModule } from './api/file/file.module';
 import { FoodAndDrinksModule } from './api/food-and-drinks/food-and-drinks.module';
 import { HotelsModule } from './api/hotels/hotels.module';
@@ -44,6 +45,7 @@ import mailConfig from './config/email.config';
     MailModule,
     CurrencyModule,
     StaticPageModule,
+    EventsModule
   ],
   controllers: [AppController],
   providers: [AppService],

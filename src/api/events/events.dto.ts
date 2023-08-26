@@ -1,6 +1,6 @@
 import { IsArray, IsBoolean, IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
 
-export class CreateSurroundingDto {
+export class CreateEventsDto {
   @IsOptional()
   @IsBoolean()
   isRu: boolean;
@@ -71,15 +71,15 @@ export class CreateSurroundingDto {
 
   @IsNotEmpty()
   @IsString()
-  fromTbilisi: string;
+  address: string;
 
   @IsOptional()
   @IsString()
-  fromTbilisi_ru: string;
+  address_ru: string;
 
   @IsOptional()
   @IsString()
-  fromTbilisi_hy: string;
+  address_hy: string;
 
   @IsString()
   @IsNotEmpty()
@@ -99,15 +99,15 @@ export class CreateSurroundingDto {
 
   @IsNotEmpty()
   @IsString()
-  available: string;
+  language: string;
 
   @IsOptional()
   @IsString()
-  available_ru: string;
+  language_ru: string;
 
   @IsOptional()
   @IsString()
-  available_hy: string;
+  language_hy: string;
 
   @IsNotEmpty()
   @IsString()
@@ -125,7 +125,7 @@ export class CreateSurroundingDto {
   images: string[];
 }
 
-export class UpdateSurroundingDto {
+export class UpdateEventsDto {
   @IsOptional()
   @IsBoolean()
   isRu: boolean;
@@ -149,7 +149,6 @@ export class UpdateSurroundingDto {
   @IsOptional()
   @IsString()
   thumbnail: string;
-
 
   @IsOptional()
   @IsNumber()
@@ -197,15 +196,15 @@ export class UpdateSurroundingDto {
 
   @IsOptional()
   @IsString()
-  fromTbilisi: string;
+  address: string;
 
   @IsOptional()
   @IsString()
-  fromTbilisi_ru: string;
+  address_ru: string;
 
   @IsOptional()
   @IsString()
-  fromTbilisi_hy: string;
+  address_hy: string;
 
   @IsOptional()
   @IsString()
@@ -225,15 +224,15 @@ export class UpdateSurroundingDto {
 
   @IsOptional()
   @IsString()
-  available: string;
+  language: string;
 
   @IsOptional()
   @IsString()
-  available_ru: string;
+  language_ru: string;
 
   @IsOptional()
   @IsString()
-  available_hy: string;
+  language_hy: string;
 
   @IsOptional()
   @IsString()
@@ -248,12 +247,12 @@ export class UpdateSurroundingDto {
   entrance_hy: string;
 }
 
-export class CreateSurroundingImageDto {
+export class CreateEventsImageDto {
   @IsString()
   @IsNotEmpty()
   url: string;
 
   @IsNumber()
   @IsNotEmpty()
-  surroundingId: number;
+  eventId: number;
 }

@@ -1,6 +1,7 @@
 import { Hotels } from "src/api/hotels/hotel.entity";
 import { CommonEntity } from "src/common/common.entity";
 import { Column, Entity, ManyToOne } from "typeorm";
+import { Events } from "../events/events.entity";
 import { FoodAndDrink } from "../food-and-drinks/food-and-drink.entity";
 import { Mice } from "../mice/mice.entity";
 import { Surrounding } from "../surrounding/surrounding.entity";
@@ -49,4 +50,7 @@ export class Images extends CommonEntity {
 
   @ManyToOne(() => Mice, (mice) => mice.images)
   mice: Mice;
+
+  @ManyToOne(() => Events, (event) => event.images)
+  event: Events;
 }

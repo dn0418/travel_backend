@@ -79,6 +79,14 @@ export class ImagesService {
     return this.imagesRepository.save(newImage);
   }
 
+  addEventImage(image: string, event) {
+    const newImage = this.imagesRepository.create({
+      url: image,
+      event: event
+    });
+    return this.imagesRepository.save(newImage);
+  }
+
   addFoodAndDrinksImage(image: string, foodAndDrinks) {
     const newImage = this.imagesRepository.create({
       url: image,

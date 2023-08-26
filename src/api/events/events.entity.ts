@@ -1,10 +1,9 @@
 import { CommonEntity } from "src/common/common.entity";
 import { Column, Entity, OneToMany } from "typeorm";
 import { Images } from "../images/images.entity";
-import { Reviews } from "../reviews/review.entity";
 
 @Entity()
-export class Surrounding extends CommonEntity {
+export class Events extends CommonEntity {
   @Column()
   isRu: boolean;
 
@@ -57,13 +56,13 @@ export class Surrounding extends CommonEntity {
   type_hy: string;
 
   @Column()
-  fromTbilisi: string;
+  address: string;
 
   @Column()
-  fromTbilisi_ru: string;
+  address_ru: string;
 
   @Column()
-  fromTbilisi_hy: string;
+  address_hy: string;
 
   @Column({ nullable: true })
   date: string;
@@ -78,13 +77,13 @@ export class Surrounding extends CommonEntity {
   neatestSettlement_hy: string;
 
   @Column()
-  available: string;
+  language: string;
 
   @Column()
-  available_ru: string;
+  language_ru: string;
 
   @Column()
-  available_hy: string;
+  language_hy: string;
 
   @Column()
   entrance: string;
@@ -95,9 +94,6 @@ export class Surrounding extends CommonEntity {
   @Column()
   entrance_hy: string;
 
-  @OneToMany(() => Images, (image) => image.surrounding)
+  @OneToMany(() => Images, (image) => image.event)
   images: Images[];
-
-  @OneToMany(() => Reviews, (review) => review.surrounding)
-  reviews: Reviews[];
 }
