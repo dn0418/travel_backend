@@ -29,6 +29,11 @@ export class HotelsController {
     return this.hotelsService.findAll(country, city, type, +page || 1, +limit || 6, searchQuery, language);
   }
 
+  @Get('related')
+  findRealated() {
+    return this.hotelsService.findTopTen();
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.hotelsService.findOne(+id);

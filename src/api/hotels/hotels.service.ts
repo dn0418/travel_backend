@@ -145,6 +145,19 @@ export class HotelsService {
     }
   }
 
+  async findTopTen() {
+    const hotels = await this.hotelsRepository.find({
+      take: 10,
+      order: {
+        score: "DESC"
+      }
+    });
+
+    return {
+      data: hotels,
+    }
+  }
+
   async findOne(id: number) {
     const hotel = await this.hotelsRepository.findOne({
       where: { id },

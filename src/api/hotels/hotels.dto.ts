@@ -37,9 +37,33 @@ export class CreateHotelDto {
   @IsNotEmpty()
   price: number;
 
-  @IsBoolean()
+  @IsNumber()
+  @IsOptional()
+  score: number;
+
   @IsNotEmpty()
-  fromAirport: boolean;
+  @IsString()
+  fromAirport: string;
+
+  @IsOptional()
+  @IsString()
+  fromAirport_ru: string;
+
+  @IsOptional()
+  @IsString()
+  fromAirport_hy: string;
+
+  @IsNotEmpty()
+  @IsString()
+  freeCancellation: string;
+
+  @IsOptional()
+  @IsString()
+  freeCancellation_ru: string;
+
+  @IsOptional()
+  @IsString()
+  freeCancellation_hy: string;
 
   @IsString()
   @IsNotEmpty()
@@ -68,10 +92,6 @@ export class CreateHotelDto {
   @IsNumber()
   @IsNotEmpty()
   type: number;
-
-  @IsBoolean()
-  @IsOptional()
-  freeCancellation: boolean;
 
   @IsOptional()
   @IsString()
@@ -175,8 +195,28 @@ export class UpdateHotelDto {
   price: number;
 
   @IsOptional()
-  @IsBoolean()
-  fromAirport: boolean;
+  @IsString()
+  fromAirport: string;
+
+  @IsOptional()
+  @IsString()
+  fromAirport_ru: string;
+
+  @IsOptional()
+  @IsString()
+  fromAirport_hy: string;
+
+  @IsOptional()
+  @IsString()
+  freeCancellation: string;
+
+  @IsOptional()
+  @IsString()
+  freeCancellation_ru: string;
+
+  @IsOptional()
+  @IsString()
+  freeCancellation_hy: string;
 
   @IsOptional()
   @IsString()
@@ -207,8 +247,8 @@ export class UpdateHotelDto {
   type: number;
 
   @IsOptional()
-  @IsBoolean()
-  freeCancellation: boolean;
+  @IsNumber()
+  score: number;
 
   @IsOptional()
   @IsString()

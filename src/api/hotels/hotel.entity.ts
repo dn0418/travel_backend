@@ -34,8 +34,26 @@ export class Hotels extends CommonEntity {
   @Column()
   price: number;
 
-  @Column({ nullable: true })
-  fromAirport: boolean;
+  @Column()
+  fromAirport: string;
+
+  @Column()
+  fromAirport_ru: string;
+
+  @Column()
+  fromAirport_hy: string;
+
+  @Column()
+  freeCancellation: string;
+
+  @Column()
+  freeCancellation_ru: string;
+
+  @Column()
+  score: number;
+
+  @Column()
+  freeCancellation_hy: string;
 
   @Column()
   country: string;
@@ -57,9 +75,6 @@ export class Hotels extends CommonEntity {
 
   @ManyToOne(() => HotelType, (hotelType) => hotelType.hotel)
   type: HotelType;
-
-  @Column({ default: true })
-  freeCancellation: boolean;
 
   @Column({ nullable: true })
   checkInTime: string;
