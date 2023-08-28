@@ -1,4 +1,4 @@
-import { IsArray, IsBoolean, IsNotEmpty, IsOptional, IsString } from "class-validator";
+import { IsArray, IsBoolean, IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
 
 export class CreateMiceDto {
   @IsNotEmpty()
@@ -90,8 +90,20 @@ export class CreateMiceDto {
   access24: boolean;
 
   @IsNotEmpty()
-  @IsBoolean()
-  freeCancellation: boolean;
+  @IsString()
+  freeCancellation: string;
+
+  @IsOptional()
+  @IsString()
+  freeCancellation_ru: string;
+
+  @IsOptional()
+  @IsString()
+  freeCancellation_hy: string;
+
+  @IsNumber()
+  @IsOptional()
+  score: number;
 
   @IsArray()
   images: Array<string>;
@@ -187,6 +199,18 @@ export class UpdateMiceDto {
   access24: boolean;
 
   @IsOptional()
-  @IsBoolean()
-  freeCancellation: boolean;
+  @IsString()
+  freeCancellation: string;
+
+  @IsOptional()
+  @IsString()
+  freeCancellation_ru: string;
+
+  @IsOptional()
+  @IsString()
+  freeCancellation_hy: string;
+
+  @IsOptional()
+  @IsOptional()
+  score: number;
 }

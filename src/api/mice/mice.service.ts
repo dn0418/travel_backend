@@ -88,6 +88,19 @@ export class MiceService {
     }
   }
 
+  async findRealated() {
+    const hotels = await this.miceRepository.find({
+      take: 10,
+      order: {
+        score: "DESC"
+      }
+    });
+
+    return {
+      data: hotels,
+    }
+  }
+
   async findOne(id: number) {
     const mice = await this.miceRepository.findOne({
       where: { id },

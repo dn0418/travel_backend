@@ -22,6 +22,11 @@ export class MiceController {
     return this.miceService.findAll(+page || 1, +limit || 6, searchQuery || '', language);
   }
 
+  @Get('related')
+  findRealated() {
+    return this.miceService.findRealated();
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.miceService.findOne(+id);

@@ -71,8 +71,17 @@ export class Mice extends CommonEntity {
   @Column()
   access24: boolean;
 
-  @Column({ default: true })
-  freeCancellation: boolean;
+  @Column()
+  freeCancellation: string;
+
+  @Column()
+  freeCancellation_ru: string;
+
+  @Column()
+  freeCancellation_hy: string;
+
+  @Column()
+  score: number;
 
   @OneToMany(() => Images, (image) => image.mice)
   images: Images[];

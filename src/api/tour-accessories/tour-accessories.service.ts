@@ -120,6 +120,19 @@ export class TourAccessoriesService {
     }
   }
 
+  async findRealated() {
+    const hotels = await this.tourAccessoryRepository.find({
+      take: 10,
+      order: {
+        score: "DESC"
+      }
+    });
+
+    return {
+      data: hotels,
+    }
+  }
+
   async findOne(id: number) {
     const accessory = await this.tourAccessoryRepository.findOne({
       where: { id },

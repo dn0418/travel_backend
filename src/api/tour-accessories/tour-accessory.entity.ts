@@ -40,8 +40,17 @@ export class TourAccessory extends CommonEntity {
   @ManyToOne(() => AccessoryType, (accessoryType) => accessoryType.accessory)
   type: AccessoryType;
 
-  @Column({ default: true })
-  freeCancellation: boolean;
+  @Column()
+  freeCancellation: string;
+
+  @Column()
+  freeCancellation_ru: string;
+
+  @Column()
+  freeCancellation_hy: string;
+
+  @Column()
+  score: number;
 
   @Column()
   rentFrom: string;

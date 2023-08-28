@@ -26,6 +26,11 @@ export class TourAccessoriesController {
     return this.tourAccessoriesService.findAll(+page || 1, +limit || 6, searchQuery, language);
   }
 
+  @Get('related')
+  findRealated() {
+    return this.tourAccessoriesService.findRealated();
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.tourAccessoriesService.findOne(+id);

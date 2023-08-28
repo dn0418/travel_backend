@@ -45,9 +45,21 @@ export class CreateTourAccessoryDto {
   @IsNotEmpty()
   type: number;
 
-  @IsBoolean()
+  @IsNotEmpty()
+  @IsString()
+  freeCancellation: string;
+
   @IsOptional()
-  freeCancellation: boolean;
+  @IsString()
+  freeCancellation_ru: string;
+
+  @IsOptional()
+  @IsString()
+  freeCancellation_hy: string;
+
+  @IsNumber()
+  @IsOptional()
+  score: number;
 
   @IsString()
   @IsNotEmpty()
@@ -160,8 +172,20 @@ export class UpdateTourAccessoryDto {
   type: number;
 
   @IsOptional()
-  @IsBoolean()
-  freeCancellation: boolean;
+  @IsString()
+  freeCancellation: string;
+
+  @IsOptional()
+  @IsString()
+  freeCancellation_ru: string;
+
+  @IsOptional()
+  @IsString()
+  freeCancellation_hy: string;
+
+  @IsOptional()
+  @IsOptional()
+  score: number;
 
   @IsOptional()
   @IsString()
