@@ -42,6 +42,11 @@ export class ToursController {
     );
   }
 
+  @Get('related')
+  findRealated() {
+    return this.toursService.findRealated();
+  }
+
   @Get('one-day')
   findOneDay(@Query('lan') language?: string) {
     return this.toursService.findOneDay(language);

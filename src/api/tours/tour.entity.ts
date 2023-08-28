@@ -76,8 +76,17 @@ export class Tours extends CommonEntity {
   @Column('text')
   longDescription_hy: string;
 
-  @Column({ default: true })
-  freeCancelation: boolean;
+  @Column()
+  freeCancellation: string;
+
+  @Column()
+  freeCancellation_ru: string;
+
+  @Column()
+  freeCancellation_hy: string;
+
+  @Column()
+  score: number;
 
   @Column()
   activities: number;

@@ -31,7 +31,7 @@ export class HotelsController {
 
   @Get('related')
   findRealated() {
-    return this.hotelsService.findTopTen();
+    return this.hotelsService.findRealated();
   }
 
   @Get(':id')

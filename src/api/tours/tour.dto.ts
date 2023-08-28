@@ -89,9 +89,21 @@ export class CreateTourDto {
   @IsString()
   longDescription_hy: string;
 
+  @IsNotEmpty()
+  @IsString()
+  freeCancellation: string;
+
   @IsOptional()
-  @IsBoolean()
-  freeCancelation: boolean;
+  @IsString()
+  freeCancellation_ru: string;
+
+  @IsOptional()
+  @IsString()
+  freeCancellation_hy: string;
+
+  @IsNumber()
+  @IsOptional()
+  score: number;
 
   @IsNotEmpty()
   @IsNumber()
@@ -233,8 +245,20 @@ export class UpdateTourDto {
   longDescription_hy: string;
 
   @IsOptional()
-  @IsBoolean()
-  freeCancelation: boolean;
+  @IsString()
+  freeCancellation: string;
+
+  @IsOptional()
+  @IsString()
+  freeCancellation_ru: string;
+
+  @IsOptional()
+  @IsString()
+  freeCancellation_hy: string;
+
+  @IsOptional()
+  @IsOptional()
+  score: number;
 
   @IsOptional()
   @IsNumber()

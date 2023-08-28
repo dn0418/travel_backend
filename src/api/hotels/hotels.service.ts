@@ -145,7 +145,7 @@ export class HotelsService {
     }
   }
 
-  async findTopTen() {
+  async findRealated() {
     const hotels = await this.hotelsRepository.find({
       take: 10,
       order: {

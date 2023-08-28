@@ -50,10 +50,10 @@ export class Hotels extends CommonEntity {
   freeCancellation_ru: string;
 
   @Column()
-  score: number;
+  freeCancellation_hy: string;
 
   @Column()
-  freeCancellation_hy: string;
+  score: number;
 
   @Column()
   country: string;

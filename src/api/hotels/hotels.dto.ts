@@ -37,10 +37,6 @@ export class CreateHotelDto {
   @IsNotEmpty()
   price: number;
 
-  @IsNumber()
-  @IsOptional()
-  score: number;
-
   @IsNotEmpty()
   @IsString()
   fromAirport: string;
@@ -64,6 +60,10 @@ export class CreateHotelDto {
   @IsOptional()
   @IsString()
   freeCancellation_hy: string;
+
+  @IsNumber()
+  @IsOptional()
+  score: number;
 
   @IsString()
   @IsNotEmpty()

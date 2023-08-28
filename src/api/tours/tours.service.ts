@@ -227,6 +227,19 @@ export class ToursService {
     }
   }
 
+  async findRealated() {
+    const hotels = await this.toursRepository.find({
+      take: 10,
+      order: {
+        score: "DESC"
+      }
+    });
+
+    return {
+      data: hotels,
+    }
+  }
+
   // Find one day tour
   async findOneDay(language: string) {
     let conditions: any = { dayLength: 1 }
