@@ -184,6 +184,19 @@ export class CarsService {
     }
   }
 
+  async findRealated() {
+    const hotels = await this.carRepository.find({
+      take: 10,
+      order: {
+        score: "DESC"
+      }
+    });
+
+    return {
+      data: hotels,
+    }
+  }
+
   async findOne(id: number) {
     const car = await this.carRepository.findOne({
       where: { id },

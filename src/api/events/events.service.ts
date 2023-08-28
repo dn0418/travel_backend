@@ -83,6 +83,9 @@ export class EventsService {
       where: conditions,
       skip,
       take: +limit,
+      order: {
+        createdAt: 'DESC',
+      }
     });
 
     const totalPages = Math.ceil(totalCount / +limit);

@@ -43,6 +43,11 @@ export class CarsController {
     return this.carsService.findAll(+page || 1, +limit || 6, searchQuery || '', language);
   }
 
+  @Get('related')
+  findRealated() {
+    return this.carsService.findRealated();
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.carsService.findOne(+id);

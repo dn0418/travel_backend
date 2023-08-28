@@ -18,8 +18,20 @@ export class CreateCarDto {
   price: number;
 
   @IsOptional()
-  @IsBoolean()
-  freeCancellation: boolean;
+  @IsString()
+  freeCancellation: string;
+
+  @IsOptional()
+  @IsString()
+  freeCancellation_ru: string;
+
+  @IsOptional()
+  @IsString()
+  freeCancellation_hy: string;
+
+  @IsOptional()
+  @IsOptional()
+  score: number;
 
   @IsOptional()
   @IsBoolean()
@@ -146,8 +158,20 @@ export class UpdateCarDto {
   price: number;
 
   @IsOptional()
-  @IsBoolean()
-  freeCancellation: boolean;
+  @IsString()
+  freeCancellation: string;
+
+  @IsOptional()
+  @IsString()
+  freeCancellation_ru: string;
+
+  @IsOptional()
+  @IsString()
+  freeCancellation_hy: string;
+
+  @IsOptional()
+  @IsOptional()
+  score: number;
 
   @IsOptional()
   @IsBoolean()

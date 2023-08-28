@@ -24,8 +24,17 @@ export class Car extends CommonEntity {
   @Column()
   price: number;
 
-  @Column({ default: true })
-  freeCancellation: boolean;
+  @Column()
+  freeCancellation: string;
+
+  @Column()
+  freeCancellation_ru: string;
+
+  @Column()
+  freeCancellation_hy: string;
+
+  @Column()
+  score: number;
 
   @Column()
   pickup: string;
