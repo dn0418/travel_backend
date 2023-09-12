@@ -61,9 +61,17 @@ export class UpdateWithDriverDto {
 }
 
 class CreatePricingWithDriverDto {
-  @IsNumber()
+  @IsString()
   @IsNotEmpty()
-  duration: number;
+  duration: string;
+
+  @IsString()
+  @IsOptional()
+  duration_ru: string;
+
+  @IsString()
+  @IsOptional()
+  duration_hy: string;
 
   @IsNumber()
   @IsNotEmpty()
