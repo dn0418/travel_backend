@@ -22,6 +22,7 @@ import { TransportModule } from './api/transport/transport.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { DatabaseConfig } from './config/db.config';
+import { BlogsModule } from './api/blogs/blogs.module';
 import mailConfig from './config/email.config';
 
 @Module({
@@ -45,7 +46,8 @@ import mailConfig from './config/email.config';
     MailModule,
     CurrencyModule,
     StaticPageModule,
-    EventsModule
+    EventsModule,
+    BlogsModule
   ],
   controllers: [AppController],
   providers: [AppService],
