@@ -126,4 +126,8 @@ export class UpdateBlogDto {
   @IsOptional()
   @IsString()
   description_hy: string;
+
+  @IsNotEmpty()
+  @IsNumber()
+  rubric: number;
 }

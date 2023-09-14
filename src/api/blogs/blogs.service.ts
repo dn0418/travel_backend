@@ -108,6 +108,7 @@ export class BlogsService {
   }
 
   async update(id: number, updateBlogDto: UpdateBlogDto) {
+    const { rubric, ...newData } = updateBlogDto;
     const findBlog = await this.blogRepository.findOne({ where: { id: id } });
 
     if (!findBlog) {
@@ -116,10 +117,13 @@ export class BlogsService {
         message: 'Blog post not found!'
       }
     }
-    const updated = await this.blogRepository.save({
-      ...findBlog,
-      ...updateBlogDto
-    });
+
+    const updateData = { ...findBlog, ...newData };
+    const findRubric = await this.rubricRepository.findOne({ where: { id: rubric } });
+    if (findRubric) {
+      updateData.rubric = findRubric;
+    }
+    const updated = await this.blogRepository.save(updateData);
 
     return {
       status: 200,
