@@ -23,6 +23,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { DatabaseConfig } from './config/db.config';
 import { BlogsModule } from './api/blogs/blogs.module';
+import { VacancyModule } from './api/vacancy/vacancy.module';
 import mailConfig from './config/email.config';
 
 @Module({
@@ -47,7 +48,8 @@ import mailConfig from './config/email.config';
     CurrencyModule,
     StaticPageModule,
     EventsModule,
-    BlogsModule
+    BlogsModule,
+    VacancyModule
   ],
   controllers: [AppController],
   providers: [AppService],
