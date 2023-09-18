@@ -46,6 +46,9 @@ export class Tours extends CommonEntity {
   @Column()
   isFixedDate: boolean;
 
+  @Column({ default: false })
+  topSuggested: boolean;
+
   @Column({ nullable: true })
   startDate: string;
 

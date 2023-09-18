@@ -50,6 +50,10 @@ export class CreateTourDto {
   isFixedDate: boolean;
 
   @IsOptional()
+  @IsBoolean()
+  topSuggested: boolean;
+
+  @IsOptional()
   @IsString()
   startDate: string;
 
@@ -203,6 +207,10 @@ export class UpdateTourDto {
   @IsOptional()
   @IsBoolean()
   isFixedDate: boolean;
+
+  @IsOptional()
+  @IsBoolean()
+  topSuggested: boolean;
 
   @IsOptional()
   @IsString()

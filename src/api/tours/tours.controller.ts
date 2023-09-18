@@ -52,6 +52,11 @@ export class ToursController {
     return this.toursService.findOneDay(language);
   }
 
+  @Get('top-suggested')
+  topSuggested(@Query('lan') language?: string) {
+    return this.toursService.topSuggested(language);
+  }
+
   @Get('fixed-date')
   findFixedDate(@Query('lan') language?: string) {
     return this.toursService.findFixedDate(language);
