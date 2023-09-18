@@ -25,13 +25,9 @@ export class CreateFoodAndDrinkDto {
   @IsString()
   thumbnail: string;
 
-  @IsNumber()
   @IsNotEmpty()
-  lat: number;
-
-  @IsNumber()
-  @IsNotEmpty()
-  lng: number;
+  @IsString()
+  maps: string;
 
   @IsNotEmpty()
   @IsString()
@@ -150,12 +146,8 @@ export class UpdateFoodAndDrinkDto {
   thumbnail: string;
 
   @IsOptional()
-  @IsNumber()
-  lat: number;
-
-  @IsOptional()
-  @IsNumber()
-  lng: number;
+  @IsString()
+  maps: string;
 
   @IsOptional()
   @IsString()

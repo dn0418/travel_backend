@@ -25,11 +25,8 @@ export class Hotels extends CommonEntity {
   @Column()
   thumbnail: string;
 
-  @Column('float')
-  lat: number;
-
-  @Column('float')
-  lng: number;
+  @Column('text')
+  maps: string;
 
   @Column()
   price: number;

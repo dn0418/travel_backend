@@ -26,12 +26,8 @@ export class CreateSurroundingDto {
   thumbnail: string;
 
   @IsNotEmpty()
-  @IsNumber()
-  lat: number;
-
-  @IsNotEmpty()
-  @IsNumber()
-  lng: number;
+  @IsString()
+  maps: string;
 
   @IsNotEmpty()
   @IsString()
@@ -152,12 +148,8 @@ export class UpdateSurroundingDto {
 
 
   @IsOptional()
-  @IsNumber()
-  lat: number;
-
-  @IsOptional()
-  @IsNumber()
-  lng: number;
+  @IsString()
+  maps: string;
 
   @IsOptional()
   @IsString()

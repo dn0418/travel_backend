@@ -23,11 +23,8 @@ export class FoodAndDrink extends CommonEntity {
   @Column()
   thumbnail: string;
 
-  @Column('float')
-  lat: number;
-
-  @Column('float')
-  lng: number;
+  @Column('text')
+  maps: string;
 
   @Column('text')
   shortDescription: string;

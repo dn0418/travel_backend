@@ -26,12 +26,8 @@ export class CreateHotelDto {
   thumbnail: string;
 
   @IsNotEmpty()
-  @IsNumber()
-  lat: number;
-
-  @IsNotEmpty()
-  @IsNumber()
-  lng: number;
+  @IsString()
+  maps: string;
 
   @IsNumber()
   @IsNotEmpty()
@@ -183,12 +179,8 @@ export class UpdateHotelDto {
   thumbnail: string;
 
   @IsOptional()
-  @IsNumber()
-  lat: number;
-
-  @IsOptional()
-  @IsNumber()
-  lng: number;
+  @IsString()
+  maps: string;
 
   @IsOptional()
   @IsNumber()
