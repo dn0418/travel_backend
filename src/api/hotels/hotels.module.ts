@@ -11,15 +11,18 @@ import { HotelsService } from './hotels.service';
 import { PricingTableController } from './pricing-table/pricing-table.controller';
 import { PricingTable } from './pricing-table/pricing-table.entity';
 import { PricingTableService } from './pricing-table/pricing-table.service';
+import { PricingTableHeader } from './pricing-table/pricing-table-header.entity';
+import { PricingTableHeaderController } from './pricing-table/pricing-table-header.controller';
+import { PricingTableHeaderService } from './pricing-table/pricing-table-header.service';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Hotels, HotelType, PricingTable]),
+    TypeOrmModule.forFeature([Hotels, HotelType, PricingTable, PricingTableHeader]),
     ImagesModule,
     forwardRef(() => ReviewsModule)
   ],
-  controllers: [HotelsController, HotelTypeController, PricingTableController],
-  providers: [HotelsService, HotelTypeService, PricingTableService],
+  controllers: [HotelsController, HotelTypeController, PricingTableController, PricingTableHeaderController],
+  providers: [HotelsService, HotelTypeService, PricingTableService, PricingTableHeaderService],
   exports: [HotelsService]
 })
 
