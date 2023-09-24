@@ -1,5 +1,5 @@
 import { CommonEntity } from "src/common/common.entity";
-import { Column, Entity, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Hotels } from "../hotel.entity";
 
 @Entity('pricing-table-header')
@@ -12,4 +12,8 @@ export class PricingTableHeader extends CommonEntity {
 
   @Column()
   lastPart: string;
+
+  // @OneToOne(() => Hotels)
+  // @JoinColumn()
+  // hotel: Hotels;
 }

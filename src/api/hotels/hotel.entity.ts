@@ -1,7 +1,7 @@
 import { Images } from "src/api/images/images.entity";
 import { Reviews } from "src/api/reviews/review.entity";
 import { CommonEntity } from "src/common/common.entity";
-import { Column, Entity, ManyToOne, OneToMany } from "typeorm";
+import { Column, Entity, ManyToOne, OneToMany, OneToOne } from "typeorm";
 import { HotelType } from "./hotel-type/hotel-type.entity";
 import { PricingTable } from "./pricing-table/pricing-table.entity";
 
@@ -99,6 +99,16 @@ export class Hotels extends CommonEntity {
 
   @OneToMany(() => Reviews, (review) => review.hotel)
   reviews: Reviews[];
+
+  // @OneToOne(()=> PricingTableHeader, (pricingTableHeader) => pricingTableHeader.hotel)
+  // pricingTableHeader: PricingTableHeader;
+
+  @Column('varchar',{default:"Jan-June"})
+  pricingTableHeaderFirstPartName: string;
+
+  @Column('varchar',{default:"July-December"})
+  pricingTableHeaderLastPartName: string;
+
 
   @OneToMany(() => PricingTable, (pricingTable) => pricingTable.hotel)
   pricingTable: PricingTable[];

@@ -1,8 +1,8 @@
 import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
 import { CreatePricingTableDto, UpdatePricingTableDto } from './pricing-table.dto';
 import { PricingTableService } from './pricing-table.service';
-import { PricingTableHeaderService } from './pricing-table-header.service';
-import { CreatePricingTableHeaderDto, UpdatePricingTableHeaderDto } from './pricing-table-header.dto';
+import { PricingTableHeaderService } from './pricing-table-header.service.ts.bkp';
+import { CreatePricingTableHeaderDto, UpdatePricingTableHeaderDto } from './pricing-table-header.dto.ts.bkp';
 
 @Controller('hotels/price-table-header')
 export class PricingTableHeaderController {
@@ -18,9 +18,9 @@ export class PricingTableHeaderController {
     return this.pricingTableHeaderService.create(data);
   }
 
-  @Put('update/:id')
-  update(@Param('id') id: string, @Body() updatePricingTableHeaderData: UpdatePricingTableHeaderDto) {
-    return this.pricingTableHeaderService.update(+id, updatePricingTableHeaderData);
+  @Put('update/:hotel_id')
+  update(@Param('hotel_id') hotel_id: string, @Body() updatePricingTableHeaderData: UpdatePricingTableHeaderDto) {
+    return this.pricingTableHeaderService.update(+hotel_id, updatePricingTableHeaderData);
   }
   
   @Get(':id')
