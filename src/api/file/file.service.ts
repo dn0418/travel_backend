@@ -32,4 +32,12 @@ export class FileService {
 
         throw new BadRequestException("Invalid file format!")
     }
+
+    async downloadFile(key: string) {
+        const data = await this.awss3Service.downloadPublicFile(key);
+        console.log(data)
+        return {
+            data: data.Body,
+        }
+    }
 }

@@ -24,6 +24,7 @@ import { AppService } from './app.service';
 import { DatabaseConfig } from './config/db.config';
 import { BlogsModule } from './api/blogs/blogs.module';
 import { VacancyModule } from './api/vacancy/vacancy.module';
+import { BrochureModule } from './api/brochure/brochure.module';
 import mailConfig from './config/email.config';
 
 @Module({
@@ -49,7 +50,8 @@ import mailConfig from './config/email.config';
     StaticPageModule,
     EventsModule,
     BlogsModule,
-    VacancyModule
+    VacancyModule,
+    BrochureModule
   ],
   controllers: [AppController],
   providers: [AppService],

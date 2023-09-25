@@ -24,4 +24,20 @@ export class Awss3Service {
             });
         return uploadResult;
     }
+
+    // Download file from Amazon S3 bucket
+    async downloadPublicFile(key: string) {
+        const s3 = new S3();
+        const downloadResult = await s3.getObject({
+            Bucket: process.env.AWS_PUBLIC_BUCKET_NAME,
+            Key: key
+        })
+            .promise()
+            .then(response => response)
+            .catch(error => {
+                console.log(error)
+                throw new InternalServerErrorException("Something went wrong while downloading this asset.")
+            });
+        return downloadResult;
+    }
 }
