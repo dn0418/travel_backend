@@ -22,6 +22,15 @@ export class Destinations extends CommonEntity {
   @Column()
   country_hy: string;
 
+  @Column('float')
+  lat: number;
+
+  @Column('float')
+  lng: number;
+
+  @Column()
+  rideType: string;
+
   @OneToMany(() => Tours, (tour) => tour.destination)
   tour: Tours[];
 }

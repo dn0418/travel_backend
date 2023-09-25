@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsOptional, IsString } from "class-validator";
+import { IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
 
 export class CreateDestinationDto {
   @IsNotEmpty()
@@ -24,7 +24,20 @@ export class CreateDestinationDto {
   @IsOptional()
   @IsString()
   country_hy: string;
+
+  @IsNotEmpty()
+  @IsNumber()
+  lat: number;
+
+  @IsNotEmpty()
+  @IsNumber()
+  lng: number;
+
+  @IsNotEmpty()
+  @IsString()
+  rideType: string;
 }
+
 export class UpdateDestinationDto {
   @IsOptional()
   @IsString()
@@ -49,4 +62,16 @@ export class UpdateDestinationDto {
   @IsOptional()
   @IsString()
   country_hy: string;
+
+  @IsOptional()
+  @IsNumber()
+  lat: number;
+
+  @IsOptional()
+  @IsNumber()
+  lng: number;
+
+  @IsOptional()
+  @IsString()
+  rideType: string;
 }
