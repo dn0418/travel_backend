@@ -128,6 +128,15 @@ export class CreateHotelDto {
   @IsArray()
   @IsOptional()
   pricingData: Array<PricingTableDto>;
+
+
+  @IsOptional()
+  @IsString()
+  pricingTableHeaderFirstPartName: string;
+
+  @IsOptional()
+  @IsString()
+  pricingTableHeaderLastPartName: string;
 }
 
 
@@ -273,6 +282,14 @@ export class UpdateHotelDto {
   @IsOptional()
   @IsString()
   longDescription_hy: string;
+
+  @IsOptional()
+  @IsString()
+  pricingTableHeaderFirstPartName: string;
+
+  @IsOptional()
+  @IsString()
+  pricingTableHeaderLastPartName: string;
 }
 
 export class CreateHotelImageDto {
