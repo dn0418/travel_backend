@@ -5,20 +5,20 @@ export class CreateReviewDto {
   @IsNotEmpty()
   firstName: string;
 
+  @IsOptional()
   @IsString()
-  @IsNotEmpty()
   lastName: string;
 
   @IsEmail()
   @IsNotEmpty()
   email: string;
 
+  @IsOptional()
   @IsString()
-  @IsNotEmpty()
   location: string;
 
+  @IsOptional()
   @IsString()
-  @IsNotEmpty()
   profilePhoto: string;
 
   @IsNumber()

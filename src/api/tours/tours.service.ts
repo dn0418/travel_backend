@@ -279,6 +279,7 @@ export class ToursService {
     const tours = await this.toursRepository.find({
       where: conditions,
       relations: ["reviews"],
+      take: 10
     });
 
     // Calculate average rating for each hotel

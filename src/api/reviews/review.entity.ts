@@ -15,16 +15,16 @@ export class Reviews extends CommonEntity {
   @Column()
   firstName: string;
 
-  @Column()
+  @Column({ nullable: true })
   lastName: string;
 
   @Column()
   email: string;
 
-  @Column()
+  @Column({ nullable: true })
   location: string;
 
-  @Column()
+  @Column({ nullable: true })
   profilePhoto: string;
 
   @Column('float')
